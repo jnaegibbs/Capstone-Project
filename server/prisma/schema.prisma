@@ -29,16 +29,19 @@ model Profile {
 }
 
 model Category {
-  id       Int       @id @default(autoincrement())
-  products Product[]
+  id          Int       @id @default(autoincrement())
+  products    Product[]
+  petCategory String
 }
 
 model Product {
-  id          Int      @id @default(autoincrement())
-  name        String
-  image       String
-  price       String
-  description String
-  category    Category @relation(fields: [categoryId], references: [id])
-  categoryId  Int      @unique
+  id           Int      @id @default(autoincrement())
+  name         String
+  image        String
+  price        String
+  description  String
+  category     Category @relation(fields: [categoryId], references: [id])
+  categoryId   Int      @unique
+  productCount Int
+  petCategory  String
 }
