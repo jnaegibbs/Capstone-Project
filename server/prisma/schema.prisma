@@ -29,8 +29,8 @@ model Profile {
 }
 
 model Category {
-  id          Int       @id @default(autoincrement())
-  products    Product[]
+  id          Int    @id @default(autoincrement())
+  products    String
   petCategory String
 }
 
