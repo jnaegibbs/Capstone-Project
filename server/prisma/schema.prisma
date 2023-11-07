@@ -30,6 +30,7 @@ model profile {
 
 model category {
   id          Int       @id @default(autoincrement())
+  productType String
   products    product[]
   petCategory String
 }
