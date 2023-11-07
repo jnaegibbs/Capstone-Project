@@ -10,27 +10,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model user {
   id       Int      @id @default(autoincrement())
   name     String
   username String   @unique
   password String
-  profile  Profile?
+  profile  profile?
   role     String   @default("User")
 }
 
-model Profile {
+model profile {
   id     Int    @id @default(autoincrement())
   name   String
   age    Int
   email  String @unique
-  user   User   @relation(fields: [userId], references: [id])
+  user   user   @relation(fields: [userId], references: [id])
   userId Int    @unique
 }
 
 model Category {
-  id          Int    @id @default(autoincrement())
-  products    String
+  id          Int       @id @default(autoincrement())
+  products    product[]
   petCategory String
 }
 
