@@ -127,3 +127,4 @@ Whichever provider you use, you will need to set the following settings:
 │   ├── app.js (configure the app)
 │   └── index.js (start the app)
 ```
+## Basic File Structure
