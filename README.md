@@ -20,6 +20,8 @@ Are you a pet owner looking for a one-stop destination for all your animal frien
 - About/Information: Learn more about our commitment to pets, our mission, and how we support the pet community.
 
 
+## Please see our database model below for reference:
+![image](https://github.com/jnaegibbs/Capstone-Project/assets/135480996/5868c811-dfed-40b3-b202-1f2c47d3a646)
 
 ## Getting Started
 
