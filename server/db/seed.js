@@ -180,7 +180,7 @@ async function createInitialProducts() {
             petCategory: 'cat',
           },
           {
-            name: 'Frisco Magical Butterfly Wings Dog & Cat Costume',
+            name: 'Frisco Magical Butterfly Wings Dog Costume',
             image: 'https://image.chewy.com/is/image/catalog/713062_MAIN._AC_SL1200_V1689271325_.jpg',
             price: '$9.99',
             description: 'The intricate wings feature a felt black frame with flocked texture, and iridescent polyester that produces a shiny multicolor effect.',
@@ -204,7 +204,7 @@ async function createInitialProducts() {
             petCategory: 'dog',
           },
           {
-            name: 'Frisco Glow in the Dark Mystical Print Dog & Cat Bandana, X-Small/Small',
+            name: 'Frisco Glow in the Dark Mystical Print Dog Bandana, X-Small/Small',
             image: 'https://image.chewy.com/is/image/catalog/261218_PT2._AC_SL1200_V1633086982_.jpg',
             price: '$4.99',
             description: 'Glow-in-the-dark print features classic Halloween cats, witch hats, and moons.',
@@ -212,7 +212,7 @@ async function createInitialProducts() {
             petCategory: 'dog',
           },
           {
-            name: 'Frisco Polar Bear Sweater Knit Dog & Cat Hat',
+            name: 'Frisco Polar Bear Sweater Knit Dog Hat',
             image: 'https://image.chewy.com/is/image/catalog/745742_MAIN._AC_SL1200_V1694793753_.jpg',
             price: '$12.99',
             description: 'This cream-colored, cable-knit hat features polar bear ears sewn on top for some winter weather protection inspired by the North Pole.',
@@ -228,7 +228,7 @@ async function createInitialProducts() {
             petCategory: 'dog',
           },
           {
-            name: 'Frisco Basic Dog & Cat T-Shirt',
+            name: 'Frisco Basic Dog T-Shirt',
             image: 'https://image.chewy.com/is/image/catalog/153684_PT2._AC_SL1200_V1624601556_.jpg',
             price: '$12.99',
             description: 'The cotton construction offers comfort and easy dressing and undressing.',
@@ -236,7 +236,7 @@ async function createInitialProducts() {
             petCategory: 'dog',
           },
           {
-            name: 'Frisco Sherpa Lined Fairisle Dog & Cat Sweater',
+            name: 'Frisco Sherpa Lined Fairisle Dog Sweater',
             image: 'https://image.chewy.com/is/image/catalog/718422_MAIN._AC_SL1200_V1692380243_.jpg',
             price: '$16.99',
             description: 'Cute pullover sweater perfect for cozying up to a snuggle by the fireplace, at home or at the ski lodge.',
@@ -252,7 +252,7 @@ async function createInitialProducts() {
             petCategory: 'dog',
           },
           {
-            name: 'STAR WARS Pictogram Dog & Cat Bandana',
+            name: 'STAR WARS Pictogram Dog Bandana',
             image: 'https://image.chewy.com/is/image/catalog/152703_PT2._AC_SL1200_V1631287649_.jpg',
             price: '$5.99',
             description: 'Turn your pet into an iconic STAR WARS character with this bandana.',
@@ -260,7 +260,7 @@ async function createInitialProducts() {
             petCategory: 'dog',
           },
           {
-            name: 'Frisco Basic Dog & Cat T-Shirt',
+            name: 'Frisco Basic Cat T-Shirt',
             image: 'https://image.chewy.com/is/image/catalog/153684_PT2._AC_SL1200_V1624601556_.jpg',
             price: '$12.99',
             description: 'The cotton construction offers comfort and easy dressing and undressing.',
@@ -268,7 +268,7 @@ async function createInitialProducts() {
             petCategory: 'cat',
           },
           {
-            name: 'Frisco Sherpa Lined Fairisle Dog & Cat Sweater',
+            name: 'Frisco Sherpa Lined Fairisle Cat Sweater',
             image: 'https://image.chewy.com/is/image/catalog/718422_MAIN._AC_SL1200_V1692380243_.jpg',
             price: '$16.99',
             description: 'Cute pullover sweater perfect for cozying up to a snuggle by the fireplace, at home or at the ski lodge.',
@@ -276,7 +276,7 @@ async function createInitialProducts() {
             petCategory: 'cat',
           },
           {
-            name: 'STAR WARS Pictogram Dog & Cat Bandana',
+            name: 'STAR WARS Pictogram Cat Bandana',
             image: 'https://image.chewy.com/is/image/catalog/311873_MAIN._AC_SL1200_V1643331444_.jpg',
             price: '$9.99',
             description: 'Comfy and stylish all in one—just tie it loosely around your pet’s neck for easy on/off.',
@@ -284,7 +284,7 @@ async function createInitialProducts() {
             petCategory: 'cat',
           },
           {
-            name: 'Frisco Glow in the Dark Mystical Print Dog & Cat Bandana, X-Small/Small',
+            name: 'Frisco Glow in the Dark Mystical Print Cat Bandana, X-Small/Small',
             image: 'https://image.chewy.com/is/image/catalog/261218_PT2._AC_SL1200_V1633086982_.jpg',
             price: '$4.99',
             description: 'Glow-in-the-dark print features classic Halloween cats, witch hats, and moons.',
@@ -292,7 +292,7 @@ async function createInitialProducts() {
             petCategory: 'cat',
           },
           {
-            name: 'Frisco Polar Bear Sweater Knit Dog & Cat Hat',
+            name: 'Frisco Polar Bear Sweater Knit Cat Hat',
             image: 'https://image.chewy.com/is/image/catalog/745742_MAIN._AC_SL1200_V1694793753_.jpg',
             price: '$12.99',
             description: 'This cream-colored, cable-knit hat features polar bear ears sewn on top for some winter weather protection inspired by the North Pole.',
@@ -300,7 +300,7 @@ async function createInitialProducts() {
             petCategory: 'cat',
           },
           {
-            name: 'Frisco Magical Butterfly Wings Dog & Cat Costume',
+            name: 'Frisco Magical Butterfly Wings Cat Costume',
             image: 'https://image.chewy.com/is/image/catalog/713062_MAIN._AC_SL1200_V1689271325_.jpg',
             price: '$9.99',
             description: 'The intricate wings feature a felt black frame with flocked texture, and iridescent polyester that produces a shiny multicolor effect.',
