@@ -64,14 +64,14 @@ productRouter.put("/:productId", async (req, res, next) => {
        },
     });
 
-    res.status(201).send({ updateProduct});
+    res.status(200).send({ updateProduct});
   } catch ({name,message}) {
     next({name,message});
   }
 });
 
 // DELETE /api/pets/product/:productId
-productRouter.put("/:productId", async (req, res, next) => {
+productRouter.delete("/:productId", async (req, res, next) => {
   try {
     const deleteProduct = await prisma.product.delete({
       where:{
@@ -80,7 +80,7 @@ productRouter.put("/:productId", async (req, res, next) => {
       
     });
 
-    res.status(201).send({ deleteProduct});
+    res.status(204).send({ deleteProduct});
   } catch ({name,message}) {
     next({name,message});
   }
