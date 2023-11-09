@@ -21,7 +21,7 @@ app.get('/', (req, res, next) => {
 })
 
 // TODO: Add your routers here
-//app.use("/auth",require('./auth'));
+app.use("/auth",require('./auth'));
 app.use("/api",require('./api'))
 
 // Error handling middleware

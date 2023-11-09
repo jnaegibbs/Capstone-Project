@@ -6,9 +6,24 @@ const prisma = require("../db/client");
 // GET /api/pets/category
 categoryRouter.get("/", async (req, res, next) => {
   try {
-    const pets = await prisma.category.findMany();
+    const categories = await prisma.category.findMany();
 
-    res.send({ pets });
+    res.send({ categories });
+  } catch ({name,message}) {
+    next({name,message});
+  }
+});
+
+// GET /api/pets/category/:categoryId
+categoryRouter.get("/:categoryId", async (req, res, next) => {
+  try {
+    const category = await prisma.category.findUnique({
+      where:{
+        id:Number(req.params.categoryId)
+      }
+    });
+
+    res.send({ category });
   } catch ({name,message}) {
     next({name,message});
   }

@@ -1,7 +1,10 @@
-// TODO: add API router here and all API sub-routers
 
-const router = require("express").Router();
 
-router.use("/pets", require("./pets"));
+const apiRouter = require("express").Router();
 
-module.exports = router;
+apiRouter.use("/pets/category", require("./category"));
+apiRouter.use("/pets/product",require('./product'))
+apiRouter.use("/pets/order",require('./order'))
+apiRouter.use("/pets/inventory",require('./inventory'))
+
+module.exports = apiRouter;
