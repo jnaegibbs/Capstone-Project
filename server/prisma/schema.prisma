@@ -70,6 +70,9 @@ enum productCategory {
   toy
   clothes
   food
+  accessories
+  
+
 }
 
 enum pets {

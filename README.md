@@ -1,4 +1,27 @@
-# React + Express Boilerplate
+# Capstone Project 2023 - Fluffy Friends Pet Supply Store
+
+Are you a pet owner looking for a one-stop destination for all your animal friends’ needs? Look no further than our new pet supply shop, Fluffy Friends! This site is more than just a retailer, it’s the home of a pet-loving community dedicated to helping pets live happy, healthy lives. Our user friendly interface will allow customers to seamlessly browse items by category, add to cart, complete transactions, and view and save favorite items. We also have a community page where we will showcase dogs and cats up for adoption and promote community rescues and resources. Helping our local animals find loving homes and access needed resources is very important to us.
+
+## Key Features:
+- Registration and Account Management: Register or log in to your account with ease. Enjoy a personalized shopping experience with your saved preferences and order history.
+- Extensive Inventory: Explore a vast selection of pet supplies for sale, from pet food and accessories to toys and grooming products. Our website offers individual item listings with detailed descriptions and images, ensuring you make informed choices.
+- Efficient Search Function: Find exactly what you need in no time! Our powerful search feature allows you to filter and sort items by category, brand, price, and more.
+- Shopping Cart Management: Add and remove items to your shopping cart effortlessly. Keep track of your selections as you continue shopping.
+- Seamless Checkout: When you're ready to complete your purchase, our user-friendly checkout process makes it quick and secure.
+- User-Friendly Interface: We've designed our website with you in mind. Enjoy an intuitive and visually appealing interface that's easy to navigate.
+- User Roles: We understand that different users have unique needs. With our role-based authorizations, you can customize the user experience:
+    - User: Shop, manage your profile, and make purchases.
+    - Administrator: Manage inventory, user accounts, and website content.
+
+## Stretch Goal Features:
+- Pets for Adoption: Not only can you shop for supplies, but you can also explore adorable pets looking for a loving home. Connect with local shelters and rescue organizations through our platform.
+- Discounts and Memberships: Unlock exclusive discounts and membership benefits to save on your favorite pet products.
+- Employee Access: If you're an employee, our platform offers a designated portal for you to manage inventory, assist customers, and streamline operations.
+- About/Information: Learn more about our commitment to pets, our mission, and how we support the pet community.
+
+
+## Please see our database model below for reference:
+![image](https://github.com/jnaegibbs/Capstone-Project/assets/135480996/5868c811-dfed-40b3-b202-1f2c47d3a646)
 
 ## Getting Started
 
