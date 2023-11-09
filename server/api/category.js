@@ -2,6 +2,8 @@ const categoryRouter = require("express").Router();
 
 const prisma = require("../db/client");
 
+const reqUser = require('../utils');
+
 
 // GET /api/pets/category
 categoryRouter.get("/", async (req, res, next) => {
@@ -48,9 +50,9 @@ categoryRouter.post("/", async (req, res, next) => {
 
 //PUT /api/pets/category/:categoryId
 categoryRouter.put("/:categoryId",async(req,res,next)=>{
-    console.log("categoryId===="+req.params.categoryId)
+
   try{
-    const updateCategory = await prisma.category.update({
+    const updatedCategory = await prisma.category.update({
       where:{
        id: Number(req.params.categoryId)
        
@@ -63,7 +65,7 @@ categoryRouter.put("/:categoryId",async(req,res,next)=>{
       })
   
 
-   res.sendStatus(200).send(updateCategory);
+   res.status(200).send({updatedCategory});
   } catch ({name,message}) {
     next({name,message});
   }
@@ -72,13 +74,13 @@ categoryRouter.put("/:categoryId",async(req,res,next)=>{
 //DELETE /api/pets/category/:categoryId
 categoryRouter.delete("/:categoryId",async (req,res,next)=>{
   try{
-    const deleteCategory = await prisma.category.deleteMany({
+    const deleteCategory = await prisma.category.delete({
       where :{
        id: Number(req.params.categoryId)
       },
       
     })
-   res.sendStatus(200).send({message:"deleted successfully"}, deleteCategory);
+   res.status(200).send({deleteCategory});
   }catch ({name,message}) {
     next({name,message});
   }
