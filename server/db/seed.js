@@ -25,7 +25,12 @@ async function createInitialProducts() {
             price: '15.00',
             description: 'Strong Chewing Teething Training Interactive for Dogs and Cats',
             petCategory: 'dog',
-            categoryName: 'toy'
+            categoryName: 'toy',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Squeaky Plush Dog Toy',
@@ -33,7 +38,12 @@ async function createInitialProducts() {
             price: '7.00',
             description: 'Squeaker that makes every far-flung game of fetch even more entertaining',
             petCategory: 'dog',
-            categoryName: 'toy'
+            categoryName: 'toy',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Brick Puzzle Game Dog Toy',
@@ -41,7 +51,12 @@ async function createInitialProducts() {
             price: '10.99',
             description: 'Hide the treats and watch your pup paw and nose them to reveal their prize.',
             petCategory: 'dog',
-            categoryName: 'toy'
+            categoryName: 'toy',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Bacon Flavor Wishbone Dog Chew Toy',
@@ -49,7 +64,12 @@ async function createInitialProducts() {
             price: '9.40',
             description: `Delivers a wag-worthy flavor from real bacon that's fused all the way through the chew.`,
             petCategory: 'dog',
-            categoryName: 'toy'
+            categoryName: 'toy',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Ball Launcher Dog Toy',
@@ -57,7 +77,12 @@ async function createInitialProducts() {
             price: '7.95',
             description: 'This quality ball launcher and ball set provides hours of fun playing fetch with your pooch.',
             petCategory: 'dog',
-            categoryName: 'toy'
+            categoryName: 'toy',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Cat Tunnel',
@@ -66,6 +91,11 @@ async function createInitialProducts() {
             description: 'This pop-up cat play tunnel provides fun interactive games and an enticing hiding spot to keep your kitty stimulated.',
             categoryName: 'toy',
             petCategory: 'cat',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Window Teaser Cat Toy',
@@ -74,6 +104,11 @@ async function createInitialProducts() {
             description: 'Promotes healthy exercise and fulfills your cat’s instinctual desire to chase, hunt, and capture.',
             categoryName: 'toy',
             petCategory: 'cat',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Rainbow Catnip Toy',
@@ -82,6 +117,11 @@ async function createInitialProducts() {
             description: 'Made from durable cotton twill and colored using only natural vegetable or soy-based colors.',
             categoryName: 'toy',
             petCategory: 'cat',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Cat Treat Puzzle Toy',
@@ -90,6 +130,11 @@ async function createInitialProducts() {
             description: 'The purr-fect toy for curious cats, as it helps encourage their natural foraging instincts.',
             categoryName: 'toy',
             petCategory: 'cat',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Rainbow Cat Map',
@@ -98,6 +143,11 @@ async function createInitialProducts() {
             description: 'The perfect mat for your feline to nap and lay out on.',
             categoryName: 'toy',
             petCategory: 'cat',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'SmartBlend Chicken and Rice (40 lbs)',
@@ -106,6 +156,11 @@ async function createInitialProducts() {
             description: 'Tender, meaty morsels and crunchy kibble come together for a drool-worthy taste dogs love.',
             categoryName: 'food',
             petCategory: 'dog',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Grilled Steak & Vegetable Flavor Dog Kibble (44 lbs)',
@@ -114,6 +169,11 @@ async function createInitialProducts() {
             description: 'Dry dog food prepared with whole grains and essential nutrients to promote a healthy skin and luxurious coat.',
             categoryName: 'food',
             petCategory: 'dog',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Texas Beef + Sweet Potato (10 lb)',
@@ -122,6 +182,11 @@ async function createInitialProducts() {
             description: 'Grain-free kibble is made with real food ingredients to deliver balanced nutrition.',
             categoryName: 'food',
             petCategory: 'dog',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: "Blue Buffalo's Stew Chicken & Beef Variety Pack (12.5-oz can, case of 6)",
@@ -130,6 +195,11 @@ async function createInitialProducts() {
             description: 'Pate-style food packed with real beef and chicken.',
             categoryName: 'food',
             petCategory: 'dog',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: "Hill's Science Diet Adult Sensitive Stomach & Skin Tender Turkey & Rice Stew",
@@ -138,6 +208,11 @@ async function createInitialProducts() {
             description: 'Specially designed to support your dog’s sensitive stomach with easy-to-digest turkey, chicken, and rice.',
             categoryName: 'food',
             petCategory: 'dog',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Iams ProActive Health Indoor Weight & Hairball Care Adult Dry Cat Food (16lb)',
@@ -146,6 +221,11 @@ async function createInitialProducts() {
             description: 'Dry kibble for adult cats designed to support healthy weight and reduce hairballs.',
             categoryName: 'food',
             petCategory: 'cat',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Blue Buffalo Wilderness Chicken Recipe Grain-Free Dry Cat Food (12lb)',
@@ -154,6 +234,11 @@ async function createInitialProducts() {
             description: 'High-protein recipe is packed with real chicken to help your little hunter build and maintain lean muscle.',
             categoryName: 'food',
             petCategory: 'cat',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Purina Fancy Feast with Savory Chicken & Turkey Dry Cat Food (12lbs)',
@@ -162,6 +247,11 @@ async function createInitialProducts() {
             description: 'Gourmet chicken and turkey dry cat food recipe baked into wonderfully crisp morsels for a crunchy texture that cats love.',
             categoryName: 'food',
             petCategory: 'cat',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Tiny Tiger Chunks in EXTRA Gravy Beef & Poultry Recipes Variety Pack Grain-Free Canned Cat Food (24 pk)',
@@ -170,6 +260,11 @@ async function createInitialProducts() {
             description: 'Grain-free variety pack contains three tasty recipes from the farm, including Beef, Chicken, and Turkey and Giblets.',
             categoryName: 'food',
             petCategory: 'cat',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Catit Dinner Ocean Fish with Tuna & Carrot Cat Wet Food, 2.8-oz can',
@@ -178,6 +273,11 @@ async function createInitialProducts() {
             description: 'Nutrients, vitamins, and minerals help support your cat’s health while adding much-needed moisture to their daily diet.',
             categoryName: 'food',
             petCategory: 'cat',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Frisco Magical Butterfly Wings Dog Costume',
@@ -186,6 +286,11 @@ async function createInitialProducts() {
             description: 'The intricate wings feature a felt black frame with flocked texture, and iridescent polyester that produces a shiny multicolor effect.',
             categoryName: 'clothes',
             petCategory: 'dog',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: "Blazin' Safety LED USB Rechargeable Nylon Dog Collar",
@@ -194,6 +299,11 @@ async function createInitialProducts() {
             description: 'Comes with a slim bulb strip and a small on/off box, which works in any weather condition.',
             categoryName: 'clothes',
             petCategory: 'dog',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Doggie Design American River Ombre Nylon Reflective Back Clip Dog Harness',
@@ -202,6 +312,11 @@ async function createInitialProducts() {
             description: 'Vibrant pattern is printed directly on the breathable mesh and is machine washable.',
             categoryName: 'clothes',
             petCategory: 'dog',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Frisco Glow in the Dark Mystical Print Dog Bandana, X-Small/Small',
@@ -210,6 +325,11 @@ async function createInitialProducts() {
             description: 'Glow-in-the-dark print features classic Halloween cats, witch hats, and moons.',
             categoryName: 'clothes',
             petCategory: 'dog',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Frisco Polar Bear Sweater Knit Dog Hat',
@@ -218,6 +338,11 @@ async function createInitialProducts() {
             description: 'This cream-colored, cable-knit hat features polar bear ears sewn on top for some winter weather protection inspired by the North Pole.',
             categoryName: 'clothes',
             petCategory: 'dog',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Kodiak Insulated Dog Coat',
@@ -226,6 +351,11 @@ async function createInitialProducts() {
             description: 'Hand-knit by Andean artisans with 100% natural, non-allergenic, organic wool sourced from small farms with Fair Trade guidelines.',
             categoryName: 'clothes',
             petCategory: 'dog',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Frisco Basic Dog T-Shirt',
@@ -234,6 +364,11 @@ async function createInitialProducts() {
             description: 'The cotton construction offers comfort and easy dressing and undressing.',
             categoryName: 'clothes',
             petCategory: 'dog',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Frisco Sherpa Lined Fairisle Dog Sweater',
@@ -242,6 +377,11 @@ async function createInitialProducts() {
             description: 'Cute pullover sweater perfect for cozying up to a snuggle by the fireplace, at home or at the ski lodge.',
             categoryName: 'clothes',
             petCategory: 'dog',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Non-Skid Cable Knit Dog Socks',
@@ -250,6 +390,11 @@ async function createInitialProducts() {
             description: 'Stylish, chunky knit in a neutral gray color fits into any pet’s wardrobe.',
             categoryName: 'clothes',
             petCategory: 'dog',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'STAR WARS Pictogram Dog Bandana',
@@ -258,6 +403,11 @@ async function createInitialProducts() {
             description: 'Turn your pet into an iconic STAR WARS character with this bandana.',
             categoryName: 'clothes',
             petCategory: 'dog',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Frisco Basic Cat T-Shirt',
@@ -266,6 +416,11 @@ async function createInitialProducts() {
             description: 'The cotton construction offers comfort and easy dressing and undressing.',
             categoryName: 'clothes',
             petCategory: 'cat',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Frisco Sherpa Lined Fairisle Cat Sweater',
@@ -274,6 +429,11 @@ async function createInitialProducts() {
             description: 'Cute pullover sweater perfect for cozying up to a snuggle by the fireplace, at home or at the ski lodge.',
             categoryName: 'clothes',
             petCategory: 'cat',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'STAR WARS Pictogram Cat Bandana',
@@ -282,6 +442,11 @@ async function createInitialProducts() {
             description: 'Comfy and stylish all in one—just tie it loosely around your pet’s neck for easy on/off.',
             categoryName: 'clothes',
             petCategory: 'cat',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Frisco Glow in the Dark Mystical Print Cat Bandana, X-Small/Small',
@@ -290,6 +455,11 @@ async function createInitialProducts() {
             description: 'Glow-in-the-dark print features classic Halloween cats, witch hats, and moons.',
             categoryName: 'clothes',
             petCategory: 'cat',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Frisco Polar Bear Sweater Knit Cat Hat',
@@ -298,6 +468,11 @@ async function createInitialProducts() {
             description: 'This cream-colored, cable-knit hat features polar bear ears sewn on top for some winter weather protection inspired by the North Pole.',
             categoryName: 'clothes',
             petCategory: 'cat',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
           {
             name: 'Frisco Magical Butterfly Wings Cat Costume',
@@ -306,6 +481,11 @@ async function createInitialProducts() {
             description: 'The intricate wings feature a felt black frame with flocked texture, and iridescent polyester that produces a shiny multicolor effect.',
             categoryName: 'clothes',
             petCategory: 'cat',
+            inventory: {
+                create: {
+                  quantity: 10,
+                },
+            }
           },
         
         
