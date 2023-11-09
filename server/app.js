@@ -20,6 +20,20 @@ app.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'));
 })
 
+// app.use((req,res,next) =>{
+//     const auth = req.headers.authorization;
+//     const token = auth?.startsWith("Bearer ")? auth.slice(7) : null;
+
+//     try{
+//         req.user = jwt.verify(token,process.env.JWT);
+//     }catch(e){
+//         req.user = null;
+//     }
+
+//     next();
+// })
+
+
 // TODO: Add your routers here
 app.use("/auth",require('./auth'));
 app.use("/api",require('./api'))
