@@ -35,11 +35,11 @@ inventoryRouter.get("/:inventoryId", async (req, res, next) => {
 //POST /api/pets/inventory
 inventoryRouter.post("/", async (req, res, next) => {
     try{
+        const { productId, quantity } = req.body; 
         const newInventory = await prisma.inventory.create({
             data: {
-                    product: req.body.product,
-                    productId: req.body.productId,
-                    quantity: req.body.quantity,
+                    product: {connect: {id: productId}},
+                    quantity
                     },
         });
         res.status(201).send({newInventory})
