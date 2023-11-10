@@ -29,13 +29,16 @@ app.use((req, res, next) => {
         req.user = jwt.verify(token, process.env.JWT_SECRET);
         next();
     } catch (e) {
-        req.user = null;
-        next({
-            name: "AuthenticationError",
-            message: "User not authenticated",
-        });
+        console.log(e.message)
+      if(e.name === "JsonWebTokenError"){
+
+        req.user=null;
+      }else {
+        next(e);
     }
-});
+    }
+    next();
+  });
 
 
 // TODO: Add your routers here
