@@ -6,16 +6,18 @@ const SALT_COUNT = 10;
 const bcrypt = require("bcrypt");
 const {JWT_SECRET} = process.env;
 
+//GET /auth/user
 userRouter.get('/', async (req, res, next) => {
     try {
         const allUsers = await prisma.user.findMany();
+        allUsers.forEach((user)=> delete user.password)
         res.send(allUsers);
-        console.log(allUsers);
     } catch (error) {
         next(error);
     }
 });
 
+//POST /auth/user/register
 userRouter.post('/register', async (req, res, next) => {
     try {
         const {username, name, password } = req.body;
@@ -28,12 +30,14 @@ userRouter.post('/register', async (req, res, next) => {
             }
         });
         const token = jwt.sign({id: user.id}, JWT_SECRET);
+        delete user.password;
         res.status(201).send({user, token});
     } catch (error) {
         next(error);
     }
 });
 
+//POST /auth/user/login
 userRouter.post('/login', async (req, res, next) => {
     try {
         const { username, password } = req.body;
@@ -50,6 +54,7 @@ userRouter.post('/login', async (req, res, next) => {
           return res.status(201).json({message: "Invalid password"})
         }
         const token = jwt.sign({id: user.id}, JWT_SECRET);
+        delete user.password;
         res.status(200).json({user, token})
       } catch(error){
         next(error)

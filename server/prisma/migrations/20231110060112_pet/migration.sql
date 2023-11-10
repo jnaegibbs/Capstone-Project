@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "productCategory" AS ENUM ('toy', 'clothes', 'food');
+CREATE TYPE "productCategory" AS ENUM ('toy', 'clothes', 'food', 'accessories');
 
 -- CreateEnum
 CREATE TYPE "pets" AS ENUM ('dog', 'cat');
@@ -66,6 +66,7 @@ CREATE TABLE "order" (
 CREATE TABLE "inventory" (
     "id" SERIAL NOT NULL,
     "productId" INTEGER NOT NULL,
+    "quantity" INTEGER NOT NULL,
 
     CONSTRAINT "inventory_pkey" PRIMARY KEY ("id")
 );
@@ -83,7 +84,7 @@ CREATE UNIQUE INDEX "profile_userId_key" ON "profile"("userId");
 CREATE INDEX "product_categoryName_idx" ON "product"("categoryName");
 
 -- AddForeignKey
-ALTER TABLE "profile" ADD CONSTRAINT "profile_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "profile" ADD CONSTRAINT "profile_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE "order" ADD CONSTRAINT "order_productId_fkey" FOREIGN KEY ("productId") REFERENCES "product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -1,12 +1,12 @@
 const orderRouter = require("express").Router();
 
 const prisma = require("../db/client");
-const { requireUser } = require('./utils');
+//const  {requireUser} = require('./utils');
 
 
 
 // GET /api/pets/order
-orderRouter.get("/", requireUser, async (req, res, next) => {
+orderRouter.get("/", async (req, res, next) => {
     try {
         const orders = await prisma.order.findMany();
         res.send({ orders });
@@ -16,7 +16,7 @@ orderRouter.get("/", requireUser, async (req, res, next) => {
 });
 
 // GET /api/pets/order/:orderId
-orderRouter.get("/:orderId", requireUser, async (req, res, next) => {
+orderRouter.get("/:orderId", async (req, res, next) => {
     try {
         const order = await prisma.order.findUnique({
             where: {
@@ -32,35 +32,38 @@ orderRouter.get("/:orderId", requireUser, async (req, res, next) => {
 
 
 // POST /api/pets/order
-orderRouter.post("/", requireUser, async (req, res, next) => {
+orderRouter.post("/", async (req, res, next) => {
     try {
-        const { productId, quantity } = req.body;
-        const userId = req.user.id;
-
+        const { productId, quantity,userId } = req.body;
+       
         const newOrder = await prisma.order.create({
             data: {
-                userId,
-                productId: {connect: {id: Number(productId)}},
+              
+                product: {connect: {id: productId}},
+                user: {connect: {id: userId}},
                 quantity: Number(quantity),
             },
         });
-
-        res.status(201).json({ newOrder });
+        console.log(newOrder)
+        res.status(201).send({ newOrder });
 
     } catch (error) {
         next(error)
     }
 })
 
-// PATCH /api/pets/order/:orderId
-orderRouter.patch("/:orderId", requireUser, async (req, res, next) => {
+// PUT /api/pets/order/:orderId
+orderRouter.put("/:orderId", async (req, res, next) => {
     try {
+        const { productId, quantity,userId } = req.body;
         const updateOrder = await prisma.order.update({
             where: {
                 id: Number(req.params.orderId)
             },
             data: {
-                quantity: req.body.quantity
+                product: {connect: {id: productId}},
+                user: {connect: {id: userId}},
+                quantity: Number(quantity)
             }
         })
         res.status(200).send({ updateOrder });
@@ -71,14 +74,15 @@ orderRouter.patch("/:orderId", requireUser, async (req, res, next) => {
 
 
 // DELETE /api/pets/order/:orderId
-orderRouter.delete("/:orderId", requireUser, async (req, res, next) => {
+orderRouter.delete("/:orderId", async (req, res, next) => {
     try {
         const deleteOrder = await prisma.order.delete({
             where: {
                 id: Number(req.params.orderId)
             },
         })
-        res.status(204).send({deleteOrder})
+        console.log(deleteOrder)
+        res.status(200).send(deleteOrder)
     } catch (error) {
         next (error)
     }
