@@ -9,7 +9,6 @@ const { requireUser } = require('./utils');
 orderRouter.get("/", requireUser, async (req, res, next) => {
     try {
         const orders = await prisma.order.findMany();
-
         res.send({ orders });
     } catch (error) {
         next(error);
@@ -35,14 +34,14 @@ orderRouter.get("/:orderId", requireUser, async (req, res, next) => {
 // POST /api/pets/order
 orderRouter.post("/", requireUser, async (req, res, next) => {
     try {
-        const { orderId, quantity } = req.body;
+        const { productId, quantity } = req.body;
         const userId = req.user.id;
 
         const newOrder = await prisma.order.create({
             data: {
-                orderId,
                 userId,
-                quantity,
+                productId: {connect: {id: Number(productId)}},
+                quantity: Number(quantity),
             },
         });
 
