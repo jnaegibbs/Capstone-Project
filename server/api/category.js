@@ -9,10 +9,9 @@ const reqUser = require('../utils');
 categoryRouter.get("/", async (req, res, next) => {
   try {
     const categories = await prisma.category.findMany();
-
-    res.send({ categories });
+    res.status(200).send({categories});
   } catch ({name,message}) {
-    next({name,message});
+    next(name,message);
   }
 });
 
