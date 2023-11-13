@@ -4,6 +4,17 @@ const morgan = require("morgan");
 const app = express();
 const jwt = require('jsonwebtoken');
 
+const cors = require('cors');
+// Enable CORS for all routes
+const corsOptions = {
+  origin: 'http://localhost:5173',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
+
 // Logging middleware
 app.use(morgan("dev"));
 
@@ -13,22 +24,19 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, '../dist')))
 
-app.get("/test", (req, res, next) => {
-  res.send("Test route");
-});
-
-app.get('/', (req, res, next) => {
-  res.sendFile(path.join(__dirname, '../dist/index.html'));
-})
-
 
 app.use((req, res, next) => {
     const auth = req.headers.authorization;
     const token = auth?.startsWith("Bearer ") ? auth.slice(7) : null;
 
     try {
+      if (token) {
         req.user = jwt.verify(token, process.env.JWT_SECRET);
-        next();
+      }else {
+          req.user = null
+        }
+
+      next();
     } catch (e) {
         console.log(e.message)
       if(e.name === "JsonWebTokenError"){
@@ -38,9 +46,16 @@ app.use((req, res, next) => {
         next(e);
     }
     }
-    next();
+   // next();
   });
 
+  app.get("/test", (req, res, next) => {
+    res.send("Test route");
+  });
+  
+  app.get('/', (req, res, next) => {
+    res.sendFile(path.join(__dirname, '../dist/index.html'));
+  })
 
 // TODO: Add your routers here
 app.use("/auth",require('./auth'));
@@ -67,6 +82,7 @@ app.get('*', (req, res) => {
         message: 'No route found for the requested URL',
     });
 });
-  
+
+
 
 module.exports = app;
