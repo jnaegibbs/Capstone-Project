@@ -1,20 +1,25 @@
-import React, { useState } from 'react';
-import Products from './component/Products';
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import { Provider } from 'react-redux';
-import store from './redux/store';
+import HomePage from "./components/HomePage";
+import Account from "./components/Account";
+import Register from "./components/Register";
+import Login from "./components/Login"
+
 
 const App = () => {
+  return (
+    <>
+        <Routes>
+         <Route path='/' element = {<HomePage />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
-    return (
-      <Provider store={store}>
-      <Routes>
-        <Route path="/" element={<Products />} />
-        {/* Add a catch-all route */}
-        <Route path="*" element={<h1>Page not found</h1>} />
-      </Routes>
-    </Provider>
-    );
-  }
-  
-  export default App;
+          {/* Add a catch-all route */}
+          <Route path="*" element={<h1>Page not found</h1>} />
+        </Routes>
+    </>
+  );
+};
+
+export default App;
