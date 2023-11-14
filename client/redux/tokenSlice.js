@@ -3,7 +3,7 @@ import petsApi from "./petsApi";
 
 const tokenSlice = createSlice ({
     name: "token",
-    initialState: null,
+    initialState: {token: null, user:null},
     reducers: {
         setToken: (_state, {payload}) => payload.token
     },
@@ -11,13 +11,13 @@ const tokenSlice = createSlice ({
     extraReducers: (builder) => {
         builder.addMatcher(
             petsApi.endpoints.register.matchFulfilled,
-            (state, {payload}) => payload.token
+            (state, {payload}) => ({token: payload.token, user: payload.user})
         );
 
         builder.addMatcher(
             petsApi.endpoints.login.matchFulfilled,
-            (state, {payload}) => payload.token
-        )
+            (state, {payload}) => ({token: payload.token, user: payload.user})
+        );
     }
 });
 
