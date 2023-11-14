@@ -8,9 +8,8 @@ const Products = () => {
  // const fetchProductsQuery = useFetchProductsQuery();
  // console.log('Fetch Products Query:', fetchProductsQuery);
 
-   const { data = {}, error, isLoading } = useFetchProductsQuery();
+   const { data, error, isLoading } = useFetchProductsQuery();
    console.log('Data:', data); // Log the data to the console
-
 
 
 
@@ -29,7 +28,7 @@ const Products = () => {
    return (
        <div className="main">
          <h1> All Products </h1>
-         {data.products.map(product => (
+         {data && data.products.map(product => (
            <div key={product.id} className="product">
              <div className="product-details">
                <h2>{product.name}</h2>
@@ -40,9 +39,11 @@ const Products = () => {
 
              </div>
            </div>
-         ))}
+         ))
+         }
        </div>
      );
+    
     
 };
 

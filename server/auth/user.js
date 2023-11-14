@@ -26,7 +26,9 @@ userRouter.post('/register', async (req, res, next) => {
             data: {
                 username, 
                 password: hashedPassword,
-                name
+                name, 
+                //email, - add on line 23 as well if adding here
+
             }
         });
         const token = jwt.sign({id: user.id}, JWT_SECRET);
