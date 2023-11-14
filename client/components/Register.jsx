@@ -8,6 +8,8 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 const Register = () => {
+
+
   console.log("register rendered");
 
   const [username, setUsername] = useState("");

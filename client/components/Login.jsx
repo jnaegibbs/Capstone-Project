@@ -64,6 +64,7 @@ const Login = () => {
       </Box>
     </div>
   );
+
 };
 
 export default Login;
