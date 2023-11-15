@@ -16,6 +16,8 @@ async function createInitialProducts() {
         { categoryName: 'food', petCategory: 'cat' },
         { categoryName: 'clothes', petCategory: 'dog' },
         { categoryName: 'clothes', petCategory: 'cat' },
+        { categoryName: 'accessories', petCategory: 'dog' },
+        { categoryName: 'accessories', petCategory: 'cat' },
       ];
   
       const products = [
@@ -487,6 +489,136 @@ async function createInitialProducts() {
                 },
             }
           },
+          {
+            name: 'FURminator Long Hair Dog Deshedding Tool',
+            image: 'https://image.chewy.com/is/image/catalog/243251_MAIN._AC_SL1200_V1594389959_.jpg',
+            price: '35.25',
+            description: 'Features a stainless-steel edge that reaches beneath the long topcoat, removing undercoat and loose hair.',
+            petCategory: 'dog',
+            categoryName: 'accessories',
+            inventory: {
+              create: {
+                quantity: 10,
+              },
+            },
+          },
+          {
+            name: 'Mobile Dog Gear Insulated Food Carriers Dog Car Accessories',
+            image: 'https://image.chewy.com/is/image/catalog/525454_MAIN._AC_SL1200_V1650398192_.jpg',
+            price: '29.99',
+            description: 'Spacious enough to hold a variety of foods—so don’t forget the treats!',
+            petCategory: 'dog',
+            categoryName: 'accessories',
+            inventory: {
+              create: {
+                quantity: 15,
+              },
+            },
+          },
+          {
+            name: 'GoTags Anodized Aluminum Personalized Dog ID Tag',
+            image: 'https://image.chewy.com/is/image/catalog/153068_MAIN._AC_SL1200_V1619702553_.jpg',
+            price: '7.95',
+            description: 'Cut into the shape of a bone to make personal identification even more paw-sonal!',
+            petCategory: 'dog',
+            categoryName: 'accessories',
+            inventory: {
+              create: {
+                quantity: 20,
+              },
+            },
+          },
+          {
+            name: 'Rechargable Cordless Shaver Trimmer Kit with Clippers for Dogs',
+            image: 'https://image.chewy.com/is/image/catalog/317705_MAIN._AC_SL1200_V1635867385_.jpg',
+            price: '35.99',
+            description: 'Works on all fur types, including curly, straight, thick, long and short.',
+            petCategory: 'dog',
+            categoryName: 'accessories',
+            inventory: {
+              create: {
+                quantity: 12,
+              },
+            },
+          },
+          {
+            name: 'Adjustable Safety Tether Dog Seat Belt Travel Accessories',
+            image: 'https://image.chewy.com/is/image/catalog/616614_MAIN._AC_SL1200_V1672337771_.jpg',
+            price: '8.99',
+            description: 'Made from durable, high-quality nylon, this paw-some belt fits all vehicle makes and models.',
+            petCategory: 'dog',
+            categoryName: 'accessories',
+            inventory: {
+              create: {
+                quantity: 8,
+              },
+            },
+          },
+          {
+            name: "World's Best Unscented Clumping Corn Cat Litter",
+            image: 'https://image.chewy.com/is/image/catalog/332505_MAIN._AC_SL1200_V1632824199_.jpg',
+            price: '13.99',
+            description: 'This natural litter delivers long-lasting odor control to help keep your home smelling clean.',
+            petCategory: 'cat',
+            categoryName: 'accessories',
+            inventory: {
+              create: {
+                quantity: 15,
+              },
+            },
+          },
+          {
+            name: 'sWheat Scoop Multi-Cat Unscented Natural Clumping Wheat Cat Litter',
+            image: 'https://image.chewy.com/is/image/catalog/90872_MAIN._AC_SL1200_V1634156505_.jpg',
+            price: '25.99',
+            description: 'Made without dyes, perfumes or harmful ingredients commonly found in clay litter.',
+            petCategory: 'cat',
+            categoryName: 'accessories',
+            inventory: {
+              create: {
+                quantity: 20,
+              },
+            },
+          },
+          {
+            name: 'Van Ness Litter Scoop',
+            image: 'https://image.chewy.com/is/image/catalog/70490_MAIN._AC_SL1200_V1506968131_.jpg',
+            price: '1.99',
+            description: 'Ideal litter scoop for owners of small to large sized cat pans.',
+            petCategory: 'cat',
+            categoryName: 'accessories',
+            inventory: {
+              create: {
+                quantity: 30,
+              },
+            },
+          },
+          {
+            name: 'Frisco Paw Shaped Cat Litter Mat',
+            image: 'https://image.chewy.com/is/image/catalog/166304_MAIN._AC_SL1200_V1572473589_.jpg',
+            price: '7.99',
+            description: 'This mat helps contain litter that spills from the litter box and keeps it on the mat to help prevent litter from being tracked around the house.',
+            petCategory: 'cat',
+            categoryName: 'accessories',
+            inventory: {
+              create: {
+                quantity: 25,
+              },
+            },
+          },
+          {
+            name: 'Bundle: Seresto Flea & Tick Collar for Dogs, over 18-lbs + Flea & Tick Collar for Cats',
+            image: 'https://image.chewy.com/is/image/catalog/293838_MAIN._AC_SL1200_V1662159321_.jpg',
+            price: '121.99',
+            description: 'Starts to repel and kill fleas within 24 hours of initial application and re-infesting fleas within two hours; works on contact with no painful biting required.',
+            petCategory: 'cat',
+            categoryName: 'accessories',
+            inventory: {
+              create: {
+                quantity: 10,
+              },
+            },
+          },
         
         
     
@@ -521,7 +653,7 @@ async function createInitialUsers() {
                 name: 'User 1',
                 username: 'user1',
                 password: hashedPassword1,
-                role: 'user',
+                isAdmin: true,
                 profile: {
                     create: {
                         name: 'User 1 Profile',
@@ -537,7 +669,7 @@ async function createInitialUsers() {
                 name: 'User 2',
                 username: 'user2',
                 password: hashedPassword2,
-                role: 'admin', 
+                isAdmin: false, 
                 profile: {
                     create: {
                         name: 'User 2 Profile',
@@ -553,6 +685,7 @@ async function createInitialUsers() {
                 name: 'User 3',
                 username: 'user3',
                 password: hashedPassword3,
+                isAdmin: false, 
                 profile: {
                     create: {
                         name: 'User 3 Profile',
