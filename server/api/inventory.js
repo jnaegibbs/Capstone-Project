@@ -1,4 +1,5 @@
 const inventoryRouter = require("express").Router();
+import { requireAdmin } from "./utils";
 
 const prisma = require("../db/client");
 
@@ -33,7 +34,7 @@ inventoryRouter.get("/:inventoryId", async (req, res, next) => {
 
 
 //POST /api/pets/inventory
-inventoryRouter.post("/", async (req, res, next) => {
+inventoryRouter.post("/", requireAdmin, async (req, res, next) => {
     try{
         const { productId, quantity } = req.body; 
         const newInventory = await prisma.inventory.create({
@@ -49,7 +50,7 @@ inventoryRouter.post("/", async (req, res, next) => {
 })
 
 //PUT /api/pets/inventory/:inventoryId
-inventoryRouter.put("/:inventoryId", async (req, res, next) => {
+inventoryRouter.put("/:inventoryId", requireAdmin, async (req, res, next) => {
     try{
         const updateInventory = await prisma.inventory.update({
             where:{
@@ -68,7 +69,7 @@ inventoryRouter.put("/:inventoryId", async (req, res, next) => {
 });
 
 //DELETE /api/pets/inventory/:inventoryId
-inventoryRouter.delete("/:inventoryId", async (req, res, next) => {
+inventoryRouter.delete("/:inventoryId", requireAdmin, async (req, res, next) => {
     try{
         const deleteInventory = await prisma.inventory.delete({
             where: {
