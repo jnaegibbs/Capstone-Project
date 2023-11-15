@@ -8,7 +8,7 @@ const prisma = require("../db/client");
 inventoryRouter.get("/", async (req, res, next) => {
     try{
         const inventories = await prisma.inventory.findMany()
-        res.send(inventories)
+        res.send({inventories})
 
     }catch({name,message}){
         next({name,message})
@@ -56,7 +56,7 @@ inventoryRouter.put("/:inventoryId", async (req, res, next) => {
                 id: Number(req.params.inventoryId)
             },
             data: {
-                product: req.body.name,
+                product: req.params.productId,
                 quantity: req.body.quantity
             }
         });
@@ -76,7 +76,7 @@ inventoryRouter.delete("/:inventoryId", async (req, res, next) => {
             }
         });
 
-        res.status(201).send({deleteInventory});
+        res.status(200).send({deleteInventory});
 
     }catch({name, message}){
         next({name, message})
