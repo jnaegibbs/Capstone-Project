@@ -1,0 +1,55 @@
+name: CI/CD with GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Modify this to the branch you want to trigger the workflow on
+
+jobs:
+  # Build job
+  build:
+      runs-on: ubuntu-latest
+      steps: 
+        - name: Checkout
+          uses: actions/checkout@v2
+        - name: Check HTML
+          uses: Cyb3r-Jak3/html5validator-action@v7.2.0
+          with:
+            root: ./
+              # Create and upload artifacts
+        - name: Create artifacts
+          uses: actions/upload-artifact@v2
+          with:
+            name: html-artifacts
+            path: ./  # You can adjust this to the path where your HTML and assets are generated
+
+
+  # Deploy job
+  deploy:
+    # Add a dependency to the build job
+    needs: build
+
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    # Specify runner + deployment step
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2 
