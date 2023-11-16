@@ -11,7 +11,7 @@ function requireUser(req, res, next) {
 }
 
 function requireAdmin(req, res, next) {
-    if (!req.user || !req.user.isAdmin) {
+    if (req.user.isAdmin === false) {
         res.status(403).json({
             name: "UnauthorizedError",
             message: "You do not have permission to perform this action"
