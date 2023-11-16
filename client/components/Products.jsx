@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useFetchProductsQuery } from '../redux/petsApi';
+import { useFetchProductsQuery } from '../redux/productsApi';
 
 
 const Products = () => {
