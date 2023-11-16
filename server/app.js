@@ -72,6 +72,9 @@ app.use((error, req, res, next) => {
         table: error.table,
     });
 });
+app.get('*', (req, res, next) => {
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
+})
 
 app.get('*', (req, res, next) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'));

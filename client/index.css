@@ -1,8 +1,24 @@
 /* Put your CSS in here! */
+.icon-button:hover {
+ 
+ font-size: xx-large;
+  padding: 3px;
+  border-radius: 100%;
+}
+.button:hover {
+ 
+  font-size: x-large;
+   padding: 3px;
+   border-radius: 100%;
+ }
 
+.button:active {
+  box-shadow: 0 5px #E0F4FF;
+  transform: translateY(4px);
+}
 
 .main {
-    background-color: #0D7DFD;
+    background-color: white;
     color: #212731;
     display: flex;
     flex-direction: column;
