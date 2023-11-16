@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { useRegisterMutation } from "../redux/petsApi";
+import { useRegisterMutation } from "../redux/authApi";
 import NavBar from "./Navbar";
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
