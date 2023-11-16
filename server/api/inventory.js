@@ -1,5 +1,5 @@
 const inventoryRouter = require("express").Router();
-import { requireAdmin } from "./utils";
+const { requireAdmin } = require("./utils");
 
 const prisma = require("../db/client");
 
