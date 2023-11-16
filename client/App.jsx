@@ -4,11 +4,13 @@ import HomePage from "./components/HomePage";
 import Account from "./components/Account";
 import Register from "./components/Register";
 import Login from "./components/Login"
+import NavBar from "./components/Navbar";
 
 
 const App = () => {
   return (
     <>
+    <NavBar/>
         <Routes>
          <Route path='/' element = {<HomePage />} />
           <Route path="/account" element={<Account />} />

@@ -28,7 +28,6 @@ const Login = () => {
 
   return (
     <div>
-      <NavBar />
       <br />
       <Box justifyContent="left" width="50%">
         <Typography variant="h4" align="left" gutterBottom>

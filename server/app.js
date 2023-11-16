@@ -53,9 +53,7 @@ app.use((req, res, next) => {
     res.send("Test route");
   });
   
-  app.get('/', (req, res, next) => {
-    res.sendFile(path.join(__dirname, '../dist/index.html'));
-  })
+ 
 
 // TODO: Add your routers here
 app.use("/auth",require('./auth'));
@@ -74,6 +72,9 @@ app.use((error, req, res, next) => {
         table: error.table,
     });
 });
+app.get('*', (req, res, next) => {
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
+})
 
 // 404 handler
 app.get('*', (req, res) => {
