@@ -1,18 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import petsApi from './petsApi';
+import authApi from './authApi';
 import orderApi from './orderApi';
 
 import tokenReducer from './tokenSlice';
 
 const store = configureStore({
     reducer: {
-        [petsApi.reducerPath]: petsApi.reducer,
+        [authApi.reducerPath]: authApi.reducer,
         [orderApi.reducerPath]:orderApi.reducer,
         token: tokenReducer,
     },
     middleware: (getDefaultMiddleware) =>
-     getDefaultMiddleware().concat(petsApi.middleware),
+     getDefaultMiddleware().concat(authApi.middleware),
 });
 
 export default store;
