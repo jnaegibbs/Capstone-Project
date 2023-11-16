@@ -17,7 +17,7 @@ import { setToken } from "../redux/tokenSlice";
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const token = useSelector((state) => state.token);
+  const {token} = useSelector((state) => state.token);
   const styles = {
     mr: 2,
     display: { xs: "none", md: "flex" },
@@ -41,7 +41,7 @@ const NavBar = () => {
               <Typography variant="h6" component="a" href="/" sx={styles}>
                 FLUFFY FRIENDS
               </Typography>
-              {token === undefined ? (
+              {token === null ? (
                 <Typography
                  className="button"
                   variant="h6"
