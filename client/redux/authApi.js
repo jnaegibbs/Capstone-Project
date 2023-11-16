@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 
-const petsApi = createApi({
-  reducerPath: "petsApi",
+const authApi = createApi({
+  reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8080/",
   }),
@@ -43,6 +43,6 @@ const petsApi = createApi({
 export const { 
   useRegisterMutation,
   useLoginMutation
- } = petsApi;
+ } = authApi;
 
-export default petsApi;
+export default authApi;
