@@ -1,80 +1,84 @@
-import { Typography, Container, Toolbar, IconButton, Box } from "@mui/material";
+import {
+  Typography,
+  Container,
+  Toolbar,
+  IconButton,
+  Box,
+  Button,
+} from "@mui/material";
 import React from "react";
 import AppBar from "@mui/material/AppBar";
 import { FaPaw } from "react-icons/fa6";
 import { FaShoppingCart } from "react-icons/fa";
-import { useNavigate }  from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import { useDispatch } from "react-redux";
+import { setToken } from "../redux/tokenSlice";
 
 const NavBar = () => {
+  const navigate = useNavigate();
+  const token = useSelector((state) => state.token);
+  const styles = {
+    mr: 2,
+    display: { xs: "none", md: "flex" },
+    fontFamily: "monospace",
+    fontWeight: 700,
+    fontSize: "large",
+    letterSpacing: ".1rem",
+    color: "inherit",
+    textDecoration: "none",
+  };
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="sticky" color="primary">
+        <AppBar position="sticky" color="primary"  >
           <Container maxWidth="xl">
             <Toolbar>
-              <IconButton color="inherit" size="large">
-                <FaPaw />
+              <IconButton color="inherit" size="large" >
+                <FaPaw onClick={() => navigate("/")} className="icon-button"/>
               </IconButton>
-              <Typography
-                variant="h6"
-                component="div"
-                href="#app-bar-with-responsive-menu"
-                sx={{
-                  mr: 2,
-                  display: { xs: "none", md: "flex" },
-                  fontFamily: "monospace",
-                  fontWeight: 700,
-                  fontSize: "large",
-                  letterSpacing: ".2rem",
-                  color: "inherit",
-                  textDecoration: "none",
-                }}
-              >
+              <Typography variant="h6" component="a" href="/" sx={styles}>
                 FLUFFY FRIENDS
               </Typography>
-
+              {token === undefined ? (
+                <Typography
+                 className="button"
+                  variant="h6"
+                  noWrap
+                  component="a"
+                  href="/login"
+                  style={{ marginLeft: "50%" }}
+                  sx={styles}
+                >
+                  SignUp
+                </Typography>
+              ) : (
+                <Typography
+                  className="button"
+                  variant="h6"
+                  noWrap
+                  component="a"
+                  href="/logout"
+                  style={{ marginLeft: "50%" }}
+                  sx={styles}
+                >
+                  Logout
+                </Typography>
+              )}
               <Typography
-                variant="h6"
-                component="div"
-                href="#app-bar-with-responsive-menu"
-                style={{ marginLeft: "50%" }}
-                sx={{
-                  mr: 2,
-                  display: { xs: "none", md: "flex" },
-                  fontFamily: "monospace",
-                  fontWeight: 700,
-                  fontSize: "large",
-                  letterSpacing: ".1rem",
-                  color: "inherit",
-                  textDecoration: "none",
-                }}
-              >
-                Signup
-              </Typography>
-
-              <Typography
+              className="button"
                 variant="h6"
                 noWrap
                 component="a"
-                href="#app-bar-with-responsive-menu"
-                sx={{
-                  mr: 2,
-                  display: { xs: "none", md: "flex" },
-                  fontFamily: "monospace",
-                  fontWeight: 700,
-                  fontSize: "large",
-                  letterSpacing: ".1rem",
-                  color: "inherit",
-                  textDecoration: "none",
-                }}
+                href="/"
+                sx={styles}
               >
                 Orders
               </Typography>
 
-              <IconButton color="inherit">
-                <FaShoppingCart />
+              <IconButton color="inherit" size="large">
+                <FaShoppingCart onClick={() => navigate("/cart")} className="icon-button" />
               </IconButton>
             </Toolbar>
           </Container>
