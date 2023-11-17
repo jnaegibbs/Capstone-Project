@@ -62,7 +62,7 @@ inventoryRouter.put("/:inventoryId", requireAdmin, async (req, res, next) => {
             }
         });
 
-        res.status(201).send({updateInventory})
+        res.status(200).send({updateInventory})
     }catch({name,message}){
         next({name,message})
     }
