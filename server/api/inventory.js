@@ -1,4 +1,5 @@
 const inventoryRouter = require("express").Router();
+const { requireAdmin } = require("./utils");
 
 const prisma = require("../db/client");
 
@@ -8,7 +9,7 @@ const prisma = require("../db/client");
 inventoryRouter.get("/", async (req, res, next) => {
     try{
         const inventories = await prisma.inventory.findMany()
-        res.send(inventories)
+        res.send({inventories})
 
     }catch({name,message}){
         next({name,message})
@@ -33,7 +34,7 @@ inventoryRouter.get("/:inventoryId", async (req, res, next) => {
 
 
 //POST /api/pets/inventory
-inventoryRouter.post("/", async (req, res, next) => {
+inventoryRouter.post("/", requireAdmin, async (req, res, next) => {
     try{
         const { productId, quantity } = req.body; 
         const newInventory = await prisma.inventory.create({
@@ -49,14 +50,14 @@ inventoryRouter.post("/", async (req, res, next) => {
 })
 
 //PUT /api/pets/inventory/:inventoryId
-inventoryRouter.put("/:inventoryId", async (req, res, next) => {
+inventoryRouter.put("/:inventoryId", requireAdmin, async (req, res, next) => {
     try{
         const updateInventory = await prisma.inventory.update({
             where:{
                 id: Number(req.params.inventoryId)
             },
             data: {
-                product: req.body.name,
+                product: req.params.productId,
                 quantity: req.body.quantity
             }
         });
@@ -68,7 +69,7 @@ inventoryRouter.put("/:inventoryId", async (req, res, next) => {
 });
 
 //DELETE /api/pets/inventory/:inventoryId
-inventoryRouter.delete("/:inventoryId", async (req, res, next) => {
+inventoryRouter.delete("/:inventoryId", requireAdmin, async (req, res, next) => {
     try{
         const deleteInventory = await prisma.inventory.delete({
             where: {
@@ -76,7 +77,7 @@ inventoryRouter.delete("/:inventoryId", async (req, res, next) => {
             }
         });
 
-        res.status(201).send({deleteInventory});
+        res.status(200).send({deleteInventory});
 
     }catch({name, message}){
         next({name, message})

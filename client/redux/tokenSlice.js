@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import petsApi from "./petsApi";
+import authApi from "./authApi";
 
 const tokenSlice = createSlice ({
     name: "token",
@@ -10,12 +10,12 @@ const tokenSlice = createSlice ({
 
     extraReducers: (builder) => {
         builder.addMatcher(
-            petsApi.endpoints.register.matchFulfilled,
+            authApi.endpoints.register.matchFulfilled,
             (state, {payload}) => ({token: payload.token, user: payload.user})
         );
 
         builder.addMatcher(
-            petsApi.endpoints.login.matchFulfilled,
+            authApi.endpoints.login.matchFulfilled,
             (state, {payload}) => ({token: payload.token, user: payload.user})
         );
     }

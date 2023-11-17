@@ -76,6 +76,10 @@ app.get('*', (req, res, next) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'));
 })
 
+app.get('*', (req, res, next) => {
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
+})
+
 // 404 handler
 app.get('*', (req, res) => {
     res.status(404).send({

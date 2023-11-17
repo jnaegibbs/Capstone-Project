@@ -17,7 +17,7 @@ model user {
   password String
   profile  profile[]
   order    order[]
-  role     role      @default(user)
+  isAdmin  Boolean   @default(false)
 }
 
 model profile {

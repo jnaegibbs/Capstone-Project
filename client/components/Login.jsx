@@ -1,6 +1,6 @@
 import { React, useState } from "react";
-import NavBar from "./Navbar";
-import { useLoginMutation } from "../redux/petsApi";
+
+import { useLoginMutation } from "../redux/authApi";
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -63,7 +63,6 @@ const Login = () => {
       </Box>
     </div>
   );
-
 };
 
 export default Login;

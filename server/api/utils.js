@@ -9,8 +9,21 @@ function requireUser(req, res, next) {
         next();
     }
 }
+
+function requireAdmin(req, res, next) {
+    if (req.user.isAdmin === false) {
+        res.status(403).json({
+            name: "UnauthorizedError",
+            message: "You do not have permission to perform this action"
+        });
+    } else {
+        console.log('User is an admin');
+        next();
+    }
+}
   
   module.exports ={ 
-    requireUser
+    requireUser,
+    requireAdmin
 }
   
