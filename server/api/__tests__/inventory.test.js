@@ -22,7 +22,7 @@ const adminUser = {
 
 const mockToken = 'faketesttoken'
 
-//token verification and user ID 
+//token verification and user ID
 beforeEach(() => {
     jwt.verify.mockReturnValue({id: adminUser.id});
 });
@@ -78,8 +78,25 @@ describe("POST /api/pets/inventory", () => {
             },
             quantity: newInventory.quantity
         })
-    })
+    });
+
+    it('does not create a new inventory for user that is not an admin user', async () => {
+        // Mock a user without admin privileges
+        jwt.verify.mockReturnValue({ id: 2, isAdmin: false });
+
+        const response = await request(app)
+            .post('/api/pets/inventory')
+            .set('Authorization', `Bearer ${mockToken}`);
+
+        expect(response.status).toBe(403);
+
+        const { name, message } = response.body;
+        expect(name).toEqual('UnauthorizedError');
+        expect(message).toEqual('You do not have permission to perform this action')
+    });
+
 });
+
 
 describe('PUT /api/pets/inventory/:inventoryId', () => {
     it('successfully updates an existing pet inventory for a valid admin user', async () => {
@@ -103,22 +120,53 @@ describe('PUT /api/pets/inventory/:inventoryId', () => {
         product: { connect: { id: 1 } },
         quantity: updateInventory.quantity,
       });
+    
     });
+
+    it('does not update inventory for a user that is not an admin user', async () => {
+        // Mock a user without admin privileges
+        jwt.verify.mockReturnValue({ id: 2, isAdmin: false });
+
+        const response = await request(app)
+            .put('/api/pets/inventory/77')
+            .set('Authorization', `Bearer ${mockToken}`);
+
+        expect(response.status).toBe(403);
+
+        const { name, message } = response.body;
+        expect(name).toEqual('UnauthorizedError');
+        expect(message).toEqual('You do not have permission to perform this action')
+    });
+
 });
 
 describe("DELETE /api/pets/inventory/:inventoryId", () => {
     it("successfully deletes an existing inventory for a valid admin user", async () => {
-       
-        const deleteInventory = {id:77, productId: 37, quantity: 50};
+        const deleteInventory = { id: 77, productId: 37, quantity: 50 };
 
         prismaMock.inventory.delete.mockResolvedValue(deleteInventory);
 
         const response = await request(app)
-            .delete("/api/pets/inventory/77") 
-            .set('Authorization', `Bearer ${mockToken}`)
-        
-        expect(response.status).toBe(200)
-        expect(response.body.deleteInventory).toEqual(deleteInventory)
+            .delete("/api/pets/inventory/77")
+            .set('Authorization', `Bearer ${mockToken}`);
+
+        expect(response.status).toBe(200);
+        expect(response.body.deleteInventory).toEqual(deleteInventory);
+    });
+
+    it('does not delete inventory for a user that is not an admin user', async () => {
+        // Mock a user without admin privileges
+        jwt.verify.mockReturnValue({ id: 2, isAdmin: false });
+
+        const response = await request(app)
+            .delete('/api/pets/inventory/77')
+            .set('Authorization', `Bearer ${mockToken}`);
+
+        expect(response.status).toBe(403);
+
+        const { name, message } = response.body;
+        expect(name).toEqual('UnauthorizedError');
+        expect(message).toEqual('You do not have permission to perform this action')
     });
 });
 
