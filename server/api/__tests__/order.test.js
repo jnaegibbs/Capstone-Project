@@ -67,5 +67,45 @@ describe("/api/pets/order", () => {
             });
         });
     });
+
+    describe("PUT api/pets/order/:orderId", () => {
+        it("updates an existing order based on its Id", async () => {
+
+            const orderId = 1;
+            const updateOrder = { quantity: 10 };
+
+            prismaMock.order.update.mockResolvedValue({
+                id: orderId,
+                product: { connect: { id: 1 } },
+                user: { connect: { id: 3 } },
+                quantity: updateOrder.quantity,
+            });
+
+            const response = await request(app)
+            .put("/api/pets/order/1")
+
+            expect(response.status).toBe(200);
+            expect(response.body.updateOrder).toEqual({
+                id: orderId,
+                product: { connect: { id: 1 } },
+                user: { connect: { id: 3 } },
+                quantity: updateOrder.quantity,
+            });
+        });
+    });
+
+
+    describe("DELETE api/pets/order/:orderId", () => {
+        it("deletes an existing order based on its Id", async () => {
+            const deleteOrder = {id: 1, productId: 1, userId: 1, quantity: 3};
+
+            prismaMock.order.delete.mockResolvedValue(deleteOrder);
+
+            const response = await request(app).delete("/api/pets/order/1");
+
+            expect(response.status).toBe(200);
+            expect(response.body).toEqual(deleteOrder);
+        });
+    });
     
 });
