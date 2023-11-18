@@ -14,10 +14,14 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setToken } from "../redux/tokenSlice";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const navigate = useNavigate();
+  const auth = useSelector((state) => state.token)
+  console.log(auth)
   const {token} = useSelector((state) => state.token);
+  console.log(token)
   const styles = {
     mr: 2,
     display: { xs: "none", md: "flex" },
@@ -47,36 +51,47 @@ const NavBar = () => {
                   variant="h6"
                   noWrap
                   component="a"
-                  href="/login"
+                  onClick={() => navigate("/login")}
                   style={{ marginLeft: "50%" }}
                   sx={styles}
                 >
                   SignUp
                 </Typography>
               ) : (
+                <>
                 <Typography
                   className="button"
                   variant="h6"
                   noWrap
                   component="a"
-                  href="/logout"
+                  onClick={() => navigate("/logout")} //setToken to null 
                   style={{ marginLeft: "50%" }}
                   sx={styles}
                 >
                   Logout
                 </Typography>
+              
+                <Typography
+                className="button"
+                  variant="h6"
+                  noWrap
+                  component="a"
+                  sx={styles}
+                >
+                  Orders
+                </Typography>
+                <Typography
+                className="button"
+                  variant="h6"
+                  noWrap
+                  component="a"
+                  sx={styles}
+                  onClick={() => navigate("/account")}
+                >
+                  Account
+                </Typography>
+                </>
               )}
-              <Typography
-              className="button"
-                variant="h6"
-                noWrap
-                component="a"
-                href="/"
-                sx={styles}
-              >
-                Orders
-              </Typography>
-
               <IconButton color="inherit" size="large">
                 <FaShoppingCart onClick={() => navigate("/cart")} className="icon-button" />
               </IconButton>

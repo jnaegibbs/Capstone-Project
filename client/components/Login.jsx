@@ -6,6 +6,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { setToken } from "../redux/tokenSlice";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -14,12 +16,16 @@ const Login = () => {
   const navigate = useNavigate();
   const [login, { error }] = useLoginMutation();
 
+  const dispatch = useDispatch();
+
   const submitLogin = async (event) => {
     event.preventDefault();
     const response = await login({
       username: username,
       password: password,
     });
+
+    console.log(response)
     setSuccess(response.data.message);
     setUsername("");
     setPassword("");
