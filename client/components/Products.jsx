@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useFetchProductsQuery } from "../redux/productsApi";
 import {
@@ -81,6 +82,8 @@ const Products = ({ petValue, categoryValue }) => {
       </div>
     </>
   );
+
+
 };
 
 export default Products;

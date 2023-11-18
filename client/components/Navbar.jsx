@@ -17,8 +17,10 @@ import theme from "./theme";
 
 const NavBar = () => {
   const navigate = useNavigate();
+
   const { token } = useSelector((state) => state.token);
   const dispatch = useDispatch();
+
   const styles = {
     mr: 2,
     display: { xs: "none", md: "flex" },
