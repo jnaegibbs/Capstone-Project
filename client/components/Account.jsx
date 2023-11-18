@@ -12,7 +12,7 @@ const Account = () => {
             <h1> This is the user account page! </h1>
             {user && (
                 <div>
-                    <h2>PROFILE</h2>
+                    <h2>ACCOUNT INFO</h2>
                     <h3>{user.name}</h3>
                     <h3>{user.username}</h3>
                 </div>

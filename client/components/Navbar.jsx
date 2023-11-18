@@ -12,13 +12,10 @@ import { FaPaw } from "react-icons/fa6";
 import { FaShoppingCart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
 import { setToken } from "../redux/tokenSlice";
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const auth = useSelector((state) => state.token)
-  console.log(auth)
   const {token} = useSelector((state) => state.token);
   console.log(token)
   const styles = {
@@ -103,3 +100,4 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
