@@ -17,7 +17,7 @@ const Account = () => {
                     <h3>{user.username}</h3>
                 </div>
             )}
-            {/* Order History here */}
+            {/* Order History Here */}
         </div>
     );
 };  

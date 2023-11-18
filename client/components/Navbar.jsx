@@ -14,7 +14,6 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setToken } from "../redux/tokenSlice";
-import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const navigate = useNavigate();
