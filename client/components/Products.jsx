@@ -7,17 +7,33 @@ import {
   CardMedia,
   Typography,
   Button,
+  TextField,
 } from "@mui/material";
+import theme from "./theme";
+import SearchBar from "./SearchBar";
 
-const Products = ({ value, setvalue }) => {
+const Products = ({ petValue, categoryValue }) => {
   const { data, error, isLoading } = useFetchProductsQuery();
-  console.log("Data:", data); // Log the data to the console
-
-  const map = { 0: "dog", 1: "cat" };
-  const category = map[value];
-  const dogCategory =
-    data && data.products.filter((product) => product.petCategory === category);
-  console.log(dogCategory);
+  const [searchProduct,setSearchProduct] = useState('');
+  const petMap = { 0: "dog", 1: "cat" };
+  const categoryMap = {
+    0: "all",
+    1: "food",
+    2: "clothes",
+    3: "toy",
+    4: "accessories",
+  };
+  const petName = petMap[petValue];
+  const categoryName = categoryMap[categoryValue];
+  const productData =
+   searchProduct
+  ? data && data.products.filter((product)=> product.name.toLowerCase().includes(searchProduct))
+  :data &&
+    data.products.filter(
+      (product) =>
+        product.petCategory === petName && ("all" == categoryName || product.categoryName === categoryName)
+    );
+ 
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -29,6 +45,7 @@ const Products = ({ value, setvalue }) => {
 
   return (
     <>
+      <SearchBar searchProduct={searchProduct} setSearchProduct={setSearchProduct}/>
       <div
         style={{
           display: "flex",
@@ -37,13 +54,15 @@ const Products = ({ value, setvalue }) => {
           justifyContent: "space-evenly",
           margin: "50px",
         }}
+        theme={theme}
       >
+     
         {data &&
-          dogCategory.map((product) => (
-            <Card  variant="elevation" sx={{ width:300, mb:5,p:1}}>
+           productData.map((product) => (
+            <Card variant="elevation" sx={{ width: 300, mb: 5, p: 1 }}>
               <CardMedia sx={{ height: 250 }} image={product.image} />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+              <CardContent sx={{maxHeight:250}}>
+                <Typography gutterBottom variant="h6" component="div">
                   {product.name}
                 </Typography>
                 <Typography gutterBottom variant="h5" component="div">
@@ -53,9 +72,9 @@ const Products = ({ value, setvalue }) => {
                   {product.description}
                 </Typography>
               </CardContent>
-              <CardActions>
-                <Button size="small">Add cart</Button>
-                <Button size="small">See review</Button>
+              <CardActions sx={{m:'5% 10% '}} >
+                <Button variant='contained'sx={{bgcolor:'#7071E8',padding:1}} size="small">Add cart</Button>
+                <Button variant='outlined' sx={{color:'#7071E8',borderColor:'#7071E8'}} size="small">See review</Button>
               </CardActions>
             </Card>
           ))}{" "}

@@ -12,6 +12,13 @@ import {
 import { styled } from "@mui/material/styles";
 import PropTypes from "prop-types";
 import { SiPetsathome } from "react-icons/si";
+import { PiBowlFoodFill } from "react-icons/pi";
+import { GiClothes, GiToyMallet } from "react-icons/gi";
+import { LuToyBrick } from "react-icons/lu";
+import { GiMightySpanner } from "react-icons/gi";
+import { FaDog } from "react-icons/fa";
+import { FaCat } from "react-icons/fa";
+import { GiReptileTail } from "react-icons/gi";
 
 const category = ["All products", "Food", "Clothes", "Toys", "Accessories"];
 
@@ -90,23 +97,91 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
+const TabContainer = ({ petValue, categoryValue }) => {
+  return (
+    <>
+      <CustomTabPanel value={categoryValue} index={0}>
+        <Products petValue={petValue} categoryValue={categoryValue} />
+      </CustomTabPanel>
+      <CustomTabPanel value={categoryValue} index={1}>
+        <Products petValue={petValue} categoryValue={categoryValue} />
+      </CustomTabPanel>
+      <CustomTabPanel value={categoryValue} index={2}>
+        <Products petValue={petValue} categoryValue={categoryValue} />
+      </CustomTabPanel>
+      <CustomTabPanel value={categoryValue} index={3}>
+        <Products petValue={petValue} categoryValue={categoryValue} />
+      </CustomTabPanel>
+      <CustomTabPanel value={categoryValue} index={4}>
+        <Products petValue={petValue} categoryValue={categoryValue} />
+      </CustomTabPanel>
+    </>
+  );
+};
+
 const HomePage = () => {
-  const [horiValue, setHoriValue] = useState(0);
-  const [verticalValue, setVerticalValue] = useState(0);
+  const [petValue, setPetValue] = useState(0);
+  const [categoryValue, setCategoryValue] = useState(0);
+
+  const VerticalTab = () => {
+    return (
+      <>
+        <StyledTabs
+          orientation="vertical"
+          variant="scrollable"
+          value={categoryValue}
+          onChange={(e, newvalue) => setCategoryValue(newvalue)}
+          aria-label="Vertical tabs example"
+          sx={{ borderRight: 1, borderColor: "divider" }}
+        >
+          <StyledTab icon={<SiPetsathome/>}  iconPosition="start"  label="All Products" {...a11yProps(0)} />
+          <StyledTab icon={<PiBowlFoodFill/>}  iconPosition="start" label="Foods" {...a11yProps(1)} />
+          <StyledTab icon={<GiClothes/>}  iconPosition="start"label="Clothes" {...a11yProps(2)} />
+          <StyledTab icon={<LuToyBrick/>}  iconPosition="start" label="Toys" {...a11yProps(3)} />
+          <StyledTab icon={<GiMightySpanner/>}  iconPosition="start" label="Accessories" {...a11yProps(4)} />
+        </StyledTabs>
+      </>
+    );
+  };
   return (
     <>
       <StyledTabs
-        value={horiValue}
-        onChange={(e, newvalue) => setHoriValue(newvalue)}
+        value={petValue}
+        onChange={(e, newvalue) => setPetValue(newvalue)}
         aria-label="pet-category"
         centered
       >
-        <StyledTab label="Dog" {...a11yProps(0)} />
-        <StyledTab label="Cat" {...a11yProps(1)} />
-        <StyledTab label="Small Pets" {...a11yProps(2)} />
+        <StyledTab icon={<FaDog/>}  iconPosition="start" label="Dog" {...a11yProps(0)} />
+        <StyledTab icon={<FaCat/>}  iconPosition="start" label="Cat" {...a11yProps(1)} />
+        <StyledTab icon={<GiReptileTail/>}  iconPosition="start" label="Small Pets" {...a11yProps(2)} />
       </StyledTabs>
       <Divider />
-      <CustomTabPanel value={horiValue} index={0}>
+      <CustomTabPanel value={petValue} index={0}>
+        <Box
+          sx={{
+            flexGrow: 2,
+            bgcolor: "background.paper",
+            display: "flex",
+          }}
+        >
+          <Grid container spacing={2} columns={16}>
+            <Grid item xs={3}>
+              <Item>
+                <VerticalTab />
+              </Item>
+            </Grid>
+            <Grid item xs={13}>
+              <Item>
+                <TabContainer
+                  petValue={petValue}
+                  categoryValue={categoryValue}
+                />
+              </Item>
+            </Grid>
+          </Grid>
+        </Box>
+      </CustomTabPanel>
+      <CustomTabPanel value={petValue} index={1}>
         <Box
           sx={{
             flexGrow: 2,
@@ -117,50 +192,44 @@ const HomePage = () => {
           <Grid container spacing={2} columns={16}>
             <Grid item xs={4}>
               <Item>
-                {" "}
-                <Tabs
-                  orientation="vertical"
-                  variant="scrollable"
-                  value={verticalValue}
-                  onChange={(e, newvalue) => setVerticalValue(newvalue)}
-                  aria-label="Vertical tabs example"
-                  sx={{ borderRight: 1, borderColor: "divider" }}
-                >
-                  <Tab label="All Products" {...a11yProps(0)} />
-                  <Tab label="Foods" {...a11yProps(1)} />
-                  <Tab label="Clothes" {...a11yProps(2)} />
-                  <Tab label="Toys" {...a11yProps(3)} />
-                  <Tab label="Accessories" {...a11yProps(4)} />
-                </Tabs>
+                <VerticalTab />
               </Item>
             </Grid>
             <Grid item xs={12}>
               <Item>
-                <CustomTabPanel value={verticalValue} index={0}>
-                  <Products value={horiValue} setHoriValue={setHoriValue} />
-                </CustomTabPanel>
-                <CustomTabPanel value={verticalValue} index={1}>
-                  Item Two
-                </CustomTabPanel>
-                <CustomTabPanel value={verticalValue} index={2}>
-                  Item Three
-                </CustomTabPanel>
-                <CustomTabPanel value={verticalValue} index={3}>
-                  Item Four
-                </CustomTabPanel>
-                <CustomTabPanel value={verticalValue} index={4}>
-                  Item Five
-                </CustomTabPanel>
+                <TabContainer
+                  petValue={petValue}
+                  categoryValue={categoryValue}
+                />
               </Item>
             </Grid>
           </Grid>
         </Box>
       </CustomTabPanel>
-      <CustomTabPanel value={horiValue} index={1}>
-        <Products value={horiValue} setHoriValue={setHoriValue} />
-      </CustomTabPanel>
-      <CustomTabPanel value={horiValue} index={2}>
-        <Products value={horiValue} setHoriValue={setHoriValue} />
+      <CustomTabPanel value={petValue} index={2}>
+        <Box
+          sx={{
+            flexGrow: 2,
+            bgcolor: "background.paper",
+            display: "flex",
+          }}
+        >
+          <Grid container spacing={2} columns={16}>
+            <Grid item xs={4}>
+              <Item>
+                <VerticalTab />
+              </Item>
+            </Grid>
+            <Grid item xs={12}>
+              <Item>
+                <TabContainer
+                  petValue={petValue}
+                  categoryValue={categoryValue}
+                />
+              </Item>
+            </Grid>
+          </Grid>
+        </Box>
       </CustomTabPanel>
     </>
   );
