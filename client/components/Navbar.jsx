@@ -3,8 +3,7 @@ import {
   Container,
   Toolbar,
   IconButton,
-  Box,
-  Button,
+  Box
 } from "@mui/material";
 import React from "react";
 import AppBar from "@mui/material/AppBar";
@@ -13,11 +12,13 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { setToken } from "../redux/tokenSlice";
+import theme from "./theme";
 
 const NavBar = () => {
   const navigate = useNavigate();
   const {token} = useSelector((state) => state.token);
   console.log(token)
+
   const styles = {
     mr: 2,
     display: { xs: "none", md: "flex" },
@@ -32,24 +33,25 @@ const NavBar = () => {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="sticky" color="primary"  >
-          <Container maxWidth="xl">
+        <AppBar position="sticky" theme={theme}>
+          <Container fixed>
             <Toolbar>
-              <IconButton color="inherit" size="large" >
-                <FaPaw onClick={() => navigate("/")} className="icon-button"/>
+              <IconButton color="inherit" size="large">
+                <FaPaw onClick={() => navigate("/")} className="icon-button" />
               </IconButton>
               <Typography variant="h6" component="a" href="/" sx={styles}>
                 FLUFFY FRIENDS
               </Typography>
               {token === null ? (
                 <Typography
-                 className="button"
+                  className="button"
                   variant="h6"
                   noWrap
                   component="a"
                   onClick={() => navigate("/login")}
                   style={{ marginLeft: "50%" }}
                   sx={styles}
+                 
                 >
                   SignUp
                 </Typography>
@@ -61,8 +63,12 @@ const NavBar = () => {
                   noWrap
                   component="a"
                   onClick={() => navigate("/logout")} //setToken to null 
+
                   style={{ marginLeft: "50%" }}
                   sx={styles}
+                  onClick={()=>{
+                    dispatch(setToken({token:null}))
+                  }}
                 >
                   Logout
                 </Typography>
@@ -89,7 +95,10 @@ const NavBar = () => {
                 </>
               )}
               <IconButton color="inherit" size="large">
-                <FaShoppingCart onClick={() => navigate("/cart")} className="icon-button" />
+                <FaShoppingCart
+                  onClick={() => navigate("/cart")}
+                  className="icon-button"
+                />
               </IconButton>
             </Toolbar>
           </Container>
