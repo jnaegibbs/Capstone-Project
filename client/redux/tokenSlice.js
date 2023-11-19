@@ -5,7 +5,10 @@ const tokenSlice = createSlice ({
     name: "token",
     initialState: {token: null, user:null},
     reducers: {
-        setToken: (_state, {payload}) => payload.token
+        setToken: (state, {payload}) => {
+            state.token = payload.token;
+            state.user = payload.user;
+        }
     },
 
     extraReducers: (builder) => {
@@ -13,6 +16,7 @@ const tokenSlice = createSlice ({
             authApi.endpoints.register.matchFulfilled,
             (state, {payload}) => ({token: payload.token, user: payload.user})
         );
+    
 
         builder.addMatcher(
             authApi.endpoints.login.matchFulfilled,

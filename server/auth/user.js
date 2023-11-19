@@ -6,7 +6,7 @@ const SALT_COUNT = 10;
 const bcrypt = require("bcrypt");
 const {JWT_SECRET} = process.env;
 
-//GET /auth/user
+// GET /auth/user
 userRouter.get('/', async (req, res, next) => {
     try {
         const allUsers = await prisma.user.findMany();

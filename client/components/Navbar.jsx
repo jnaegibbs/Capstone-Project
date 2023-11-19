@@ -11,15 +11,13 @@ import { FaPaw } from "react-icons/fa6";
 import { FaShoppingCart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
 import { setToken } from "../redux/tokenSlice";
 import theme from "./theme";
 
 const NavBar = () => {
   const navigate = useNavigate();
-
-  const { token } = useSelector((state) => state.token);
-  const dispatch = useDispatch();
+  const {token} = useSelector((state) => state.token);
+  console.log(token)
 
   const styles = {
     mr: 2,
@@ -50,7 +48,7 @@ const NavBar = () => {
                   variant="h6"
                   noWrap
                   component="a"
-                  href="/login"
+                  onClick={() => navigate("/login")}
                   style={{ marginLeft: "50%" }}
                   sx={styles}
                  
@@ -58,11 +56,14 @@ const NavBar = () => {
                   SignUp
                 </Typography>
               ) : (
+                <>
                 <Typography
                   className="button"
                   variant="h6"
                   noWrap
                   component="a"
+                  onClick={() => navigate("/logout")} //setToken to null 
+
                   style={{ marginLeft: "50%" }}
                   sx={styles}
                   onClick={()=>{
@@ -71,18 +72,28 @@ const NavBar = () => {
                 >
                   Logout
                 </Typography>
-              )}
-              <Typography
+              
+                <Typography
                 className="button"
-                variant="h6"
-                noWrap
-                component="a"
-                href="/orders"
-                sx={styles}
-              >
-                Orders
-              </Typography>
-
+                  variant="h6"
+                  noWrap
+                  component="a"
+                  sx={styles}
+                >
+                  Orders
+                </Typography>
+                <Typography
+                className="button"
+                  variant="h6"
+                  noWrap
+                  component="a"
+                  sx={styles}
+                  onClick={() => navigate("/account")}
+                >
+                  Account
+                </Typography>
+                </>
+              )}
               <IconButton color="inherit" size="large">
                 <FaShoppingCart
                   onClick={() => navigate("/cart")}
@@ -98,3 +109,4 @@ const NavBar = () => {
 };
 
 export default NavBar;
+

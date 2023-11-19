@@ -8,6 +8,7 @@ const authApi = createApi({
   }),
 
   endpoints: (builder) => ({
+
       //user registration 
       register: builder.mutation({
         query: (user) => ({
@@ -26,7 +27,7 @@ const authApi = createApi({
           method: "POST",
           body:user,
         }),
-        transformResponse: (response, meta, arg) => {
+        transformResponse: (response) => {
           console.log(response);
           return response;
         },
@@ -36,13 +37,13 @@ const authApi = createApi({
       })
 
       }),
-        
-})
 
+  
+}); 
 
 export const { 
   useRegisterMutation,
-  useLoginMutation
+  useLoginMutation,
  } = authApi;
 
 export default authApi;
