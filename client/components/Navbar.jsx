@@ -62,13 +62,11 @@ const NavBar = () => {
                   variant="h6"
                   noWrap
                   component="a"
-                  onClick={() => navigate("/logout")} //setToken to null 
-
-                  style={{ marginLeft: "50%" }}
-                  sx={styles}
                   onClick={()=>{
                     dispatch(setToken({token:null}))
                   }}
+                  style={{ marginLeft: "50%" }}
+                  sx={styles}
                 >
                   Logout
                 </Typography>
