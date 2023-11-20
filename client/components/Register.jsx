@@ -84,7 +84,7 @@ const Register = () => {
           <br />
           */}
           <br />
-          <Button type="submit" variant="contained" color="secondary">
+          <Button type="submit" variant="contained" sx={{bgcolor:'#7071E8',padding:'10px 15px'}}>
             Register
           </Button>
         </form>
