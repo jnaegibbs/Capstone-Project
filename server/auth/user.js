@@ -6,6 +6,7 @@ const SALT_COUNT = 10;
 const bcrypt = require("bcrypt");
 const { JWT_SECRET } = process.env;
 
+
 //GET /auth/user
 userRouter.get("/", async (req, res, next) => {
   try {
@@ -22,20 +23,7 @@ userRouter.post("/register", async (req, res, next) => {
   try {
     const { username, name, password, isAdmin } = req.body;
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
-    const user = await prisma.user.create({
-      data: {
-        username,
-        password: hashedPassword,
-        name,
-        isAdmin,
-   //     profile: {
-    //      create: {
-    //        age,
-  //          email,
- //        },
-   //     },
-      },
-    })
+
     const userExists = await prisma.user.findUnique({
       where: {
           username
@@ -45,6 +33,21 @@ userRouter.post("/register", async (req, res, next) => {
       res.status(403);
       next({ name: "UserExistsError"});
     }
+    const user = await prisma.user.create({
+      data: {
+        username,
+        password: hashedPassword,
+        name,
+        isAdmin
+   //     profile: {
+    //      create: {
+    //        age,
+  //          email,
+ //        },
+   //     },
+      },
+    })
+    
     const token = jwt.sign({ id: user.id }, JWT_SECRET);
     delete user.password;
     res.status(201).send({ user, token });
