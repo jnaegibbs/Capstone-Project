@@ -25,7 +25,7 @@ const Login = () => {
       password: password,
     });
 
-    console.log(response)
+    console.log(response);
     setSuccess(response.data.message);
     setUsername("");
     setPassword("");
@@ -60,9 +60,14 @@ const Login = () => {
           />
           <br />
           <br />
-          <Button type="submit" variant="contained" color="secondary">
+          <Typography variant="body1" align="left" gutterBottom>
+            Don't have an Account? <Button onClick={()=> navigate('/register')}>Register here</Button>
+          </Typography>
+          <br />
+          <Button type="submit" variant="contained" sx={{bgcolor:'#7071E8',padding:'10px 15px'}}>
             Login
           </Button>
+        
         </form>
         {success && <p>{success}</p>}
         {error && <p>Error: {error.message}</p>}
