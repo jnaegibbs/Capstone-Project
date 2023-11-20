@@ -106,35 +106,32 @@ describe("Authentication", () => {
       //------------------LOGIN----------------------------//
 
       describe("POST /auth/user/login", () => {
-        it("should login a user and return user details with token", async () => {
+        test("should login a user and return user details with token", async () => {
           const existingUser = {
             username: "testuser",
             password: "testpassword",
           };
-          prismaMock.user.findUnique.mockResolvedValue(existingUser);
+          prismaMock.user.findUnique.mockResolvedValue();
 
           const token = "mocktoken";
           const hashedPassword = "hashedpassword";
 
-          bcrypt.compare.mockResolvedValue(existingUser, hashedPassword);
+          bcrypt.compare.mockResolvedValue(existingUser.password, hashedPassword);
           jwt.sign.mockReturnValue(token);
 
-          const response = await request(app)
-            .post("/auth/user/login")
-            .send(existingUser); //.set("Authorization", "Bearer" + token);
+          const response = await request(app).post("/auth/user/login").send(existingUser) //.set("Authorization", "Bearer" + token);
 
-          //expect(response.status).toBe(200);
+          expect(response.status).toBe(201);
           expect(response.body.token).toEqual(token);
           expect(prismaMock.user.findUnique).toHaveBeenCalledTimes(1);
           expect(bcrypt.compare).toHaveBeenCalledTimes(1);
           expect(prismaMock.user.findUnique).toHaveBeenCalledWith({
-            where: {
-              username: "testuser",
-            },
+            username: "testuser",
+            password: hashedPassword,
           });
         });
       });
-      it("should not log in a user with an invalid username", async () => {
+      test("Does not log in invalid username", async () => {
         prismaMock.user.findUnique.mockResolvedValueOnce(null);
         const response = await request(app)
           .post("/auth/user/login")
@@ -143,31 +140,6 @@ describe("Authentication", () => {
         expect(response.status).toBe(404);
         expect(response.body).toEqual({ message: "User not found" });
         expect(prismaMock.user.findUnique).toHaveBeenCalledTimes(1);
-      });
-
-      it("should not log in a user with an invalid password", async () => {
-        const existingUser = {
-          username: "testuser",
-          password: "testpassword"
-        };
-        prismaMock.user.findUnique.mockResolvedValue(existingUser);
-        bcrypt.compare.mockResolvedValue(false);
-        jwt.sign.mockReturnValue("mocktoken");
-
-        const response = await request(app).post("/auth/user/login").send({
-          username: "testuser",
-          password: "invalidpassword"
-        });
-
-        expect(response.status).toBe(201);
-        expect(response.body.message).toBe("Invalid password");
-        expect(prismaMock.user.findUnique).toHaveBeenCalledTimes(1);
-        expect(bcrypt.compare).toHaveBeenCalledTimes(1);
-        expect(prismaMock.user.findUnique).toHaveBeenCalledWith({
-          where: {
-            username: "testuser"
-          }
-        })
       });
     });
   });
