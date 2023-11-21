@@ -42,7 +42,7 @@ const Account = () => {
          <Box
       sx={styles2}
     >
-      <TextField fullWidth label="Name" defaultValue={user.name} />
+      <TextField fullWidth label="Name" defaultValue={user.profile[0].name} />
     </Box>
     <br /> 
 
@@ -56,21 +56,21 @@ const Account = () => {
     <Box
        sx={styles2}
     >
-      <TextField fullWidth label="Email" defaultValue={user.email} />
+      <TextField fullWidth label="Email" defaultValue={user.profile[0].email} />
     </Box>
     <br/>
 
     <Box
        sx={styles2}
     >
-      <TextField fullWidth label="Phone Number" />
+      <TextField fullWidth label="Phone Number" defaultValue={user.profile[0].phoneNumber} />
     </Box>
     <br/>
 
     <Box
        sx={styles2}
     >
-      <TextField fullWidth label="Address" />
+      <TextField fullWidth label="Address" defaultValue={user.profile[0].address} />
     </Box>
 
         </div>
