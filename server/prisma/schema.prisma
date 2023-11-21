@@ -12,7 +12,6 @@ datasource db {
 
 model user {
   id       Int       @id @default(autoincrement())
-  name     String
   username String    @unique
   password String
   profile  profile[]
@@ -21,12 +20,13 @@ model user {
 }
 
 model profile {
-  id     Int    @id @default(autoincrement())
-  name   String
-  age    Int
-  email  String @unique
-  user   user   @relation(fields: [userId], references: [id],onDelete: Cascade,onUpdate: NoAction)
-  userId Int    @unique
+  id          Int    @id @default(autoincrement())
+  name        String
+  email       String @unique
+  phoneNumber Int    @unique
+  address     String?
+  user        user   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  userId      Int    @unique
 }
 
 model category {
@@ -71,13 +71,12 @@ enum productCategory {
   clothes
   food
   accessories
-  
-
 }
 
 enum pets {
   dog
   cat
+  smallPet
 }
 
 enum role {
