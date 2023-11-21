@@ -6,7 +6,6 @@ const SALT_COUNT = 10;
 const bcrypt = require("bcrypt");
 const { JWT_SECRET } = process.env;
 
-
 //GET /auth/user
 userRouter.get("/", async (req, res, next) => {
   try {
@@ -21,33 +20,39 @@ userRouter.get("/", async (req, res, next) => {
 //POST /auth/user/register
 userRouter.post("/register", async (req, res, next) => {
   try {
-    const { username, name, password, isAdmin } = req.body;
+    const { username, name, password, isAdmin, email, phone, address } =
+      req.body;
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
 
     const userExists = await prisma.user.findUnique({
       where: {
-          username
-      }
+        username,
+      },
     });
     if (userExists) {
       res.status(403);
-      next({ name: "UserExistsError"});
+      next({ name: "UserExistsError" });
     }
     const user = await prisma.user.create({
       data: {
         username,
         password: hashedPassword,
-        name,
-        isAdmin
-   //     profile: {
-    //      create: {
-    //        age,
-  //          email,
- //        },
-   //     },
+        isAdmin,
+        profile: {
+          create: {
+            name,
+            email,
+            phoneNumber: Number(phone),
+            address,
+          },
+        },
       },
-    })
-    
+      include: {
+        profile: true,
+        order: true,
+      },
+    });
+
     const token = jwt.sign({ id: user.id }, JWT_SECRET);
     delete user.password;
     res.status(201).send({ user, token });
@@ -64,7 +69,12 @@ userRouter.post("/login", async (req, res, next) => {
       where: {
         username: username,
       },
+      include: {
+        profile: true,
+        order: true,
+      },
     });
+    console.log(user);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
