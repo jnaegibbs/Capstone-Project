@@ -44,7 +44,7 @@ const SingleView = () => {
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: "center",
-
+   
     color: theme.palette.text.secondary,
   }));
 
@@ -81,7 +81,7 @@ const SingleView = () => {
           alignItems="left"
           spacing={2}
         >
-          <Item>
+          <Item >
             <TransformWrapper>
                
               <TransformComponent>
@@ -93,10 +93,12 @@ const SingleView = () => {
                     height: "100%",
                     objectFit: "cover",
                     overflow: "hidden",
+                    aspectRatio:'3/2 auto',
+                    margin:'20% 0'
                   }}
                 />
               </TransformComponent>
-              <Controls/>
+             <div> <Controls /></div>
             </TransformWrapper>
           </Item>
           <Item>
@@ -122,7 +124,7 @@ const SingleView = () => {
               <Typography>
                 <Rating
                   name="product-rating"
-                  defaultValue={() => Math.floor(Math.random() * 5 + 1)}
+                  defaultValue={() => (Math.floor(Math.random() * 5) + 3)}
                   precision={0.5}
                   size="large"
                   readOnly
