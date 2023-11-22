@@ -6,7 +6,6 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { setToken } from "../redux/tokenSlice";
 import { useDispatch } from "react-redux";
 
 const Login = () => {

@@ -1,16 +1,12 @@
-
 import React, { useState } from "react";
 import { useFetchProductsQuery } from "../redux/productsApi";
 import {
   Card,
-  CardActions,
   CardContent,
   CardMedia,
   Typography,
-  Button,
-  TextField,
   CardActionArea,
-  Rating
+  Rating,
 } from "@mui/material";
 import theme from "./theme";
 import SearchBar from "./SearchBar";
@@ -18,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 const Products = ({ petValue, categoryValue }) => {
   const { data, error, isLoading } = useFetchProductsQuery();
-  const [searchProduct,setSearchProduct] = useState('');
+  const [searchProduct, setSearchProduct] = useState("");
   const petMap = { 0: "dog", 1: "cat" };
   const navigate = useNavigate();
   const categoryMap = {
@@ -30,15 +26,17 @@ const Products = ({ petValue, categoryValue }) => {
   };
   const petName = petMap[petValue];
   const categoryName = categoryMap[categoryValue];
-  const productData =
-   searchProduct
-  ? data && data.products.filter((product)=> product.name.toLowerCase().includes(searchProduct))
-  :data &&
-    data.products.filter(
-      (product) =>
-        product.petCategory === petName && ("all" == categoryName || product.categoryName === categoryName)
-    );
- 
+  const productData = searchProduct
+    ? data &&
+      data.products.filter((product) =>
+        product.name.toLowerCase().includes(searchProduct)
+      )
+    : data &&
+      data.products.filter(
+        (product) =>
+          product.petCategory === petName &&
+          ("all" == categoryName || product.categoryName === categoryName)
+      );
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -50,7 +48,10 @@ const Products = ({ petValue, categoryValue }) => {
 
   return (
     <>
-      <SearchBar searchProduct={searchProduct} setSearchProduct={setSearchProduct}/>
+      <SearchBar
+        searchProduct={searchProduct}
+        setSearchProduct={setSearchProduct}
+      />
       <div
         style={{
           display: "flex",
@@ -61,38 +62,32 @@ const Products = ({ petValue, categoryValue }) => {
         }}
         theme={theme}
       >
-     
         {data &&
-           productData.map((product) => (
+          productData.map((product) => (
             <Card variant="elevation" sx={{ width: 300, mb: 5, p: 1 }}>
-            <CardActionArea onClick={()=>navigate(`/${product.id}`)}>
-              <CardMedia sx={{ height: 250 }} image={product.image} />
-              <CardContent sx={{maxHeight:250}}>
-                <Typography gutterBottom variant="h6" component="div">
-                  {product.name}
-                </Typography>
-                <Typography gutterBottom variant="h5" component="div">
-                  {product.price}
-                </Typography>
-                <Rating
-                  name="product-rating"
-                  defaultValue={()=>Math.floor( (Math.random() * 5)+1)}
-                  precision={0.5}
-                  size="large"
-                  readOnly
-                />
-               
-              </CardContent>
+              <CardActionArea onClick={() => navigate(`/${product.id}`)}>
+                <CardMedia sx={{ height: 250 }} image={product.image} />
+                <CardContent sx={{ maxHeight: 250 }}>
+                  <Typography gutterBottom variant="h6" component="div">
+                    {product.name}
+                  </Typography>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {product.price}
+                  </Typography>
+                  <Rating
+                    name="product-rating"
+                    defaultValue={() => Math.floor(Math.random() * 5 + 3)}
+                    precision={0.5}
+                    size="large"
+                    readOnly
+                  />
+                </CardContent>
               </CardActionArea>
-             
-             
             </Card>
           ))}{" "}
       </div>
     </>
   );
-
-
 };
 
 export default Products;

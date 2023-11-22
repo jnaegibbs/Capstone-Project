@@ -1,7 +1,5 @@
 import {
-  Card,
   Typography,
-  CardMedia,
   Paper,
   Stack,
   Button,
@@ -10,10 +8,19 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
+  IconButton,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useFetchSingleProductQuery } from "../redux/productsApi";
 import { useParams, useNavigate } from "react-router-dom";
+import {
+  TransformWrapper,
+  TransformComponent,
+  useControls,
+} from "react-zoom-pan-pinch";
+import { FaMagnifyingGlassPlus } from "react-icons/fa6";
+import { FaMagnifyingGlassMinus } from "react-icons/fa6";
+import { GrPowerReset } from "react-icons/gr";
 
 import { useState } from "react";
 
@@ -21,6 +28,7 @@ const SingleView = () => {
   const { productId: productId } = useParams();
   const [quantity, setQuantity] = useState(1);
   const navigate = useNavigate();
+
 
   const { data = {}, error, isLoading } = useFetchSingleProductQuery(productId);
 
@@ -36,9 +44,22 @@ const SingleView = () => {
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: "center",
-
+   
     color: theme.palette.text.secondary,
   }));
+
+  const Controls = () => {
+    const { zoomIn, zoomOut, resetTransform } = useControls();
+    return (
+      <>
+      <br/>
+      <br/>
+        <IconButton variant= "contained" onClick={() => zoomIn()}><FaMagnifyingGlassPlus /></IconButton>{" "}
+        <IconButton variant= "contained" onClick={() => zoomOut()}><FaMagnifyingGlassMinus /></IconButton>{" "}
+        <IconButton variant= "contained" onClick={() => resetTransform()}><GrPowerReset /></IconButton>{" "}
+      </>
+    );
+  };
 
   return (
     <Paper elevation={0} sx={{ width: "80%", m: "2% 10%" }}>
@@ -60,13 +81,25 @@ const SingleView = () => {
           alignItems="left"
           spacing={2}
         >
-          <Item>
-            <img
-              src={data.product.image}
-              width="90%"
-              height="70%"
-              padding="4% 0"
-            />
+          <Item >
+            <TransformWrapper>
+               
+              <TransformComponent>
+              
+                <img
+                  src={data.product.image}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    overflow: "hidden",
+                    aspectRatio:'3/2 auto',
+                    margin:'20% 0'
+                  }}
+                />
+              </TransformComponent>
+             <div> <Controls /></div>
+            </TransformWrapper>
           </Item>
           <Item>
             <Stack
@@ -91,7 +124,7 @@ const SingleView = () => {
               <Typography>
                 <Rating
                   name="product-rating"
-                  defaultValue={()=>Math.floor( (Math.random() * 5)+1)}
+                  defaultValue={() => (Math.floor(Math.random() * 5) + 3)}
                   precision={0.5}
                   size="large"
                   readOnly
