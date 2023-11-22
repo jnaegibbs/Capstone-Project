@@ -3,27 +3,39 @@ import authApi from "./authApi";
 
 const tokenSlice = createSlice ({
     name: "token",
-    initialState: {token: null, user:null},
+    initialState: {
+        token: localStorage.getItem("token") || null, 
+        user: JSON.parse(localStorage.getItem("profileDetails")) || null
+    },
     reducers: {
-        setToken: (state, {payload}) => {
-            state.token = payload.token;
-            state.user = payload.user;
+        logout: (state, {payload}) => {
+            state.token = null
+            state.user = null
+            localStorage.removeItem("token")
+            localStorage.removeItem("profileDetails")
         }
     },
 
     extraReducers: (builder) => {
         builder.addMatcher(
             authApi.endpoints.register.matchFulfilled,
-            (state, {payload}) => ({token: payload.token, user: payload.user})
+            (_state, {payload}) => { 
+                localStorage.setItem("profileDetails", JSON.stringify(payload.user))
+                localStorage.setItem("token", payload.token)
+                return {token: payload.token, user: payload.user}}
         );
     
 
         builder.addMatcher(
             authApi.endpoints.login.matchFulfilled,
-            (state, {payload}) => ({token: payload.token, user: payload.user})
+            (state, {payload}) => { 
+                localStorage.setItem("profileDetails", JSON.stringify(payload.user))
+                localStorage.setItem("token", payload.token)
+                return {token: payload.token, user: payload.user}}
         );
+    
     }
 });
 
 export default tokenSlice.reducer;
-export const {setToken} = tokenSlice.actions;
+export const {logout} = tokenSlice.actions;
