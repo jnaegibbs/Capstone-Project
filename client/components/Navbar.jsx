@@ -11,7 +11,7 @@ import { FaPaw } from "react-icons/fa6";
 import { FaShoppingCart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useSelector ,useDispatch} from "react-redux";
-import { setToken } from "../redux/tokenSlice";
+import { logout } from "../redux/tokenSlice";
 import theme from "./theme";
 
 const NavBar = () => {
@@ -64,7 +64,7 @@ const NavBar = () => {
                   noWrap
                   component="a"
                   onClick={()=>{
-                    dispatch(setToken({token:null}))
+                    dispatch(logout())
                   }}
                   style={{ marginLeft: "50%" }}
                   sx={styles}
