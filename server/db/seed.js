@@ -22,7 +22,7 @@ async function createInitialProducts() {
         name: "Cotton Blend Tug Rope",
         image:
           "https://image.chewy.com/is/image/catalog/152836_Main._AC_SL1200_V1549654979_.jpg",
-        price: "15.00",
+        price: "$15.00",
         description:
           "Strong Chewing Teething Training Interactive for Dogs and Cats",
         petCategory: "dog",
@@ -37,7 +37,7 @@ async function createInitialProducts() {
         name: "Squeaky Plush Dog Toy",
         image:
           "https://image.chewy.com/is/image/catalog/68071_MAIN._AC_SL1200_V1530544157_.jpg",
-        price: "7.00",
+        price: "$7.00",
         description:
           "Squeaker that makes every far-flung game of fetch even more entertaining",
         petCategory: "dog",
@@ -52,7 +52,7 @@ async function createInitialProducts() {
         name: "Brick Puzzle Game Dog Toy",
         image:
           "https://image.chewy.com/is/image/catalog/148599_MAIN._AC_SL1200_V1694285518_.jpg",
-        price: "10.99",
+        price: "$10.99",
         description:
           "Hide the treats and watch your pup paw and nose them to reveal their prize.",
         petCategory: "dog",
@@ -67,7 +67,7 @@ async function createInitialProducts() {
         name: "Bacon Flavor Wishbone Dog Chew Toy",
         image:
           "https://image.chewy.com/is/image/catalog/71968_MAIN._AC_SL1200_V1612404735_.jpg",
-        price: "9.40",
+        price: "$9.40",
         description: `Delivers a wag-worthy flavor from real bacon that's fused all the way through the chew.`,
         petCategory: "dog",
         categoryName: "toy",
@@ -81,7 +81,7 @@ async function createInitialProducts() {
         name: "Ball Launcher Dog Toy",
         image:
           "https://image.chewy.com/is/image/catalog/53259_MAIN._AC_SL1200_V1602320474_.jpg",
-        price: "7.95",
+        price: "$7.95",
         description:
           "This quality ball launcher and ball set provides hours of fun playing fetch with your pooch.",
         petCategory: "dog",
@@ -559,7 +559,7 @@ async function createInitialProducts() {
         name: "FURminator Long Hair Dog Deshedding Tool",
         image:
           "https://image.chewy.com/is/image/catalog/243251_MAIN._AC_SL1200_V1594389959_.jpg",
-        price: "35.25",
+        price: "$35.25",
         description:
           "Features a stainless-steel edge that reaches beneath the long topcoat, removing undercoat and loose hair.",
         petCategory: "dog",
@@ -574,7 +574,7 @@ async function createInitialProducts() {
         name: "Mobile Dog Gear Insulated Food Carriers Dog Car Accessories",
         image:
           "https://image.chewy.com/is/image/catalog/525454_MAIN._AC_SL1200_V1650398192_.jpg",
-        price: "29.99",
+        price: "$29.99",
         description:
           "Spacious enough to hold a variety of foods—so don’t forget the treats!",
         petCategory: "dog",
@@ -589,7 +589,7 @@ async function createInitialProducts() {
         name: "GoTags Anodized Aluminum Personalized Dog ID Tag",
         image:
           "https://image.chewy.com/is/image/catalog/153068_MAIN._AC_SL1200_V1619702553_.jpg",
-        price: "7.95",
+        price: "$7.95",
         description:
           "Cut into the shape of a bone to make personal identification even more paw-sonal!",
         petCategory: "dog",
@@ -604,7 +604,7 @@ async function createInitialProducts() {
         name: "Rechargable Cordless Shaver Trimmer Kit with Clippers for Dogs",
         image:
           "https://image.chewy.com/is/image/catalog/317705_MAIN._AC_SL1200_V1635867385_.jpg",
-        price: "35.99",
+        price: "$35.99",
         description:
           "Works on all fur types, including curly, straight, thick, long and short.",
         petCategory: "dog",
@@ -619,7 +619,7 @@ async function createInitialProducts() {
         name: "Adjustable Safety Tether Dog Seat Belt Travel Accessories",
         image:
           "https://image.chewy.com/is/image/catalog/616614_MAIN._AC_SL1200_V1672337771_.jpg",
-        price: "8.99",
+        price: "$8.99",
         description:
           "Made from durable, high-quality nylon, this paw-some belt fits all vehicle makes and models.",
         petCategory: "dog",
@@ -634,7 +634,7 @@ async function createInitialProducts() {
         name: "World's Best Unscented Clumping Corn Cat Litter",
         image:
           "https://image.chewy.com/is/image/catalog/332505_MAIN._AC_SL1200_V1632824199_.jpg",
-        price: "13.99",
+        price: "$13.99",
         description:
           "This natural litter delivers long-lasting odor control to help keep your home smelling clean.",
         petCategory: "cat",
@@ -649,7 +649,7 @@ async function createInitialProducts() {
         name: "sWheat Scoop Multi-Cat Unscented Natural Clumping Wheat Cat Litter",
         image:
           "https://image.chewy.com/is/image/catalog/90872_MAIN._AC_SL1200_V1634156505_.jpg",
-        price: "25.99",
+        price: "$25.99",
         description:
           "Made without dyes, perfumes or harmful ingredients commonly found in clay litter.",
         petCategory: "cat",
@@ -664,7 +664,7 @@ async function createInitialProducts() {
         name: "Van Ness Litter Scoop",
         image:
           "https://image.chewy.com/is/image/catalog/70490_MAIN._AC_SL1200_V1506968131_.jpg",
-        price: "1.99",
+        price: "$1.99",
         description:
           "Ideal litter scoop for owners of small to large sized cat pans.",
         petCategory: "cat",
@@ -679,7 +679,7 @@ async function createInitialProducts() {
         name: "Frisco Paw Shaped Cat Litter Mat",
         image:
           "https://image.chewy.com/is/image/catalog/166304_MAIN._AC_SL1200_V1572473589_.jpg",
-        price: "7.99",
+        price: "$7.99",
         description:
           "This mat helps contain litter that spills from the litter box and keeps it on the mat to help prevent litter from being tracked around the house.",
         petCategory: "cat",
@@ -694,7 +694,7 @@ async function createInitialProducts() {
         name: "Bundle: Seresto Flea & Tick Collar for Dogs, over 18-lbs + Flea & Tick Collar for Cats",
         image:
           "https://image.chewy.com/is/image/catalog/293838_MAIN._AC_SL1200_V1662159321_.jpg",
-        price: "121.99",
+        price: "$121.99",
         description:
           "Starts to repel and kill fleas within 24 hours of initial application and re-infesting fleas within two hours; works on contact with no painful biting required.",
         petCategory: "cat",

@@ -10,6 +10,7 @@ import {
   Button,
   TextField,
   CardActionArea,
+  Rating
 } from "@mui/material";
 import theme from "./theme";
 import SearchBar from "./SearchBar";
@@ -73,16 +74,17 @@ const Products = ({ petValue, categoryValue }) => {
                 <Typography gutterBottom variant="h5" component="div">
                   {product.price}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {product.description}
-                </Typography>
+                <Rating
+                  name="product-rating"
+                  defaultValue={()=>Math.floor( (Math.random() * 5)+1)}
+                  precision={0.5}
+                  size="large"
+                  readOnly
+                />
+               
               </CardContent>
               </CardActionArea>
-              <CardActions sx={{m:'5% 10% '}} >
-                <Button variant='contained'sx={{bgcolor:'#7071E8',padding:1}} size="small">Add cart</Button>
-                <Button variant='outlined' sx={{color:'#7071E8',borderColor:'#7071E8'}} size="small">See review</Button>
-            
-              </CardActions>
+             
              
             </Card>
           ))}{" "}

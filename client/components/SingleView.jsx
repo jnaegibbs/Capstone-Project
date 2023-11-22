@@ -91,7 +91,7 @@ const SingleView = () => {
               <Typography>
                 <Rating
                   name="product-rating"
-                  defaultValue={4}
+                  defaultValue={()=>Math.floor( (Math.random() * 5)+1)}
                   precision={0.5}
                   size="large"
                   readOnly
@@ -121,7 +121,7 @@ const SingleView = () => {
                 <Button
                   variant="contained"
                   sx={{ bgcolor: "#7071E8", padding: 2, width: 300 }}
-                  size="medium"
+                  size="large"
                 >
                   Add to cart
                 </Button>
@@ -130,7 +130,7 @@ const SingleView = () => {
                 <Button
                   variant="contained"
                   sx={{ bgcolor: "#7071E8", padding: 2, width: 300 }}
-                  size="medium"
+                  size="large"
                 >
                   Buy Now
                 </Button>
