@@ -29,36 +29,47 @@ const Account = () => {
 
   return (
     <div>
-      <br />
-      <br />
-      <Typography sx={styles}>BASIC INFORMATION</Typography>
-      <br />
-      <br />
-      <Box sx={styles2}>
-        <TextField fullWidth label="Name" defaultValue={user.name} />
-      </Box>
-      <br />
+        <br/>
+        <br/>
+        <Typography sx={styles}>
+        BASIC INFORMATION
+        </Typography>
+        <br /> 
+        <br /> 
+         <Box
+      sx={styles2}
+    >
+      <TextField fullWidth label="Name" defaultValue={user.name} />
+    </Box>
+    <br /> 
 
       <Box sx={styles2}>
         <TextField fullWidth label="Username" defaultValue={user.username} />
       </Box>
       <br />
 
-      <Box sx={styles2}>
-        <TextField fullWidth label="Email" defaultValue={user.email} />
-      </Box>
-      <br />
+    <Box
+       sx={styles2}
+    >
+      <TextField fullWidth label="Email" defaultValue={user.email} />
+    </Box>
+    <br/>
 
-      <Box sx={styles2}>
-        <TextField fullWidth label="Phone Number" />
-      </Box>
-      <br />
+    <Box
+       sx={styles2}
+    >
+      <TextField fullWidth label="Phone Number" />
+    </Box>
+    <br/>
 
-      <Box sx={styles2}>
-        <TextField fullWidth label="Address" />
-      </Box>
-    </div>
-  );
-};
+    <Box
+       sx={styles2}
+    >
+      <TextField fullWidth label="Address" />
+    </Box>
+
+        </div>
+    );
+};  
 
 export default Account;
