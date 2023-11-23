@@ -743,6 +743,16 @@ async function createInitialUsers() {
             address: "testing address 1",
           },
         },
+        cart: {
+          create: {
+            cartItem: {
+              create: {
+              quantity: 1, 
+              productId: 1, 
+              }
+            }
+          }
+        }
       },
     });
 
