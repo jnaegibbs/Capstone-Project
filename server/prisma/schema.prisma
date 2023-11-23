@@ -1,6 +1,5 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,7 +8,6 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-
 model user {
   id       Int       @id @default(autoincrement())
   username String    @unique
@@ -17,26 +15,25 @@ model user {
   profile  profile[]
   order    order[]
   isAdmin  Boolean   @default(false)
+  cart cart[]
 }
 
 model profile {
-  id          Int    @id @default(autoincrement())
+  id          Int     @id @default(autoincrement()) @unique
   name        String
-  email       String @unique
-  phoneNumber Int    @unique
+  email       String  @unique
+  phoneNumber Int     @unique
   address     String?
-  user        user   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  userId      Int    @unique
+  user        user    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  userId      Int     @unique
 }
-
 model category {
   id           Int             @id @default(autoincrement())
   categoryName productCategory
   petCategory  pets
 }
-
 model product {
-  id           Int             @id @default(autoincrement())
+  id           Int             @id @default(autoincrement()) @unique
   name         String
   image        String
   price        String
@@ -45,12 +42,12 @@ model product {
   petCategory  pets
   order        order[]
   inventory    inventory[]
-
+  cartItem     cartItem[]
   @@index([categoryName])
 }
 
 model order {
-  id        Int      @id @default(autoincrement())
+  id        Int      @id @default(autoincrement()) @unique
   orderedAt DateTime @default(now())
   product   product  @relation(fields: [productId], references: [id])
   productId Int
@@ -59,8 +56,25 @@ model order {
   quantity  Int
 }
 
+model cart {
+  id         Int      @id @default(autoincrement()) @unique
+  user       user     @relation(fields: [userId], references: [id])
+  userId     Int @unique
+  cartItem   cartItem[]
+}
+
+model cartItem {
+  id        Int     @id @default(autoincrement()) @unique
+  itemAddedAt DateTime @default(now())
+  quantity  Int
+  product   product @relation(fields: [productId], references: [id])
+  productId Int @unique
+  cart cart @relation(fields: [cartId], references: [id])
+  cartId Int @unique
+}
+
 model inventory {
-  id        Int     @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())@unique
   product   product @relation(fields: [productId], references: [id])
   productId Int
   quantity  Int
