@@ -19,7 +19,7 @@ const tokenSlice = createSlice ({
     extraReducers: (builder) => {
         builder.addMatcher(
             authApi.endpoints.register.matchFulfilled,
-            (_state, {payload}) => { 
+            (state, {payload}) => { 
                 localStorage.setItem("profileDetails", JSON.stringify(payload.user))
                 localStorage.setItem("token", payload.token)
                 return {token: payload.token, user: payload.user}}
@@ -36,6 +36,7 @@ const tokenSlice = createSlice ({
     
     }
 });
+
 
 export default tokenSlice.reducer;
 export const {logout} = tokenSlice.actions;
