@@ -70,7 +70,7 @@ model cartItem {
   product   product @relation(fields: [productId], references: [id])
   productId Int @unique
   cart cart @relation(fields: [cartId], references: [id])
-  cartId Int @unique
+  cartId Int 
 }
 
 model inventory {
