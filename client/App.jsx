@@ -7,6 +7,7 @@ import Login from "./components/Login"
 import NavBar from "./components/Navbar";
 import Admin from "./components/Admin";
 import SingleView from "./components/SingleView";
+import Checkout from "./components/checkout";
 
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path='/:productId' element={<SingleView/>}/>
+          <Route path='/checkout' element={<Checkout/>}/>
           {/* Add a catch-all route */}
           <Route path="*" element={<h1>Page not found</h1>} />
         </Routes>
