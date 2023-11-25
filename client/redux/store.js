@@ -6,6 +6,7 @@ import orderApi from './orderApi';
 import tokenReducer from './tokenSlice';
 import productsApi from './productsApi';
 import inventoryApi from './inventoryApi';
+import cartApi from './cartApi';
 
 const store = configureStore({
     reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
         [orderApi.reducerPath]:orderApi.reducer,
         [productsApi.reducerPath]:productsApi.reducer,
         [inventoryApi.reducerPath]:inventoryApi.reducer,
+        [cartApi.reducerPath]:cartApi.reducer,
         token: tokenReducer,
     },
     middleware: (getDefaultMiddleware) =>
