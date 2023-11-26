@@ -107,11 +107,15 @@ describe("Authentication", () => {
               phoneNumber: newUser.phone,
               address: newUser.address,
             }
+           },
+           cart: {
+            create: {}
            }
           },
           include: {
             profile: true,
             order: true,
+            cart: true
           },
         });
       });

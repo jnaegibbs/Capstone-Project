@@ -14,11 +14,14 @@ import { useSelector ,useDispatch} from "react-redux";
 import { logout } from "../redux/tokenSlice";
 import theme from "./theme";
 
+
 const NavBar = () => {
   const navigate = useNavigate();
   const {token} = useSelector((state) => state.token);
-  const dispatch = useDispatch()
-  console.log(token)
+  const dispatch = useDispatch();
+  console.log(token);
+  const user = useSelector((state) => state.token.user);
+  console.log(user.id)
 
   const styles = {
     mr: 2,
@@ -29,6 +32,10 @@ const NavBar = () => {
     letterSpacing: ".1rem",
     color: "inherit",
     textDecoration: "none",
+  };
+
+  const navigateToCart = () => {
+    navigate(`/cart/${user.id}`);
   };
 
   return (
@@ -95,7 +102,7 @@ const NavBar = () => {
               )}
               <IconButton color="inherit" size="large">
                 <FaShoppingCart
-                  onClick={() => navigate("/cart")}
+                  onClick={() => {navigateToCart()}}
                   className="icon-button"
                 />
               </IconButton>

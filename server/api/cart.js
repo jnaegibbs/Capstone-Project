@@ -16,29 +16,26 @@ cartRouter.get("/", async (req, res, next) => {
 });
 
 
-// GET /api/pets/cart/user
-// cartRouter.get("/user", requireUser, async (req, res, next) => {
-//     try {
+// GET /api/pets/cart/:userId
+cartRouter.get("/:userId", async (req, res, next) => {
+    try {
 
+        const userId = Number(req.params.userId);
 
-//         const userId = req.user.id;
+        const userCart = await prisma.cart.findMany({
+            where: {
+                userId: userId,
+            },
+            include: {
+                cartItem: true,
+            },
+        });
 
-
-//         const userCart = await prisma.cart.findMany({
-//             where: {
-//                 userId: userId,
-//             },
-//             include: {
-//                 cartItem: true,
-//             },
-//         });
-
-
-//         res.json({ userCart });
-//     } catch (error) {
-//         next(error);
-//     }
-// });
+        res.json({ userCart });
+    } catch (error) {
+        next(error);
+    }
+});
 
 
 // GET /api/pets/cart/:cartId
