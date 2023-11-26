@@ -90,4 +90,92 @@ userRouter.post("/login", async (req, res, next) => {
   }
 });
 
+//POST /auth/user/guest
+userRouter.post("/guest", async (req, res, next) => {
+  try {
+    const { username, name, password, isAdmin, email, phone, address } =
+      req.body;
+    // const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
+
+    const userExists = await prisma.profile.findUnique({
+      where: {
+        email,
+      },
+    });
+    if (userExists) {
+      res.send(userExists);
+    } else {
+      const user = await prisma.user.create({
+        data: {
+          username,
+          password,
+          isAdmin,
+          profile: {
+            create: {
+              name,
+              email,
+              phoneNumber: Number(phone),
+              address,
+            },
+          },
+        },
+        include: {
+          profile: true,
+          order: true,
+        },
+      });
+      console.log(user);
+      // const token = jwt.sign({ id: user.id }, JWT_SECRET);
+      // delete user.password;
+      // res.status(201).send({ user, token });
+      res.status(201).send({ user });
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+//PUT /auth/user/register/:userId
+userRouter.put("/register/:userId", async (req, res, next) => {
+  try {
+    const { username, name, password, isAdmin, email, phone, address } =
+      req.body;
+    const userId = Number(req.params.userId);
+    const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
+    const userExists = await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        username,
+        password: hashedPassword,
+        isAdmin,
+        profile: {
+          update: {
+            where: {
+              userId,
+            },
+            data: {
+              name,
+              email,
+              phoneNumber: Number(phone),
+              address,
+            },
+          },
+        },
+      },
+      include: {
+        profile: true,
+        order: true,
+      },
+    });
+    console.log(userExists);
+    const token = jwt.sign({ id: userExists.id }, JWT_SECRET);
+    delete userExists.password;
+    res.status(201).send({ userExists, token });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = userRouter;

@@ -50,6 +50,8 @@ const Register = () => {
           m: "10% 20%",
         }}
       >
+        {success && <p>Registered Successfully</p>}
+        {error && <p>Oops! something went Wrong</p>}
         <Typography
           fontFamily="monospace"
           variant="h4"
@@ -111,6 +113,7 @@ const Register = () => {
           <br />
           <br />
           <TextField
+            required
             label="Address"
             type="text"
             value={address}
@@ -128,8 +131,6 @@ const Register = () => {
             continue
           </Button>
         </form>
-        {success && <p>{success}</p>}
-        {error && <p>Error: {error.message}</p>}
       </Box>
     </div>
   );
