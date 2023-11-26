@@ -46,10 +46,14 @@ userRouter.post("/register", async (req, res, next) => {
             address,
           },
         },
+        cart: {
+          create: {}
+        }
       },
       include: {
         profile: true,
         order: true,
+        cart: true
       },
     });
 
