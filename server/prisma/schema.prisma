@@ -8,6 +8,7 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 model user {
   id       Int       @id @default(autoincrement())
   username String    @unique
@@ -15,11 +16,12 @@ model user {
   profile  profile[]
   order    order[]
   isAdmin  Boolean   @default(false)
-  cart cart[]
+  cart     cart[]
+  review   review?
 }
 
 model profile {
-  id          Int     @id @default(autoincrement()) @unique
+  id          Int     @id @unique @default(autoincrement())
   name        String
   email       String  @unique
   phoneNumber Int     @unique
@@ -27,13 +29,15 @@ model profile {
   user        user    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
   userId      Int     @unique
 }
+
 model category {
   id           Int             @id @default(autoincrement())
   categoryName productCategory
   petCategory  pets
 }
+
 model product {
-  id           Int             @id @default(autoincrement()) @unique
+  id           Int             @id @unique @default(autoincrement())
   name         String
   image        String
   price        String
@@ -43,11 +47,13 @@ model product {
   order        order[]
   inventory    inventory[]
   cartItem     cartItem[]
+  review       review[]
+
   @@index([categoryName])
 }
 
 model order {
-  id        Int      @id @default(autoincrement()) @unique
+  id        Int      @id @unique @default(autoincrement())
   orderedAt DateTime @default(now())
   product   product  @relation(fields: [productId], references: [id])
   productId Int
@@ -57,27 +63,39 @@ model order {
 }
 
 model cart {
-  id         Int      @id @default(autoincrement()) @unique
-  user       user     @relation(fields: [userId], references: [id])
-  userId     Int @unique
+  id         Int        @id @unique @default(autoincrement())
+  user       user       @relation(fields: [userId], references: [id])
+  userId     Int        @unique
   cartItem   cartItem[]
+  cartStatus status     @default(active)
 }
 
 model cartItem {
-  id        Int     @id @default(autoincrement()) @unique
+  id          Int      @id @unique @default(autoincrement())
   itemAddedAt DateTime @default(now())
-  quantity  Int
-  product   product @relation(fields: [productId], references: [id])
-  productId Int @unique
-  cart cart @relation(fields: [cartId], references: [id])
-  cartId Int 
+  quantity    Int
+  product     product  @relation(fields: [productId], references: [id])
+  productId   Int      @unique
+  cart        cart     @relation(fields: [cartId], references: [id])
+  cartId      Int
 }
 
 model inventory {
-  id        Int     @id @default(autoincrement())@unique
+  id        Int     @id @unique @default(autoincrement())
   product   product @relation(fields: [productId], references: [id])
   productId Int
   quantity  Int
+}
+
+model review {
+  id        Int      @id @unique @default(autoincrement())
+  content   String
+  rating    Float
+  postAt    DateTime @default(now())
+  user      user    @relation(fields: [userId], references: [id])
+  userId    Int      @unique
+  product   product  @relation(fields: [productId], references: [id])
+  productId Int
 }
 
 enum productCategory {
@@ -96,4 +114,9 @@ enum pets {
 enum role {
   admin
   user
+}
+
+enum status {
+  active
+  archived
 }

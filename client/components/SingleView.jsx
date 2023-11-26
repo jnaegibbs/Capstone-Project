@@ -61,6 +61,11 @@ const SingleView = () => {
     );
   };
 
+  const handleBuyNow = () =>{
+    // todo : add the item to the cart 
+    navigate('/checkout');
+  }
+
   return (
     <Paper elevation={0} sx={{ width: "80%", m: "2% 10%" }}>
       <Button onClick={() => navigate("/")} sx={{ m: 2 }}>
@@ -164,6 +169,7 @@ const SingleView = () => {
                   variant="contained"
                   sx={{ bgcolor: "#7071E8", padding: 2, width: 300 }}
                   size="large"
+                  onClick={()=>handleBuyNow()}
                 >
                   Buy Now
                 </Button>
