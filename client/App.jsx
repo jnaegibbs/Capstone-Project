@@ -26,6 +26,7 @@ const App = () => {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/cart" element={<Cart/>} />
           <Route path="/confirmPage" element={<Confirmation/>} />
+          <Route path="/cart/:userId" element={<Cart/>}/>
           {/* Add a catch-all route */}
           <Route path="*" element={<h1>Page not found</h1>} />
         </Routes>
