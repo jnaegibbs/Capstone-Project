@@ -8,7 +8,7 @@ import NavBar from "./components/Navbar";
 import Admin from "./components/Admin";
 import SingleView from "./components/SingleView";
 import Cart from './components/Cart';
-import Checkout from "./components/checkout";
+import Checkout from "./components/Checkout";
 import Confirmation from "./components/Confirmation";
 
 
