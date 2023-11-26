@@ -11,8 +11,10 @@ import {
   IconButton,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { useCreateCartItemMutation } from "../redux/cartItemAPI";
 import { useFetchSingleProductQuery } from "../redux/productsApi";
 import { useParams, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import {
   TransformWrapper,
   TransformComponent,
@@ -23,14 +25,48 @@ import { FaMagnifyingGlassMinus } from "react-icons/fa6";
 import { GrPowerReset } from "react-icons/gr";
 
 import { useState } from "react";
+import { useFetchCartQuery } from "../redux/cartApi";
+import { addCartItem } from "../redux/cartSlice";
 
 const SingleView = () => {
   const { productId: productId } = useParams();
   const [quantity, setQuantity] = useState(1);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
 
   const { data = {}, error, isLoading } = useFetchSingleProductQuery(productId);
+  
+  const [createCartItem] = useCreateCartItemMutation();
+
+  const handleAddToCart = async () => {
+    const { data: cartId } = useFetchCartQuery(cartId);
+    try {
+      // Check if productId, quantity are available
+      if (!productId || !quantity ) {
+        console.error('Product or quanitity is missing.');
+        return;
+      }
+
+      // Make the API call to add the item to the cart
+      const response = await createCartItem({
+        productId: productId,
+        quantity: quantity,
+     //   cartItemId,
+        cartId: cartId
+      }).unwrap();
+
+      dispatch(addCartItem(response));
+
+      // Handle success, e.g., show a success message or update UI
+      console.log('Item added to cart:', response);
+
+      // Optionally reset the quantity after adding to the cart
+      setQuantity(1);
+    } catch (error) {
+      // Handle error, e.g., show an error message
+      console.error('Error adding item to cart:', error);
+    }
+  }; 
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -160,6 +196,7 @@ const SingleView = () => {
                   variant="contained"
                   sx={{ bgcolor: "#7071E8", padding: 2, width: 300 }}
                   size="large"
+                  onClick={() => handleAddToCart()}
                 >
                   Add to cart
                 </Button>
