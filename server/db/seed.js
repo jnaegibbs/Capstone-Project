@@ -9,12 +9,16 @@ async function createInitialProducts() {
     const categories = [
       { categoryName: "toy", petCategory: "dog" },
       { categoryName: "toy", petCategory: "cat" },
+      { categoryName: "toy", petCategory: "smallPet" },
       { categoryName: "food", petCategory: "dog" },
       { categoryName: "food", petCategory: "cat" },
+      { categoryName: "food", petCategory: "smallPet" },
       { categoryName: "clothes", petCategory: "dog" },
       { categoryName: "clothes", petCategory: "cat" },
+      { categoryName: "clothes", petCategory: "smallPet" },
       { categoryName: "accessories", petCategory: "dog" },
       { categoryName: "accessories", petCategory: "cat" },
+      { categoryName: "accessories", petCategory: "smallPet" }
     ];
 
     const products = [
@@ -705,6 +709,318 @@ async function createInitialProducts() {
           },
         },
       },
+      {
+        name: 'Pasture Plus + Adult Rabbit Food',
+        image: 'https://exoticnutrition.com/cdn/shop/files/AdultRabbitFood_1.jpg?v=1691079258',
+        price: '12.99',
+        description: 'Pasture Plus+ Adult Rabbit Food provides optimal nutrition for adult rabbits (12 months and older); supplements are not necessary.',
+        petCategory: 'smallPet',
+        categoryName: 'food',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
+      {
+        name: 'Timothy Twists',
+        image: 'https://exoticnutrition.com/cdn/shop/files/TimothyTwistsFront1.jpg?v=1694550930&width=600',
+        price: '$6.99',
+        description: 'All-natural blend of premium Timothy Hays, these chew treats provide essential fiber for excellent digestive health and healthy chompers!',
+        petCategory: 'smallPet',
+        categoryName: 'food',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
+      {
+        name: 'Timothy Hay Cubes',
+        image: 'https://exoticnutrition.com/cdn/shop/files/TimothyHayCubesFront1.jpg?v=1690985800&width=600',
+        price: '$4.79',
+        description: 'Exotic Nutrition Timothy Hay Cubes are a natural, low-fat, low calcium treat.',
+        petCategory: 'smallPet',
+        categoryName: 'food',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
+      {
+        name: 'Herbivore Healthy Treat',
+        image: 'https://exoticnutrition.com/cdn/shop/files/HerbivoreTreat3oz_1.jpg?v=1691071153',
+        price: '$3.99',
+        description: 'This nutritious mix of sweet potatoes, carrots, green peas, oats, and rose petals will quickly become your a favorite snack',
+        petCategory: 'smallPet',
+        categoryName: 'food',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
+      {
+        name: 'Pro Nail Trimmer',
+        image: 'https://exoticnutrition.com/cdn/shop/products/Nail-Trimmer-1.jpg?v=1685121319',
+        price: '$5.99',
+        description: ' The trimmer is 4 inches long, the perfect size for quick, precise cuts to make nail trimming easier than ever before',
+        petCategory: 'smallPet',
+        categoryName: 'accessories',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
+      {
+        name: 'Munchers Carrot Crunchers',
+        image: 'https://exoticnutrition.com/cdn/shop/files/CarrotCrunchersFront2.jpg?v=1691070615&width=600',
+        price: '$6.99',
+        description: 'These ready-to-feed treats are made with one single ingredient...high-quality, all-natural carrot!',
+        petCategory: 'smallPet',
+        categoryName: 'food',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
+      {
+        name: 'ZooPro Carry Bag',
+        image: 'https://exoticnutrition.com/cdn/shop/products/ZooPro-Carry-Bag-Small-2.jpg?v=1685121701',
+        price: '$19.99',
+        description: 'Exotic Nutrition ZooPro Pet Carrier provides easy transport for many types of small pets.',
+        petCategory: 'smallPet',
+        categoryName: 'accessories',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
+      {
+        name: 'Crystal Clear Water Bottle',
+        image: 'https://exoticnutrition.com/cdn/shop/files/PlasticWaterBottle3.jpg?v=1695408057&width=600',
+        price: '$4.99',
+        description: 'Thirsty critters can drink their fill with the Exotic Nutrition Crystal Clear Water Bottle.',
+        petCategory: 'smallPet',
+        categoryName: 'accessories',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
+      {
+        name: 'Hedgie Jingle Ball',
+        image: 'https://exoticnutrition.com/cdn/shop/files/HedgieJingleBall_1.jpg?v=1694010206&width=600',
+        price: '$6.99',
+        description: 'Rolling, pushing and tapping, your Hedgie will spend hours working this little toy around his/her cage',
+        petCategory: 'smallPet',
+        categoryName: 'toy',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
+      {
+        name: 'Press and Slide Feeding Station',
+        image: 'https://exoticnutrition.com/cdn/shop/products/Press-N-Slide-Feed-Station-2.jpg?v=1685121327',
+        price: '$10.99',
+        description: 'Exotic Nutrition Press and Slide Feeding Station design makes feeding incredibly easy.',
+        petCategory: 'smallPet',
+        categoryName: 'accessories',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
+      {
+        name: 'Casablanca Cage',
+        image: 'https://exoticnutrition.com/cdn/shop/files/CasablancaCageFrontView1.jpg?v=1692383830&width=600',
+        price: '$119.99',
+        description: 'Comfort, safety, and convenient cleaning with Exotic Nutrition Casablanca Cage',
+        petCategory: 'smallPet',
+        categoryName: 'accessories',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
+      {
+        name: 'Crazy Legs Toy',
+        image: 'https://exoticnutrition.com/cdn/shop/files/CustomerPhoto-CrazyLegs_3.jpg?v=1693578009',
+        price: '$4.99',
+        description: 'Exotic Nutrition Crazy Legs Toy is an interactive cage accessory for all pets.',
+        petCategory: 'smallPet',
+        categoryName: 'accessories',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
+      {
+        name: 'Aspen Bedding',
+        image: 'https://exoticnutrition.com/cdn/shop/files/91HlA6eOPIS.jpg?v=1698166742&width=600',
+        price: '$13.99',
+        description: 'Keep your pet home neat and fresh with natural paper fibers to quickly absorb moisture!',
+        petCategory: 'smallPet',
+        categoryName: 'accessories',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
+      {
+        name: 'Yogu Drops',
+        image: 'https://exoticnutrition.com/cdn/shop/files/YoguDrops5.5oz_1.jpg?v=1690486387&width=600',
+        price: '$5.99',
+        description: 'Watch as your pet goes wild for the sweet and savory flavor of Yogu Drops!',
+        petCategory: 'smallPet',
+        categoryName: 'accessories',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
+      {
+        name: 'Silent Runner 12 in (Regular)',
+        image: 'https://exoticnutrition.com/cdn/shop/files/SilentRunnerOrangeFront2.jpg?v=1691591558&width=600',
+        price: '25.99',
+        description: 'This innovative wheel is specifically designed for sugar gliders, Syrian hamsters, female rats* and similar-sized animals.',
+        petCategory: 'smallPet',
+        categoryName: 'accessories',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
+      {
+        name: 'Kritter Krawler 7" (Small)',
+        image: 'https://exoticnutrition.com/cdn/shop/products/Kaytee-Run-About-7--Exercise-Ball-1.jpg?v=1685121150',
+        price: '7.99',
+        description: 'The Kaytee Run-About Ball is an interactive exercise toy that provides healthy activity for Hamsters, Gerbils, Sugar Gliders and other small animals.',
+        petCategory: 'smallPet',
+        categoryName: 'toy',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
+      {
+        name: 'Natural Fun Balls 6 Pack',
+        image: 'https://exoticnutrition.com/cdn/shop/files/NaturalFunBallsFront4.jpg?v=1700246971&width=600',
+        price: '$13.99',
+        description: 'his NativeCritter Natural Fun Balls 6 Pack is specially designed to meet the instinctual needs of small pets.',
+        petCategory: 'smallPet',
+        categoryName: 'toy',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
+      {
+        name: 'Oxbow Essentials Regal Rat Adult Rat Food',
+        image: 'https://image.chewy.com/is/image/catalog/96010_MAIN._AC_SL1200_V1661824198_.jpg',
+        price: '$12.99',
+        description: 'This is a nutritionally balanced feed, designed to increase the longevity and well-being of the pet rat.',
+        petCategory: 'smallPet',
+        categoryName: 'food',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
+      {
+        name: 'TRIXIE Suspension Bridge Small Pet Hammock',
+        image: 'https://image.chewy.com/is/image/catalog/269199_MAIN._AC_SL1200_V1668637514_.jpg',
+        price: '$9.99',
+        description: 'The perfect accessory for resting, exercising or to simply keep your pet entertained.',
+        petCategory: 'smallPet',
+        categoryName: 'accessories',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
+      {
+        name: 'Vitakraft Mini Pops 100% Real Corn Cob Small Pet Treat, 6-oz bag',
+        image: 'https://image.chewy.com/is/image/catalog/155078_MAIN._AC_SL1200_V1666651750_.jpg',
+        price: '$5.99',
+        description: 'All-natural treats made with 1 single, wholesome and nutritious ingredient for your small pet.',
+        petCategory: 'smallPet',
+        categoryName: 'food',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
+      {
+        name: 'Imperial Cat Play and Shapes Cheese Small Animal Hideout',
+        image: 'https://image.chewy.com/is/image/catalog/138504_MAIN._AC_SL1200_V1506525957_.jpg',
+        price: '7.99',
+        description: 'Helps prevent cage chewing and beat boredom by providing a safe, totally gnawable toy.',
+        petCategory: 'smallPet',
+        categoryName: 'accessories',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
+      {
+        name: 'Zilla Tropical Vertical Starter Kit with Mini Halogen Lighting',
+        image: 'https://image.chewy.com/is/image/catalog/159210_MAIN._AC_SL1200_V1624393364_.jpg',
+        price: '$109.99',
+        description: 'This starter kit is perfect for a first-time small reptile parent and comes with an easy-to-use setup guide.',
+        petCategory: 'smallPet',
+        categoryName: 'accessories',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
+      {
+        name: 'REPTI ZOO 40-gal Full Glass Reptile Terrarium, Black',
+        image: 'https://image.chewy.com/is/image/catalog/839574_MAIN._AC_SL1200_V1682003332_.jpg',
+        price: '$189.99',
+        description: 'Give your scaly friend a cozy home of his own with REPTIZOO 40-gal Full Glass Reptile Terrarium',
+        petCategory: 'smallPet',
+        categoryName: 'accessories',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
+      {
+        name: 'Exo Terra Faunarium Terrarium',
+        image: 'https://image.chewy.com/is/image/catalog/164485_MAIN._AC_SL1200_V1554409638_.jpg',
+        price: '$9.49',
+        description: 'Exo Terra Faunarium Terrarium provides the perfect place to carry your reptiles, amphibians, mice, arachnids or insects.',
+        petCategory: 'smallPet',
+        categoryName: 'accessories',
+        inventory: {
+            create: {
+              quantity: 10,
+            },
+        }
+      },
     ];
 
     for (const category of categories) {
@@ -769,6 +1085,9 @@ async function createInitialUsers() {
             address: "testing address 2",
           },
         },
+        cart: {
+          create: {}
+        }
       },
     });
 
@@ -785,6 +1104,9 @@ async function createInitialUsers() {
             address: "testing address 3",
           },
         },
+        cart: {
+          create: {}
+        }
       },
     });
 

@@ -118,10 +118,14 @@ userRouter.post("/guest", async (req, res, next) => {
               address,
             },
           },
+          cart: {
+            create: {}
+          }
         },
         include: {
           profile: true,
           order: true,
+          cart: true
         },
       });
       console.log(user);
@@ -167,6 +171,7 @@ userRouter.put("/register/:userId", async (req, res, next) => {
       include: {
         profile: true,
         order: true,
+        cart: true
       },
     });
     console.log(userExists);
