@@ -7,7 +7,7 @@ import tokenReducer from './tokenSlice';
 import productsApi from './productsApi';
 import inventoryApi from './inventoryApi';
 import cartApi from './cartApi';
-import cartItemApi from './cartItemAPI';
+import cartItemApi from './cartItemApi';
 
 const store = configureStore({
     reducer: {

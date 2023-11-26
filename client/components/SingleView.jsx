@@ -11,7 +11,7 @@ import {
   IconButton,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { useCreateCartItemMutation } from "../redux/cartItemAPI";
+import { useCreateCartItemMutation } from "../redux/cartItemApi";
 import { useFetchSingleProductQuery } from "../redux/productsApi";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
