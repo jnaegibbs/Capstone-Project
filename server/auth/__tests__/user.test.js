@@ -31,7 +31,7 @@ describe("Authentication", () => {
     });
 
     describe("POST /auth/user/register", () => {
-      it("does not create a user if user if the username already exists", async () => {
+      it("does not create a user if user already exists", async () => {
         const existingUser = {
           username: "testuser",
         };
@@ -48,7 +48,7 @@ describe("Authentication", () => {
           .send(newUser);
 
         expect(response.status).toBe(403);
-        expect(response.body.name).toBe("UserExistsError");
+        expect(response.body.error).toBe("UserExistsError");
 
         expect(prismaMock.user.findUnique).toHaveBeenCalledTimes(1);
         expect(prismaMock.user.findUnique).toHaveBeenCalledWith({
