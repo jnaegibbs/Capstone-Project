@@ -14,7 +14,7 @@ import { styled } from "@mui/material/styles";
 import { useCreateCartItemMutation } from "../redux/cartItemApi";
 import { useFetchSingleProductQuery } from "../redux/productsApi";
 import { useParams, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector ,useSelector} from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import {
   TransformWrapper,
   TransformComponent,
