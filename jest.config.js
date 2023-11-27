@@ -4,7 +4,9 @@
  */
 
 module.exports = {
-  
+    moduleNameMapper: {
+        "\\.css$": "identity-obj-proxy",
+    },
     // Automatically clear mock calls, instances, contexts and results before every test
     clearMocks: true,
     
