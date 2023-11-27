@@ -8,9 +8,20 @@ const prisma = require("../db/client");
 //GET /api/pets/inventory
 inventoryRouter.get("/", async (req, res, next) => {
     try{
-        const inventories = await prisma.inventory.findMany()
+        const inventories = await prisma.inventory.findMany({
+            include: {
+                product: {
+                    select: {
+                        name: true,
+                        image: true,
+                        price: true,
+                        categoryName: true,
+                        petCategory: true
+                    }
+                }
+            }
+        })
         res.send({inventories})
-
     }catch({name,message}){
         next({name,message})
     }
@@ -77,7 +88,7 @@ inventoryRouter.delete("/:inventoryId", requireAdmin, async (req, res, next) => 
             }
         });
 
-        res.status(200).send({deleteInventory});
+        res.status(200).send('Inventory deleted successfully');
 
     }catch({name, message}){
         next({name, message})
