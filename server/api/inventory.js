@@ -3,8 +3,6 @@ const { requireAdmin } = require("./utils");
 
 const prisma = require("../db/client");
 
-//Todo : write api here
-
 //GET /api/pets/inventory
 inventoryRouter.get("/", async (req, res, next) => {
     try{
