@@ -20,8 +20,11 @@ const NavBar = () => {
   const {token} = useSelector((state) => state.token);
   const dispatch = useDispatch();
   console.log(token);
-  // const user = useSelector((state) => state.token.user);
-  // console.log(user.id)
+
+ 
+ // const user = useSelector((state) => state.token.user);
+  //console.log(user.id)
+
 
   const styles = {
     mr: 2,
@@ -34,9 +37,11 @@ const NavBar = () => {
     textDecoration: "none",
   };
 
-  // const navigateToCart = () => {
-  //   navigate(`/cart/${user.id}`);
-  // };
+
+  //  const navigateToCart = () => {
+  //    navigate(`/cart/${user.id}`);
+  //  };
+
 
   return (
     <>
@@ -112,7 +117,11 @@ const NavBar = () => {
               )}
               <IconButton color="inherit" size="large">
                 <FaShoppingCart
-                  // onClick={() => {navigateToCart()}}
+
+                
+                onClick={() => navigate("/cart") }
+                //onClick={() => {navigateToCart()}}
+
                   className="icon-button"
                 />
               </IconButton>
