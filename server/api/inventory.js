@@ -14,7 +14,7 @@ inventoryRouter.get("/", async (req, res, next) => {
                         image: true,
                         price: true,
                         categoryName: true,
-                        petCategory: true
+                        petCategory: true,
                     }
                 }
             }

@@ -62,8 +62,8 @@ const Admin = () => {
    
   }
 
-  //handle Update (PUT)
-  //handle Create (POST)
+  //handle Update - PUT
+  //handle Create - POST 
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },

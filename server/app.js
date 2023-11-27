@@ -62,6 +62,7 @@ app.use("/api",require('./api'))
 // Error handling middleware
 app.use((error, req, res, next) => {
     console.log('SERVER ERROR: ', error);
+    
         res.status(500);
 
     res.send({

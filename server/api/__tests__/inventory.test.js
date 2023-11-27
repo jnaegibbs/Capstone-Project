@@ -3,6 +3,7 @@ const request = require("supertest");
 const prismaMock = require("../../../mocks/prismaMock");
 const jwt = require("jsonwebtoken");
 const prisma = require("../../db/client");
+
 jest.mock("jsonwebtoken");
 
 describe("/api/pets/inventory", () => {
