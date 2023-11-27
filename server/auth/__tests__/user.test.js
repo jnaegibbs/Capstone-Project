@@ -148,6 +148,7 @@ describe("Authentication", () => {
               username: "testuser",
             },
             include: {
+              cart: true,
               order: true,
               profile: true,
             },
@@ -188,6 +189,7 @@ describe("Authentication", () => {
             username: "testuser",
           },
           include: {
+            cart: true,
             order: true,
             profile: true,
           },
