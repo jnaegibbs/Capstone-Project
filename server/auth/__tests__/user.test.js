@@ -180,7 +180,7 @@ describe("Authentication", () => {
           password: "invalidpassword",
         });
 
-        expect(response.status).toBe(201);
+        expect(response.status).toBe(401);
         expect(response.body.message).toBe("Invalid password");
         expect(prismaMock.user.findUnique).toHaveBeenCalledTimes(1);
         expect(bcrypt.compare).toHaveBeenCalledTimes(1);

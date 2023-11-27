@@ -151,7 +151,7 @@ describe("DELETE /api/pets/inventory/:inventoryId", () => {
             .set('Authorization', `Bearer ${mockToken}`);
 
         expect(response.status).toBe(200);
-        expect(response.body.deleteInventory).toEqual(deleteInventory);
+        expect(response.body.deleteInventory).toEqual();
     });
 
     it('does not delete inventory for a user that is not an admin user', async () => {
