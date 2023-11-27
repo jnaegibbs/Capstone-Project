@@ -14,7 +14,7 @@ import { styled } from "@mui/material/styles";
 import { useCreateCartItemMutation } from "../redux/cartItemApi";
 import { useFetchSingleProductQuery } from "../redux/productsApi";
 import { useParams, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import {
   TransformWrapper,
   TransformComponent,
@@ -24,7 +24,6 @@ import { FaMagnifyingGlassPlus } from "react-icons/fa6";
 import { FaMagnifyingGlassMinus } from "react-icons/fa6";
 import { GrPowerReset } from "react-icons/gr";
 import { useState } from "react";
-import { useFetchCartByUserQuery, useFetchCartQuery } from "../redux/cartApi";
 import { addCartItem } from "../redux/cartSlice";
 
 const SingleView = () => {
@@ -33,6 +32,7 @@ const SingleView = () => {
   //const userId = user.id;
   //console.log(user);
   const [quantity, setQuantity] = useState(1);
+  const user = useSelector((state) => state.token.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -46,33 +46,31 @@ const SingleView = () => {
   const [createCartItem] = useCreateCartItemMutation();
 
   const handleAddToCart = async () => {
-
     try {
       // Check if productId, quantity are available
       if (!productId || !quantity ) {
         console.error('Product or quanitity is missing.');
         return;
       }
-
-      // Make the API call to add the item to the cart
+   
+    //   // Make the API call to add the item to the cart
       const response = await createCartItem({
-        productId: productId,
+       productId: productId,
         quantity: quantity,
-     //   cartItemId,
-        cartId: cart.id
+        cartId: cartId
       }).unwrap();
 
       dispatch(addCartItem(response));
 
-      // Handle success, e.g., show a success message or update UI
-      console.log('Item added to cart:', response);
+    //   // Handle success, e.g., show a success message or update UI
+    //  console.log('Item added to cart:', response);
 
-      // Optionally reset the quantity after adding to the cart
+       // Optionally reset the quantity after adding to the cart
       setQuantity(1);
-    } catch (error) {
+     } catch (error) {
       // Handle error, e.g., show an error message
       console.error('Error adding item to cart:', error);
-    }
+     }
   }; 
 
   if (isLoading) {
