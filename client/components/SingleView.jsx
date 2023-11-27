@@ -38,10 +38,7 @@ const SingleView = () => {
 
   const { data = {}, error, isLoading } = useFetchSingleProductQuery(productId);
 
-  //const {cart = {} }  = useFetchCartByUserQuery(userId);
-  //console.log(cart);
-  //const cartId = cart.id;
-
+  
   
   const [createCartItem] = useCreateCartItemMutation();
 
@@ -57,13 +54,13 @@ const SingleView = () => {
       const response = await createCartItem({
        productId: productId,
         quantity: quantity,
-        cartId: cartId
+        cartId: user.cart[0].id
       }).unwrap();
 
       dispatch(addCartItem(response));
 
     //   // Handle success, e.g., show a success message or update UI
-    //  console.log('Item added to cart:', response);
+     console.log('Item added to cart:', response);
 
        // Optionally reset the quantity after adding to the cart
       setQuantity(1);
