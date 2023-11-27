@@ -14,7 +14,7 @@ import { styled } from "@mui/material/styles";
 import { useCreateCartItemMutation } from "../redux/cartItemApi";
 import { useFetchSingleProductQuery } from "../redux/productsApi";
 import { useParams, useNavigate } from "react-router-dom";
-import { useDispatch ,useSelector} from "react-redux";
+import { useDispatch, useSelector ,useSelector} from "react-redux";
 import {
   TransformWrapper,
   TransformComponent,
@@ -23,26 +23,29 @@ import {
 import { FaMagnifyingGlassPlus } from "react-icons/fa6";
 import { FaMagnifyingGlassMinus } from "react-icons/fa6";
 import { GrPowerReset } from "react-icons/gr";
-
 import { useState } from "react";
-import { useFetchCartByUserQuery,useFetchCartByIdQuery } from "../redux/cartApi";
 import { addCartItem } from "../redux/cartSlice";
 
 const SingleView = () => {
   const { productId: productId } = useParams();
+  //const user = useSelector((state) => state.token.user);
+  //const userId = user.id;
+  //console.log(user);
   const [quantity, setQuantity] = useState(1);
   const user = useSelector((state) => state.token.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { data = {}, error, isLoading } = useFetchSingleProductQuery(productId);
+
+  //const {cart = {} }  = useFetchCartByUserQuery(userId);
+  //console.log(cart);
+  //const cartId = cart.id;
+
   
   const [createCartItem] = useCreateCartItemMutation();
 
   const handleAddToCart = async () => {
-   
-  
-   // const [data={},error]  = useFetchCartByIdQuery();
     try {
       // Check if productId, quantity are available
       if (!productId || !quantity ) {
@@ -54,13 +57,10 @@ const SingleView = () => {
       const response = await createCartItem({
        productId: productId,
         quantity: quantity,
-    //  //   cartItemId,
-        cartId: user.cart[0].id
-       }).unwrap();
-       
-        const result = JSON.stringify(response);
-        console.log("response---"+result);
-        dispatch(addCartItem(result));
+        cartId: cartId
+      }).unwrap();
+
+      dispatch(addCartItem(response));
 
     //   // Handle success, e.g., show a success message or update UI
     //  console.log('Item added to cart:', response);

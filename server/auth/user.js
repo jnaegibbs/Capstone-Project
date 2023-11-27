@@ -76,6 +76,7 @@ userRouter.post("/login", async (req, res, next) => {
       include: {
         profile: true,
         order: true,
+        cart: true
       },
     });
     console.log(user);

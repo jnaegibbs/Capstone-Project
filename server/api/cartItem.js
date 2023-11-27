@@ -41,25 +41,32 @@ cartItemRouter.get("/:cartItemId", async (req, res, next) => {
 
 // POST /api/pets/cartItem
 cartItemRouter.post("/", async (req, res, next) => {
-   try {
-       const { productId, quantity, cartId } = req.body;
-       const newCartItem = await prisma.cartItem.create({
-           data: {
-            
-               product: {connect: {id: Number(productId)}},
-               cart: {connect: {id: Number(cartId)}},
-               quantity: Number(quantity),
-           },
-       });
+  try {
+    const  {quantity}  = req.body;
+    const productId = parseInt(req.body.productId, 10);
+    const cartId = parseInt(req.body.cartId, 10);
+    if (isNaN(cartId)) {
+        console.error('Invalid cartId provided');
+        // Handle the error or return an appropriate response
+        return res.status(400).json({ error: 'Invalid cartId provided' });
+      }
+    console.log("Parsed Product ID:", productId);
+    console.log("Parsed Cart ID:", cartId);
+   // const { productId, quantity, cartId } = req.body;
 
+    const newCartItem = await prisma.cartItem.create({
+      data: {
+        product: { connect: { id: productId } },
+        cart: { connect: { id: Number(cartId) } }, 
+        quantity: Number(quantity),
+      },
+    });
 
-       res.status(201).json({ newCartItem });
-
-
-   } catch (error) {
-       next(error)
-   }
-})
+    res.status(201).json({ newCartItem });
+  } catch (error) {
+    next(error);
+  }
+});
 
 
 // PUT /api/pets/cartItem/:cartItemId
