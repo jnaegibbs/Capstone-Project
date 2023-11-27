@@ -43,12 +43,11 @@ cartItemRouter.get("/:cartItemId", async (req, res, next) => {
 cartItemRouter.post("/", async (req, res, next) => {
    try {
        const { productId, quantity, cartId } = req.body;
-     
        const newCartItem = await prisma.cartItem.create({
            data: {
             
-               product: {connect: {id: productId}},
-               cart: {connect: {id: cartId}},
+               product: {connect: {id: Number(productId)}},
+               cart: {connect: {id: Number(cartId)}},
                quantity: Number(quantity),
            },
        });

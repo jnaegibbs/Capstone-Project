@@ -14,6 +14,20 @@ cartRouter.get("/", async (req, res, next) => {
        next(error);
    }
 });
+// GET /api/pets/cart/:cartId
+cartRouter.get("/:cartId", async (req, res, next) => {
+    try {
+      const cart = await prisma.cart.findUnique({
+        where:{
+          id:Number(req.params.cartId)
+        }
+      });
+  
+      res.send({ cart });
+    } catch ({name,message}) {
+      next({name,message});
+    }
+  });
 
 
 // GET /api/pets/cart/:userId
@@ -22,7 +36,7 @@ cartRouter.get("/:userId", async (req, res, next) => {
 
         const userId = Number(req.params.userId);
 
-        const userCart = await prisma.cart.findMany({
+        const userCart = await prisma.cart.findUnique({
             where: {
                 userId: userId,
             },
@@ -44,6 +58,9 @@ cartRouter.get("/:cartId", async (req, res, next) => {
        const cart = await prisma.cart.findUnique({
            where: {
                id: Number(req.params.cartId)
+           },
+           include:{
+            cartItem:true
            }
        });
 
