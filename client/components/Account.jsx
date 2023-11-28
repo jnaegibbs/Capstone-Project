@@ -1,11 +1,11 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../hooks";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Typography } from "@mui/material";
 
 const Account = () => {
-  const user = useSelector((state) => state.token.user);
+  const user = useAppSelector((state) => state.token.user);
 
   console.log("user details:", user);
 
@@ -28,6 +28,8 @@ const Account = () => {
   };
 
   return (
+ <>
+ {user !== null ?
     <div>
         <br/>
         <br/>
@@ -68,7 +70,8 @@ const Account = () => {
       <TextField fullWidth label="Address" defaultValue={user.profile[0].address} />
     </Box>
 
-        </div>
+        </div>:<div>no user</div>}
+        </>
     );
 };  
 
