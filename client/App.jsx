@@ -24,7 +24,6 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path='/:productId' element={<SingleView/>}/>
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/cart" element={<Cart/>} />
           <Route path="/confirmPage" element={<Confirmation/>} />
           <Route path="/cart/:userId" element={<Cart/>}/>
           {/* Add a catch-all route */}

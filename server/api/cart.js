@@ -14,12 +14,16 @@ cartRouter.get("/", async (req, res, next) => {
        next(error);
    }
 });
+
 // GET /api/pets/cart/:cartId
 cartRouter.get("/:cartId", async (req, res, next) => {
     try {
       const cart = await prisma.cart.findUnique({
         where:{
           id:Number(req.params.cartId)
+        },
+        include:{
+            cartItem: true,
         }
       });
   
