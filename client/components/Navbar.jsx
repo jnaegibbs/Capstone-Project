@@ -11,17 +11,18 @@ import { FaPaw } from "react-icons/fa6";
 import { FaShoppingCart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useSelector ,useDispatch} from "react-redux";
+import { useAppDispatch,useAppSelector } from "../hooks";
 import { logout } from "../redux/tokenSlice";
 import theme from "./theme";
 
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const {token} = useSelector((state) => state.token);
-  const dispatch = useDispatch();
-  console.log(token);
-  const user = useSelector((state) => state.token.user);
-  console.log(user.id)
+  const {token} = useAppSelector((state) => state.token);
+  const dispatch = useAppDispatch();
+ // console.log(token);
+  const user = useAppSelector((state) => state.token.user);
+// console.log(user.id)
 
   const styles = {
     mr: 2,
@@ -34,9 +35,9 @@ const NavBar = () => {
     textDecoration: "none",
   };
 
-  const navigateToCart = () => {
-    navigate(`/cart/${user.id}`);
-  };
+  // const navigateToCart = () => {
+  //   navigate(`/cart/${user.id}`);
+  // };
 
   return (
     <>

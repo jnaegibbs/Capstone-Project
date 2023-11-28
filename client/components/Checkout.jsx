@@ -1,5 +1,5 @@
 import { Paper, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../hooks";
 import { useState } from "react";
 import { useGuestLoginMutation} from "../redux/authApi";
 
@@ -10,7 +10,7 @@ import Box from "@mui/material/Box";
 
 
 const Checkout = () => {
-  const user = useSelector((state) => state.token.user);
+  const user = useAppSelector((state) => state.token.user);
   console.log(user);
 
   const [name, setName] = useState("");

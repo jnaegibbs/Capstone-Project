@@ -14,7 +14,7 @@ import { styled } from "@mui/material/styles";
 import { useCreateCartItemMutation } from "../redux/cartItemApi";
 import { useFetchSingleProductQuery } from "../redux/productsApi";
 import { useParams, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../hooks";
 import {
   TransformWrapper,
   TransformComponent,
@@ -32,7 +32,7 @@ const SingleView = () => {
   const { productId: productId } = useParams();
   const [quantity, setQuantity] = useState(1);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { data = {}, error, isLoading } = useFetchSingleProductQuery(productId);
   

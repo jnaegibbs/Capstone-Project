@@ -1,12 +1,13 @@
 import React from "react";
 import { useFetchCartByUserQuery } from "../redux/cartApi";
 import { useSelector } from "react-redux";
+import { useAppSelector } from "../hooks";
 
 
 
 
 const Cart = () => {
-    const user = useSelector((state) => state.token.user);
+    const user = useAppSelector((state) => state.token.user);
     const { data, error, isLoading } = useFetchCartByUserQuery(user.id);
 
     if (isLoading) {
