@@ -30,8 +30,7 @@ userRouter.post("/register", async (req, res, next) => {
       },
     });
     if (userExists) {
-      res.status(403);
-      next({ name: "UserExistsError" });
+      return res.status(403).json({error: "UserExistsError"})
     }
     const user = await prisma.user.create({
       data: {
@@ -76,6 +75,7 @@ userRouter.post("/login", async (req, res, next) => {
       include: {
         profile: true,
         order: true,
+        cart: true
       },
     });
     console.log(user);
@@ -84,7 +84,7 @@ userRouter.post("/login", async (req, res, next) => {
     }
     const passwordValid = await bcrypt.compare(password, user.password);
     if (!passwordValid) {
-      return res.status(201).json({ message: "Invalid password" });
+      return res.status(401).json({ message: "Invalid password" });
     }
     const token = jwt.sign({ id: user.id }, JWT_SECRET);
     delete user.password;

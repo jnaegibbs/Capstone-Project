@@ -61,16 +61,17 @@ app.use("/api",require('./api'))
 
 // Error handling middleware
 app.use((error, req, res, next) => {
-    console.error('SERVER ERROR: ', error);
-    if(res.statusCode < 400) {
+    console.log('SERVER ERROR: ', error);
+    
         res.status(500);
-    }
+
     res.send({
         error: error.message,
         name: error.name,
         message: error.message,
         table: error.table,
     });
+    next(error); 
 });
 app.get('*', (req, res, next) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'));
