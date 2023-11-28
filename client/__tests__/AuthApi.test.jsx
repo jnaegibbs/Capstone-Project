@@ -1,4 +1,4 @@
-import tokenReducer, { logout } from "../redux/tokenSlice";
+//import tokenReducer, { logout } from "../redux/tokenSlice";
 import localStorageMock from '../../mocks/localStorageMock'
 
 test("should return the initial state", () => {
