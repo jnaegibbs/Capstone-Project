@@ -18,12 +18,12 @@ import theme from "./theme";
 const NavBar = () => {
   const navigate = useNavigate();
   const { token } = useSelector((state) => state.token);
+  const user = useSelector((state) => state.token.user);
   const dispatch = useDispatch();
   console.log(token);
 
 
-  const user = useSelector((state) => state.token.user);
-  console.log(user.id)
+  // console.log(user.id)
 
 
   const styles = {
@@ -38,9 +38,9 @@ const NavBar = () => {
   };
 
 
-  const navigateToCart = () => {
-    navigate(`/cart/${user.id}`);
-  };
+  // const navigateToCart = () => {
+  //   navigate(`/cart/${user.id}`);
+  // };
 
 
   return (
@@ -83,16 +83,7 @@ const NavBar = () => {
                   >
                     Logout
                   </Typography>
-
-                  <Typography
-                    className="button"
-                    variant="h6"
-                    noWrap
-                    component="a"
-                    sx={styles}
-                  >
-                    Orders
-                  </Typography>
+            
                   <Typography
                     className="button"
                     variant="h6"
@@ -103,6 +94,8 @@ const NavBar = () => {
                   >
                     Account
                   </Typography>
+
+                  {user.isAdmin && 
                   <Typography
                     className="button"
                     variant="h1"
@@ -113,12 +106,13 @@ const NavBar = () => {
                   >
                     Admin
                   </Typography>
+                  }
                 </>
               )}
               <IconButton color="inherit" size="large">
                 <FaShoppingCart
 
-                  onClick={() => { navigateToCart() }}
+                  // onClick={() => { navigateToCart() }}
 
                   className="icon-button"
                 />
