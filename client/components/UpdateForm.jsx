@@ -1,5 +1,6 @@
 import { useUpdateInventoryMutation } from "../redux/inventoryApi";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import React from "react";
 
 import TextField from "@mui/material/TextField";
@@ -9,6 +10,7 @@ import Box from "@mui/material/Box";
 
 
 const InventoryForm = () => {
+    const navigate = useNavigate();
     const [updateInventory] = useUpdateInventoryMutation();
     const [inventory, setInventory] = useState({
         productId: "",
@@ -61,6 +63,15 @@ const styles = {
         
   <div> 
         <>
+
+        <Button 
+        onClick={() => navigate('/admin')}
+        variant="contained"
+        color="primary">BACK
+        </Button>
+
+        <br /> 
+
         <form onSubmit={onSubmit}>
         <Box p={3} sx={{ textAlign: 'center' }}>
         <Typography sx={styles}>
