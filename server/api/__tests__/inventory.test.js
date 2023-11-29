@@ -150,7 +150,7 @@ describe("DELETE /api/pets/inventory/:inventoryId", () => {
             .delete("/api/pets/inventory/77")
             .set('Authorization', `Bearer ${mockToken}`);
 
-        expect(response.status).toBe(200);
+        expect(response.status).toBe(204);
         expect(response.body.deleteInventory).toEqual();
     });
 
