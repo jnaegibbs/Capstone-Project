@@ -45,6 +45,7 @@ async function onSubmit(e) {
 }
 const styles = {
     mr: 2,
+    mt: 5,
     alignItems: "center",
     fontFamily: "monospace",
     fontWeight: 900,
@@ -84,11 +85,35 @@ const styles = {
         <br />
 
         <TextField
-        label="Enter Name"
+        label="Enter Product Name"
         value={inventory.product.name}
         onChange={(e) =>   setInventory({
             ...inventory,
             product: { ...inventory.product, name: e.target.value },
+          })}>
+        </TextField>
+
+        <br/>
+        <br/>
+
+        <TextField
+        label="Enter Category Name"
+        value={inventory.product.categoryName}
+        onChange={(e) =>   setInventory({
+            ...inventory,
+            product: { ...inventory.product, categoryName: e.target.value },
+          })}>
+        </TextField>
+
+        <br/>
+        <br/>
+
+        <TextField
+        label="Enter Pet Category"
+        value={inventory.product.petCategory}
+        onChange={(e) =>   setInventory({
+            ...inventory,
+            product: { ...inventory.product, petCategory: e.target.value },
           })}>
         </TextField>
 
