@@ -35,4 +35,12 @@ describe("<Login/>", () => {
     const login = renderWithProviders(<Login />);
     expect(login).not.toBe(null);
   });
+
+  // login button rendered correctly
+
+  // register button rendered correctly with register link
+
+  // continue button rendered correctly
+
+  // successful login - verify if token is present
 });
