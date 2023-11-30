@@ -3,8 +3,9 @@ const express = require("express");
 const morgan = require("morgan");
 const app = express();
 const jwt = require('jsonwebtoken');
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+const prisma = require('../server/db/client')
+
+
 
 
 const cors = require('cors');
