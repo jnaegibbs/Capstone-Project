@@ -89,6 +89,25 @@ cartItemRouter.put("/:cartItemId", async (req, res, next) => {
    }
 })
 
+// PATCH /api/pets/cartItem/:cartItemId
+cartItemRouter.patch("/:cartItemId", async (req, res, next) => {
+    try {
+        const { quantity } = req.body;
+        const updateCartItem = await prisma.cartItem.update({
+            where: {
+                id: Number(req.params.cartItemId)
+            },
+            data: {
+                quantity: Number(quantity)
+            }
+        });
+
+        res.status(200).send({ updateCartItem });
+    } catch (error) {
+        next(error);
+    }
+});
+
 
 
 
