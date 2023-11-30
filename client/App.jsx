@@ -10,6 +10,7 @@ import SingleView from "./components/SingleView";
 import Cart from './components/Cart';
 import Checkout from "./components/Checkout";
 import Confirmation from "./components/Confirmation";
+import GuestLogin from "./components/GuestLogin";
 
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/confirmPage" element={<Confirmation/>} />
           <Route path="/cart/:userId" element={<Cart/>}/>
+          <Route path="/guestlogin" element={<GuestLogin/>} />
           {/* Add a catch-all route */}
           <Route path="*" element={<h1>Page not found</h1>} />
         </Routes>

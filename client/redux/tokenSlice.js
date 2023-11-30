@@ -5,8 +5,7 @@ const tokenSlice = createSlice({
   name: "token",
   initialState: {
     token: localStorage.getItem("token") || null,
-    user: JSON.parse(localStorage.getItem("profileDetails")) || null,
-    //user:localStorage.getItem('profileDetails') || null
+    user:localStorage.getItem('profileDetails') || null
   },
   reducers: {
     logout: (state, { payload }) => {
@@ -29,6 +28,14 @@ const tokenSlice = createSlice({
 
     builder.addMatcher(
       authApi.endpoints.login.matchFulfilled,
+      (state, { payload }) => {
+        localStorage.setItem("profileDetails", JSON.stringify(payload.user));
+        localStorage.setItem("token", payload.token);
+        return { token: payload.token, user: payload.user };
+      }
+    );
+    builder.addMatcher(
+      authApi.endpoints.guestLogin.matchFulfilled,
       (state, { payload }) => {
         localStorage.setItem("profileDetails", JSON.stringify(payload.user));
         localStorage.setItem("token", payload.token);
