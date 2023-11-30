@@ -47,8 +47,8 @@ const GuestLogin = () => {
     navigate("/");
   };
 
-  const redirectToSomeOtherPage = () => {
-    navigate("/some-other-page");
+  const redirectToCheckout = () => {
+    navigate("/checkout");
   };
 
   // Move the setFormSubmitted outside of the submitRegister function
@@ -163,14 +163,14 @@ const GuestLogin = () => {
               onClick={redirectToHomePage}
               sx={{ marginRight: 2 }}
             >
-              Home
+              Continue Shopping
             </Button>
             <Button
               variant="contained"
               color="primary"
-              onClick={redirectToSomeOtherPage}
+              onClick={redirectToCheckout}
             >
-              Other Page
+              Checkout Now
             </Button>
           </div>
         )}
