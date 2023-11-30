@@ -5,7 +5,7 @@ import { useState } from "react";
 import {useGetInventoryQuery} from "../redux/inventoryApi";
 import { useDeleteInventoryMutation } from "../redux/inventoryApi";
 import {useAddInventoryMutation} from "../redux/inventoryApi";
-import { useUpdateInventoryMutation} from "../redux/inventoryApi";
+
 
 import SearchBar from "./SearchBar";
 
@@ -16,21 +16,20 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+
 
 import { DataGrid } from '@mui/x-data-grid';
 import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
 
 import Box from '@mui/joy/Box';
 import Chip from '@mui/joy/Chip';
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 const Admin = () => {
     const { data, error, isLoading } = useGetInventoryQuery();
     const [DeleteInventory] = useDeleteInventoryMutation()
     const [CreateInventory] = useAddInventoryMutation();
-    const [UpdateInventory] =  useUpdateInventoryMutation();
     const user = useSelector((state) => state.token.user);
     console.log("user details:", user);
   
@@ -38,8 +37,10 @@ const Admin = () => {
     const [showData, setShowData] = useState(false);
     const [showUsers, setShowUsers] = useState(false);
     const [searchProduct, setSearchProduct] = useState("");
-    const [updateFormOpen, setUpdateFormOpen] = useState(false);
-    const [updateData, setUpdateData] = useState('')
+
+
+    const navigate = useNavigate();
+
 
   
   // <------------- HIDE/VIEW TOGGLE----------------->
@@ -65,7 +66,7 @@ const Admin = () => {
 
 
 
-// <------------------------------ CREATE, DELETE, UPDATE INVENTORY ---------------------------------------->
+// <------------------------------ CREATE, DELETEINVENTORY ---------------------------------------->
 //CREATE 
 const handleCreate = async (inventory) => {
    
@@ -91,36 +92,6 @@ const handleCreate = async (inventory) => {
     }
    
   }
-
-
-//UPDATE
-const handleUpdate = async (inventory) => {
-  try{
-    const result = await UpdateInventory({
-      inventory,
-      updatedData: updateData
-    })
-    console.log("Inventory updated", result)
-    window.alert("Inventory successfully updated!")
-    setUpdateFormOpen(false)
-
-  }catch(error){
-    console.error("Error updating inventory", error)
-  }
-}
-
-const styles = {
-  mr: 2,
-  alignItems: "center",
-  fontFamily: "monospace",
-  fontWeight: 900,
-  fontSize: "1.5rem",
-  letterSpacing: ".1rem",
-  color: "inherit",
-  textDecoration: "none",
-};
-
-
 
 // <------------------------------INVENTORY TABLE DATA--------------------------------->
 
@@ -148,7 +119,6 @@ const styles = {
     price: inventory.product.price
   }))
  
-  // <---------------------------- TABLE DATA END --------------------------------------->
   
   return(
 
@@ -156,47 +126,7 @@ const styles = {
             <Typography margin={10} fontFamily={"monospace"} fontWeight={500} fontSize={30}>Hi there, {user.profile[0].name}!</Typography>
      
 
-{/* <-------------------------------- UPDATE FORM  --------------------------------------->  */}
-
-     {updateFormOpen && 
-  <div> 
-        <>
-        <Box p={3} sx={{ textAlign: 'center' }}>
-        <Typography sx={styles}>
-        UPDATE INVENTORY DETAILS 
-        </Typography>
-        <br/>
-        <TextField
-        label="Enter ProductID"
-        value={updateData.product}
-        onChange={(e) => setUpdateData({...updateData, product: e.target.value })}>
-        </TextField>
-
-        <br/>
-        <br/>
-        <TextField 
-        label="Enter Quantity"
-        value={updateData.quantity}
-        onChange={(e) => setUpdateData({...updateData, quantity: e.target.value})}>
-        </TextField>
-
-        <br /> 
-        <br />
-
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => handleUpdate(inventory)}
-        >Submit</Button>
-        
-        <br/>
-        <br />
-        </Box>
-        </>
-</div>
-}
-
-
+    
 {/* <------------------------ SEARCH BAR &  VIEW INVENTORY LIST---------------------------------------------> */}
 
       <IconButton margin={10} variant="outlined" size="large" onClick={handleInventory}>
@@ -250,15 +180,7 @@ const styles = {
       <Chip
         variant="outlined"
         color="primary"
-        onClick={() => {setUpdateFormOpen(true), setUpdateData({
-          productId: inventory.id,
-          quantity: inventory.quantity,
-          name: inventory.product.name,
-          price: inventory.product.price,
-          categoryName: inventory.product.categoryName,
-          petCategory: inventory.product.petCategory
-        })
-      }}
+        onClick={() => navigate("/updateForm")}
       >
         Update
       </Chip>
