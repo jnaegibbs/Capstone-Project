@@ -4,6 +4,15 @@ const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8080/",
+    prepareHeaders: (headers, {getState} )=> {
+      const token = getState().token.token
+      console.log(token)
+      if (token) {
+          headers.set("authorization", `Bearer ${token}`)
+      }
+      return headers
+  }
+
   }),
 
   endpoints: (builder) => ({

@@ -4,6 +4,9 @@ import { useState } from "react";
 
 import {useGetInventoryQuery} from "../redux/inventoryApi";
 import { useDeleteInventoryMutation } from "../redux/inventoryApi";
+import {useAddInventoryMutation} from "../redux/inventoryApi";
+
+
 import SearchBar from "./SearchBar";
 
 import {Typography, Grid} from '@mui/material'
@@ -20,20 +23,28 @@ import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
 
 import Box from '@mui/joy/Box';
 import Chip from '@mui/joy/Chip';
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 const Admin = () => {
     const { data, error, isLoading } = useGetInventoryQuery();
-    const [deleteInventory] = useDeleteInventoryMutation()
+    const [DeleteInventory] = useDeleteInventoryMutation()
+    const [CreateInventory] = useAddInventoryMutation();
     const user = useSelector((state) => state.token.user);
     console.log("user details:", user);
   
     const [showInventory, setShowInventory] = useState(false);
-    const [showData, setShowData] = useState(false)
+    const [showData, setShowData] = useState(false);
+    const [showUsers, setShowUsers] = useState(false);
     const [searchProduct, setSearchProduct] = useState("");
+
+
+    const navigate = useNavigate();
+
+
   
-  
-    const handleClick = () => {
+  // <------------- HIDE/VIEW TOGGLE----------------->
+    const handleInventory = () => {
       setShowInventory(!showInventory)
     }
 
@@ -41,6 +52,9 @@ const Admin = () => {
       setShowData(!showData)
     }
    
+    const handleUsers = () => {
+      setShowUsers(!showUsers)
+    }
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -51,19 +65,35 @@ const Admin = () => {
   }
 
 
-//handle Delete
-  const Delete = async (inventoryId) => {
-    try{
-      await deleteInventory({id: inventoryId})
 
+// <------------------------------ CREATE, DELETEINVENTORY ---------------------------------------->
+//CREATE 
+const handleCreate = async (inventory) => {
+   
+  try {
+    const {productId, quantity} = inventory
+    const result = await CreateInventory({productId, quantity})
+    console.log("Inventory to create:", result)
+    window.alert("New inventory successfully created!")
+  }catch(error) {
+    console.error("Error creating inventory", error)
+  }
+    
+}
+
+//DELETE 
+  const handleDelete = async (inventoryId) => {
+    try{
+      const result = await DeleteInventory(inventoryId)
+      console.log("Inventory to delete:", result)
+      window.alert('Inventory successfully deleted!');
     }catch(error){
       console.error("Error deleting inventory", error)
     }
    
   }
 
-  //handle Update - PUT
-  //handle Create - POST 
+// <------------------------------INVENTORY TABLE DATA--------------------------------->
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
@@ -88,30 +118,34 @@ const Admin = () => {
     petCategory: inventory.product.petCategory,
     price: inventory.product.price
   }))
-  
+ 
   
   return(
 
     <div>
             <Typography margin={10} fontFamily={"monospace"} fontWeight={500} fontSize={30}>Hi there, {user.profile[0].name}!</Typography>
-      <IconButton margin={10} variant="outlined" size="large" onClick={handleClick}>
+     
+
+    
+{/* <------------------------ SEARCH BAR &  VIEW INVENTORY LIST---------------------------------------------> */}
+
+      <IconButton margin={10} variant="outlined" size="large" onClick={handleInventory}>
         {showInventory ? 'Hide Inventory' : 'View Inventory'}
         <Inventory2OutlinedIcon margin={10}/>
       </IconButton>
 
-
       {showInventory && (
       <>
        <SearchBar setSearchProduct={setSearchProduct} />
+       <br /> 
+       <br />
 
+    <Grid container spacing={2}>
     {filteredData.map((inventory) => (
-      <Grid
-      container
-      direction="column"
-      justifyContent="flex-start"
-      alignItems="flex-start"
-    >
-    <Card key={inventory.id}variant="elevation" sx={{ width: 300, mb: 5, p: 1 }}>
+     
+    <Grid item key={inventory.id} xs={12} sm={6} md={4} lg={3}>
+    <Card key={inventory.id}variant="elevation" sx={{ width: 300, mb: 5, p: 1, mx: "auto"  }}>
+  
       <CardMedia 
       />
       <CardContent>
@@ -131,47 +165,58 @@ const Admin = () => {
         </Typography>
       </CardContent>
       <CardActions>
+
   <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
       <Chip
         variant="outlined"
         color="primary"
-        onClick={() => Update(inventory.id)}
-      >
-        Update
-      </Chip>
-  </Box>
-  <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-      <Chip
-        variant="outlined"
-        color="primary"
-        onClick={() => Create(inventory.id)}
+        onClick={() => handleCreate(inventory)}
       >
         Create
       </Chip>
   </Box>
+
+  <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+      <Chip
+        variant="outlined"
+        color="primary"
+        onClick={() => navigate("/updateForm")}
+      >
+        Update
+      </Chip>
+  </Box>
+
   <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
       <Chip
         variant="outlined"
         color="danger"
-        onClick={() => Delete(inventory.id)}
+        onClick={() => handleDelete(inventory.id)}
+
       >
         Delete
       </Chip>
   </Box>
+
       </CardActions>
     </Card>
     </Grid>
     ))}
+    </Grid>
     </>
       )}
   
 <br /> 
+
+
+{/* <------------------------------------VIEW INVENTORY DATA---------------------------------------------> */}
 <>
 <IconButton margin={10} variant="outlined" size="large" onClick={handleData}>
   {showData ? 'Hide Inventory Data' : 'View Inventory Data'}
   <TableChartOutlinedIcon margin={10}/>
 </IconButton>
 </>
+
+
 {showData && (
 
 <DataGrid
@@ -188,7 +233,20 @@ const Admin = () => {
 
 )}
 
+{/* <------------------------------------VIEW USERS---------------------------------------------> */}
+<br />
+<IconButton margin={10} variant="outlined" size="large" onClick={handleUsers}>
+        {showUsers ? 'Hide Users' : 'View Users'}
+        <Inventory2OutlinedIcon margin={10}/>
+      </IconButton>
 
+
+{/* //TODO: CALL GET ALL USERS API --> No query for this yet */}
+{/* {showUsers && (
+
+
+
+)} */}
 
 </div>       
 )}
