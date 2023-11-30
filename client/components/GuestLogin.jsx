@@ -16,7 +16,7 @@ const GuestLogin = () => {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); "ne"
   const [guestLogin, { error }] = useGuestLoginMutation();
   const password = "guestpassword";
   const submitRegister = async (event) => {
