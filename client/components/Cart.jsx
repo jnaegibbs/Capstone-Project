@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { useFetchCartByUserQuery, useFetchCartByIdQuery } from "../redux/cartApi";
 import { useFetchSingleProductQuery } from "../redux/productsApi";
-import { useUpdateCartItemMutation } from "../redux/cartItemApi";
+import { useUpdateCartItemMutation, useDeleteCartItemMutation } from "../redux/cartItemApi";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 
@@ -57,6 +57,20 @@ const Cart = () => {
 
     const [increaseQuantity] = useUpdateCartItemMutation();
     const [decreaseQuantity] = useUpdateCartItemMutation();
+    const [deleteCartItem] = useDeleteCartItemMutation();
+
+    const handleDeleteItem = async (cartItemId) => {
+        try {
+         
+            const response = await deleteCartItem(cartItemId).unwrap();
+    
+            console.log('Item deleted from cart:', response);
+            setIsUpdated(true);
+
+        } catch (error) {
+            console.error('Error deleting item from cart:', error);
+        }
+    }
 
     const handleIncreaseQuantity = async (cartItemId) => {
         try {
@@ -69,7 +83,7 @@ const Cart = () => {
 
             console.log('Item quantity updated in cart:', response);
 
-            window.location.reload();
+            setIsUpdated(true);
 
         } catch (error) {
             console.error('Error updating item quantity in cart:', error);
@@ -87,12 +101,18 @@ const Cart = () => {
 
             console.log('Item quantity updated in cart:', response);
 
-            window.location.reload();
+            setIsUpdated(true);
 
         } catch (error) {
             console.error('Error updating item quantity in cart:', error);
         }
     };
+
+    useEffect(() => {
+        if (isUpdated) {
+            window.location.reload();
+        }
+    }, [isUpdated]);
 
 
     return (
@@ -114,23 +134,32 @@ const Cart = () => {
                                     <CardContent sx={{ maxHeight: 200 }}>
                                         <Button
                                             variant="contained"
-                                            sx={{ bgcolor: "#7071E8", padding: 1.5, width: 100 }}
+                                            sx={{ bgcolor: "#4CAF50", padding: .5, width: 45 }}
                                             size="large"
                                             onClick={() => handleIncreaseQuantity(item.id)}
                                         >
                                             +
                                         </Button>
-                                        <Typography gutterBottom variant="h6" component="div">
-                                            <p>Quantity: {item.quantity}</p>
-                                        </Typography>
                                         <Button
                                             variant="contained"
-                                            sx={{ bgcolor: "#7071E8", padding: 1.5, width: 100 }}
+                                            sx={{ bgcolor: "#FF5733", padding: .5, width: 45 }}
                                             size="large"
                                             onClick={() => handleDecreaseQuantity(item.id)}
                                         >
                                             -
                                         </Button>
+                                        <Typography gutterBottom variant="h6" component="div"   sx={{ margin: '10px 0' }}>
+                                            Quantity: {item.quantity}
+                                        </Typography>
+                                        <Button
+                                            variant="contained"
+                                            sx={{ bgcolor: "#7071E8", padding: 1, width: 120 }}
+                                            size="medium"
+                                            onClick={() => handleDeleteItem(item.id)}
+                                        >
+                                            Remove Item
+                                        </Button>
+                                     
                                     </CardContent>
                                 </Card>
                             ))}
