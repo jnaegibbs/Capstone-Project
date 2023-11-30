@@ -14,6 +14,7 @@ import {
 import { useFetchSingleProductQuery } from "../redux/productsApi";
 import { useUpdateCartItemMutation } from "../redux/cartItemApi";
 import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 
 const ProductDetails = ({ productId }) => {
     const { data: productData, error: productError, isLoading: productLoading } = useFetchSingleProductQuery(productId);
@@ -51,6 +52,8 @@ const ProductDetails = ({ productId }) => {
 
 const Cart = () => {
     const user = useSelector((state) => state.token.user);
+    const [isUpdated, setIsUpdated] = useState(false);
+
     const { data: userCartData, error: userCartError, isLoading: userCartLoading } = useFetchCartByUserQuery(user.id);
 
     const { data: cartByIdData, error: cartByIdError, isLoading: cartByIdLoading } = useFetchCartByIdQuery(userCartData?.cart?.id || null);
@@ -58,43 +61,42 @@ const Cart = () => {
     const [increaseQuantity] = useUpdateCartItemMutation();
     const [decreaseQuantity] = useUpdateCartItemMutation();
 
-    const handleIncreaseQuantity = async () => {
+    const handleIncreaseQuantity = async (cartItemId) => {
         try {
-
-
             const response = await increaseQuantity({
-                cartItemId: userCartData.cart.cartItem[0].id,
+                cartItemId,
                 updatedCartItem: {
-                    quantity: userCartData.cart.cartItem[0].quantity + 1,
+                    quantity: userCartData.cart.cartItem.find((item) => item.id === cartItemId).quantity + 1,
                 },
             }).unwrap();
 
             console.log('Item quantity updated in cart:', response);
 
             window.location.reload();
+
         } catch (error) {
             console.error('Error updating item quantity in cart:', error);
         }
     };
 
-    const handleDecreaseQuantity = async () => {
+    const handleDecreaseQuantity = async (cartItemId) => {
         try {
-
-
             const response = await decreaseQuantity({
-                cartItemId: userCartData.cart.cartItem[0].id,
+                cartItemId,
                 updatedCartItem: {
-                    quantity: userCartData.cart.cartItem[0].quantity - 1,
+                    quantity: userCartData.cart.cartItem.find((item) => item.id === cartItemId).quantity - 1,
                 },
             }).unwrap();
 
             console.log('Item quantity updated in cart:', response);
 
             window.location.reload();
+
         } catch (error) {
             console.error('Error updating item quantity in cart:', error);
         }
     };
+
 
     return (
         <>
@@ -117,7 +119,7 @@ const Cart = () => {
                                             variant="contained"
                                             sx={{ bgcolor: "#7071E8", padding: 1.5, width: 100 }}
                                             size="large"
-                                            onClick={handleIncreaseQuantity}
+                                            onClick={() => handleIncreaseQuantity(item.id)}
                                         >
                                             +
                                         </Button>
@@ -128,7 +130,7 @@ const Cart = () => {
                                             variant="contained"
                                             sx={{ bgcolor: "#7071E8", padding: 1.5, width: 100 }}
                                             size="large"
-                                            onClick={handleDecreaseQuantity}
+                                            onClick={() => handleDecreaseQuantity(item.id)}
                                         >
                                             -
                                         </Button>
