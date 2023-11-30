@@ -14,7 +14,7 @@ import { styled } from "@mui/material/styles";
 import { useCreateCartItemMutation } from "../redux/cartItemApi";
 import { useFetchSingleProductQuery } from "../redux/productsApi";
 import { useParams, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector} from "react-redux";
+import { useAppDispatch,useAppSelector } from "../hooks";
 import {
   TransformWrapper,
   TransformComponent,
@@ -28,13 +28,10 @@ import { addCartItem } from "../redux/cartSlice";
 
 const SingleView = () => {
   const { productId: productId } = useParams();
-  //const user = useSelector((state) => state.token.user);
-  //const userId = user.id;
-  //console.log(user);
   const [quantity, setQuantity] = useState(1);
-  const user = useSelector((state) => state.token.user);
+  const user = useAppSelector((state) => state.token.user);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { data = {}, error, isLoading } = useFetchSingleProductQuery(productId);
 
@@ -43,10 +40,15 @@ const SingleView = () => {
   const [createCartItem] = useCreateCartItemMutation();
 
   const handleAddToCart = async () => {
-    try {
+    try { 
       // Check if productId, quantity are available
       if (!productId || !quantity ) {
         console.error('Product or quanitity is missing.');
+        return;
+      }
+      if (!user) {
+        // Redirect to guest login page if not logged in
+        navigate('/guestlogin');
         return;
       }
    
@@ -68,7 +70,7 @@ const SingleView = () => {
       // Handle error, e.g., show an error message
       console.error('Error adding item to cart:', error);
      }
-  }; 
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -99,10 +101,36 @@ const SingleView = () => {
     );
   };
 
-  const handleBuyNow = () =>{
-    // todo : add the item to the cart 
-    navigate('/checkout');
-  }
+  const handleBuyNow = async () =>{
+    try { 
+      if (!productId || !quantity ) {
+        console.error('Product or quanitity is missing.');
+        return;
+      }
+      if (!user) {
+        navigate('/guestlogin');
+        return;
+      }
+      const response = await createCartItem({
+       productId: productId,
+        quantity: quantity,
+        cartId: user.cart[0].id
+      }).unwrap();
+
+      dispatch(addCartItem(response));
+
+    //   // Handle success, e.g., show a success message or update UI
+     console.log('Item added to cart:', response);
+
+       // Optionally reset the quantity after adding to the cart
+      setQuantity(1);
+     } catch (error) {
+      // Handle error, e.g., show an error message
+      console.error('Error adding item to cart:', error);
+     }
+
+    navigate('/guestlogin');
+  };
 
   return (
     <Paper elevation={0} sx={{ width: "80%", m: "2% 10%" }}>
