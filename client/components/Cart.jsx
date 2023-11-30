@@ -1,5 +1,6 @@
 import React from "react";
 import {
+    cart,
     Typography,
     Paper,
     Card,
@@ -169,7 +170,6 @@ const Cart = () => {
             </Paper>
         </>
     );
-};
 
 
 

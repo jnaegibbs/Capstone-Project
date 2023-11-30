@@ -99,7 +99,6 @@ userRouter.post("/guest", async (req, res, next) => {
   try {
     const { username, name, password, isAdmin, email, phone, address } =
       req.body;
-    // const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
 
     const userExists = await prisma.profile.findUnique({
       where: {
@@ -108,7 +107,7 @@ userRouter.post("/guest", async (req, res, next) => {
     });
     if (userExists) {
       res.send(userExists);
-    } else {
+    }
       const user = await prisma.user.create({
         data: {
           username,
@@ -132,12 +131,12 @@ userRouter.post("/guest", async (req, res, next) => {
           cart: true
         },
       });
+      const token = jwt.sign({ id: user.id }, JWT_SECRET);
       console.log(user);
-      // const token = jwt.sign({ id: user.id }, JWT_SECRET);
       // delete user.password;
       // res.status(201).send({ user, token });
-      res.status(201).send({ user });
-    }
+      res.status(201).send({ user, token });
+    
   } catch (error) {
     next(error);
   }

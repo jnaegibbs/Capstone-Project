@@ -3,6 +3,10 @@ const express = require("express");
 const morgan = require("morgan");
 const app = express();
 const jwt = require('jsonwebtoken');
+const prisma = require('../server/db/client')
+
+
+
 
 const cors = require('cors');
 // Enable CORS for all routes
@@ -25,13 +29,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../dist')))
 
 
-app.use((req, res, next) => {
+app.use( async (req, res, next) => {
     const auth = req.headers.authorization;
     const token = auth?.startsWith("Bearer ") ? auth.slice(7) : null;
 
     try {
       if (token) {
-        req.user = jwt.verify(token, process.env.JWT_SECRET);
+        const {id} = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await prisma.user.findUnique({
+          where: {
+            id
+          }
+        })
+        req.user = user 
       }else {
           req.user = null
         }
