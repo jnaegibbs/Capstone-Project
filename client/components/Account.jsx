@@ -3,11 +3,13 @@ import { useAppSelector } from "../hooks";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Typography } from "@mui/material";
+import Login from "./Login";
+import { selectUser } from "../redux/tokenSlice";
 
 const Account = () => {
   const user = useAppSelector((state) => state.token.user);
-
-  console.log("user details:", user);
+ 
+  console.log("user:", user);
 
   const styles = {
     mr: 2,
@@ -28,51 +30,65 @@ const Account = () => {
   };
 
   return (
- <>
- {user !== null ?
-    <div>
-        <br/>
-        <br/>
-        <Typography sx={styles}>
-        BASIC INFORMATION
-        </Typography>
-        <br /> 
-        <br /> 
-         <Box
-      sx={styles2}
-    >
-      <TextField fullWidth label="Name" defaultValue={user.profile[0].name} />
-    </Box>
-    <br /> 
+    <>
+      {user !== (null && undefined) ? (
+        <div>
+          <br />
+          <br />
+          <Typography sx={styles}>BASIC INFORMATION</Typography>
+          <br />
+          <br />
+          <Box sx={styles2}>
+            <TextField
+              fullWidth
+              label="Name"
+              defaultValue={user.profile[0].name}
+            />
+          </Box>
+          <br />
 
-      <Box sx={styles2}>
-        <TextField fullWidth label="Username" defaultValue={user.username} />
-      </Box>
-      <br />
+          <Box sx={styles2}>
+            <TextField
+              fullWidth
+              label="Username"
+              defaultValue={user.username}
+            />
+          </Box>
+          <br />
 
-    <Box
-       sx={styles2}
-    >
-      <TextField fullWidth label="Email" defaultValue={user.profile[0].email} />
-    </Box>
-    <br/>
+          <Box sx={styles2}>
+            <TextField
+              fullWidth
+              label="Email"
+             defaultValue={user.profile[0].email}
+            />
+          </Box>
+          <br />
 
-    <Box
-       sx={styles2}
-    >
-      <TextField fullWidth label="Phone Number" defaultValue={user.profile[0].phoneNumber} />
-    </Box>
-    <br/>
+          <Box sx={styles2}>
+            <TextField
+              fullWidth
+              label="Phone Number"
+              defaultValue={user.profile[0].phoneNumber}
+            />
+          </Box>
+          <br />
 
-    <Box
-       sx={styles2}
-    >
-      <TextField fullWidth label="Address" defaultValue={user.profile[0].address} />
-    </Box>
-
-        </div>:<div>no user</div>}
-        </>
-    );
-};  
+          <Box sx={styles2}>
+            <TextField
+              fullWidth
+              label="Address"
+              defaultValue={user.profile[0].address}
+            />
+          </Box>
+        </div>
+      ) : (
+        <div>
+          <Login />
+        </div>
+      )}
+    </>
+  );
+};
 
 export default Account;

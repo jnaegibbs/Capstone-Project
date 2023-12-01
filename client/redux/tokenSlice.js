@@ -5,7 +5,7 @@ const tokenSlice = createSlice({
   name: "token",
   initialState: {
     token: localStorage.getItem("token") || null,
-    user:localStorage.getItem('profileDetails') || null
+    user: JSON.parse(localStorage.getItem("profileDetails")) || null
   },
   reducers: {
     logout: (state, { payload }) => {
@@ -46,4 +46,7 @@ const tokenSlice = createSlice({
 });
 
 export default tokenSlice.reducer;
+export const selectUser = state => state.token.user;
+export const selectUserWithToken = state => state.token;
+
 export const { logout } = tokenSlice.actions;
