@@ -8,9 +8,14 @@ import {
     Button
 } from "@mui/material";
 import {
-  useFetchCartByUserQuery,
-  useFetchCartByIdQuery,
-} from "../redux/cartApi";
+    Typography,
+    Paper,
+    Card,
+    CardContent,
+    CardMedia,
+    Button
+} from "@mui/material";
+import { useFetchCartByUserQuery, useFetchCartByIdQuery } from "../redux/cartApi";
 import { useFetchSingleProductQuery } from "../redux/productsApi";
 import { useUpdateCartItemMutation, useDeleteCartItemMutation } from "../redux/cartItemApi";
 import { useSelector } from "react-redux";
