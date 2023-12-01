@@ -28,9 +28,9 @@ const NavBar = () => {
     textDecoration: "none",
   };
 
-  // const navigateToCart = () => {
-  //   navigate(`/cart/${user.id}`);
-  // };
+  const navigateToCart = () => {
+    navigate(`/cart`);
+  };
 
   return (
     <>
@@ -99,7 +99,7 @@ const NavBar = () => {
               )}
               <IconButton color="inherit" size="large">
                 <FaShoppingCart
-                  // onClick={() => { navigateToCart() }}
+                  onClick={() => { navigateToCart() }}
 
                   className="icon-button"
                 />
