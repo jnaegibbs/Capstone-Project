@@ -19,7 +19,7 @@ const cartItemApi = createApi({
     updateCartItem: builder.mutation({
       query: ({ cartItemId, updatedCartItem }) => ({
         url: `api/pets/cartItem/${cartItemId}`,
-        method: 'PUT',
+        method: 'PATCH',
         body: updatedCartItem,
       }),
     }),
