@@ -64,9 +64,9 @@ const Cart = () => {
 
     const handleDeleteItem = async (cartItemId) => {
         try {
-         
+
             const response = await deleteCartItem(cartItemId).unwrap();
-    
+
             console.log('Item deleted from cart:', response);
             setIsUpdated(true);
 
@@ -151,7 +151,7 @@ const Cart = () => {
                                         >
                                             -
                                         </Button>
-                                        <Typography gutterBottom variant="h6" component="div"   sx={{ margin: '10px 0' }}>
+                                        <Typography gutterBottom variant="h6" component="div" sx={{ margin: '10px 0' }}>
                                             Quantity: {item.quantity}
                                         </Typography>
                                         <Button
@@ -162,7 +162,7 @@ const Cart = () => {
                                         >
                                             Remove Item
                                         </Button>
-                                     
+
                                     </CardContent>
                                 </Card>
                             ))}
@@ -173,7 +173,6 @@ const Cart = () => {
         </>
     );
 };
-
 
 
 
