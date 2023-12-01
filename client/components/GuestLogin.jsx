@@ -155,19 +155,26 @@ const GuestLogin = () => {
               Login as Guest
             </Button>
           </form>
+          <br />
+          <br />
+        
           {formSubmitted && (
           <div>
             <Button
+              type="submit"
               variant="contained"
-              color="primary"
+              sx={{ bgcolor: "#7071E8", padding: "10px 15px" }}
               onClick={redirectToHomePage}
-              sx={{ marginRight: 2 }}
             >
               Continue Shopping
             </Button>
+            <br />
+            <br />
+            <br />
             <Button
+              type="submit"
               variant="contained"
-              color="primary"
+              sx={{ bgcolor: "#7071E8", padding: "10px 15px" }}
               onClick={redirectToCheckout}
             >
               Checkout Now

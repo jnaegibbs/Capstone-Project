@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 const Products = ({ petValue, categoryValue }) => {
   const { data, error, isLoading } = useFetchProductsQuery();
   const [searchProduct, setSearchProduct] = useState("");
-  const petMap = { 0: "dog", 1: "cat" };
+  const petMap = { 0: "dog", 1: "cat", 2: "smallPet" };
   const navigate = useNavigate();
   const categoryMap = {
     0: "all",
@@ -66,7 +66,10 @@ const Products = ({ petValue, categoryValue }) => {
           productData.map((product) => (
             <Card variant="elevation" sx={{ width: 300, mb: 5, p: 1 }}>
               <CardActionArea onClick={() => navigate(`/${product.id}`)}>
-                <CardMedia sx={{ height: 250 }} image={product.image} />
+                <CardMedia 
+                sx={{ height: 250, objectFit: "contain" }} 
+                component="img"
+                src={product.image} />
                 <CardContent sx={{ maxHeight: 250 }}>
                   <Typography gutterBottom variant="h6" component="div">
                     {product.name}
