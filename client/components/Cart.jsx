@@ -10,7 +10,7 @@ import {
 import { useFetchCartByUserQuery, useFetchCartByIdQuery } from "../redux/cartApi";
 import { useFetchSingleProductQuery } from "../redux/productsApi";
 import { useUpdateCartItemMutation, useDeleteCartItemMutation } from "../redux/cartItemApi";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../hooks";
 import { useState, useEffect } from "react";
 
 const ProductDetails = ({ productId }) => {
@@ -48,7 +48,8 @@ const ProductDetails = ({ productId }) => {
 };
 
 const Cart = () => {
-    const user = useSelector((state) => state.token.user);
+    const user = useAppSelector((state) => state.token.user);
+ 
     const [isUpdated, setIsUpdated] = useState(false);
 
     const { data: userCartData, error: userCartError, isLoading: userCartLoading } = useFetchCartByUserQuery(user.id);

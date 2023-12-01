@@ -27,7 +27,7 @@ const App = () => {
           <Route path='/:productId' element={<SingleView/>}/>
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/confirmPage" element={<Confirmation/>} />
-          <Route path="/cart/:userId" element={<Cart/>}/>
+          <Route path="/cart" element={<Cart/>}/>
           <Route path="/guestlogin" element={<GuestLogin/>} />
           <Route path="/updateForm" element={<UpdateForm/>}/>
           {/* Add a catch-all route */}
