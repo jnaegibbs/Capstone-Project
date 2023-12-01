@@ -11,18 +11,20 @@ import authHandlers from "../../../mocks/serverMock/authMock";
 import Account from "../../components/Account";
 import { fireEvent, screen } from "@testing-library/react";
 import { useAppSelector, useAppDispatch } from "../../hooks";
-import { testUseAppSelector } from "../../utils/test-app-selector";
+
 
 const server = setupServer(...authHandlers);
 const mockedUsedNavigate = jest.fn();
-
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useNavigate: () => mockedUsedNavigate,
 }));
 
-//jest.mock("../../hooks");
+jest.mock("../../hooks", () => ({
+  ...jest.requireActual("../../hooks"),
+  useAppSelector: jest.fn(),
+}));
 
 const user = {
   token: "token",
@@ -43,7 +45,9 @@ const user = {
     order: [{}],
     cart: [{}],
   },
+ 
 };
+
 //Enable API mocking before tests.
 beforeAll(() => server.listen());
 
@@ -55,22 +59,15 @@ afterEach(() => {
 // Disable API mocking after the tests are done.
 afterAll(() => server.close());
 
-describe("<Account/>", () => {
-  beforeEach(() => {
-    mockedUsedNavigate.mockReset();
-   
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
+describe("<Account/> before login", () => {
   test("renders the Account Component", () => {
+    useAppSelector.mockReturnValue(null);
     const account = renderWithProviders(<Account />);
     expect(account).not.toBe(null);
   });
 
   test("render and display the login page if user not logged In", () => {
+    useAppSelector.mockReturnValue(null);
     renderWithProviders(<Account />);
     expect(screen.getByText("Sign In")).toBeInTheDocument();
 
@@ -83,12 +80,20 @@ describe("<Account/>", () => {
       screen.getByRole("button", { name: "Continue" })
     ).toBeInTheDocument();
   });
+});
+
+describe("<Account/>", () => {
+  beforeEach(() => {
+    mockedUsedNavigate.mockReset();
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
   test("render and display the account page if user logged In", async () => {
+    useAppSelector.mockReturnValue(user.user);
     renderWithProviders(<Account />);
-    //useAppSelector.mockImplememtation(testUseAppSelector);
-
-   
-  
+    expect(screen.getByText("BASIC INFORMATION")).toBeInTheDocument();
   });
 });
