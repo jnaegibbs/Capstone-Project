@@ -19,6 +19,9 @@ productRouter.get("/", async (req, res, next) => {
     const product = await prisma.product.findUnique({
       where:{
         id:Number(req.params.productId)
+      },
+      include:{
+        review:true
       }
     });
 
@@ -62,6 +65,9 @@ productRouter.put("/:productId", async (req, res, next) => {
         categoryName:req.body.categoryName,
         petCategory: req.body.petCategory,
        },
+       include:{
+        review:true
+       }
     });
 
     res.status(200).send({ updateProduct});
