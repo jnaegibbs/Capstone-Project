@@ -20,12 +20,12 @@ module.exports = {
   },
   //setupFiles: ["./jest.polyfills.js"],
   setupFiles: ["./jest.polyfills.js", "<rootDir>/mocks/localStorageMock.js"],
-  globals: {
-    fetch,
-    Headers,
-    Request,
-    Response,
-    FormData,
-    Blob,
-  },
+  // globals: {
+  //   fetch,
+  //   Headers,
+  //   Request,
+  //   Response,
+  //   FormData,
+  //   Blob,
+  // },
 };
