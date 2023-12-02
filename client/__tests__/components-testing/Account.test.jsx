@@ -9,9 +9,8 @@ import { renderWithProviders } from "../../utils/test-utils";
 import { setupServer } from "msw/node";
 import authHandlers from "../../../mocks/serverMock/authMock";
 import Account from "../../components/Account";
-import { fireEvent, screen } from "@testing-library/react";
-import { useAppSelector, useAppDispatch } from "../../hooks";
-
+import { screen } from "@testing-library/react";
+import { useAppSelector } from "../../hooks";
 
 const server = setupServer(...authHandlers);
 const mockedUsedNavigate = jest.fn();
@@ -30,12 +29,12 @@ const user = {
   token: "token",
   user: {
     id: 123,
-    username: "test",
+    username: "test username",
     isAdmin: true,
     profile: [
       {
         id: 1,
-        name: "test",
+        name: "test name",
         email: "test@test.com",
         phoneNumber: "12345",
         address: "test address",
@@ -45,7 +44,6 @@ const user = {
     order: [{}],
     cart: [{}],
   },
- 
 };
 
 //Enable API mocking before tests.
@@ -59,7 +57,15 @@ afterEach(() => {
 // Disable API mocking after the tests are done.
 afterAll(() => server.close());
 
-describe("<Account/> before login", () => {
+describe("<Account/>", () => {
+  beforeEach(() => {
+    mockedUsedNavigate.mockReset();
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test("renders the Account Component", () => {
     useAppSelector.mockReturnValue(null);
     const account = renderWithProviders(<Account />);
@@ -80,20 +86,28 @@ describe("<Account/> before login", () => {
       screen.getByRole("button", { name: "Continue" })
     ).toBeInTheDocument();
   });
-});
 
-describe("<Account/>", () => {
-  beforeEach(() => {
-    mockedUsedNavigate.mockReset();
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
-  test("render and display the account page if user logged In", async () => {
+  test("render and display the account page with user details if user logged In", async () => {
     useAppSelector.mockReturnValue(user.user);
     renderWithProviders(<Account />);
+    const LoggedInusername = await screen.findByDisplayValue("test username");
+    const LoggedInname = await screen.findByDisplayValue("test name");
+    const LoggedInEmail = await screen.findByDisplayValue("test@test.com");
+    const LoggedInPhoneNumber = await screen.findByDisplayValue("12345");
+    const LoggedInAddress = await screen.findByDisplayValue("test address");
+
     expect(screen.getByText("BASIC INFORMATION")).toBeInTheDocument();
+    expect(screen.getByLabelText("Username")).toBeInTheDocument();
+    expect(screen.getByLabelText("Name")).toBeInTheDocument();
+    expect(screen.getByLabelText("Email")).toBeInTheDocument();
+    expect(screen.getByLabelText("Phone Number")).toBeInTheDocument();
+    expect(screen.getByLabelText("Address")).toBeInTheDocument();
+
+    expect(LoggedInusername).toBeInTheDocument;
+    expect(LoggedInname).toBeInTheDocument;
+    expect(LoggedInEmail).toBeInTheDocument;
+    expect(LoggedInPhoneNumber).toBeInTheDocument;
+    expect(LoggedInAddress).toBeInTheDocument;
   });
 });
+
