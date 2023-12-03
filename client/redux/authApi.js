@@ -16,6 +16,12 @@ const authApi = createApi({
   }),
 
   endpoints: (builder) => ({
+
+      //get all users 
+      getUsers: builder.query({
+        query: () => "/auth/user"
+    }),
+
     //user registration
     register: builder.mutation({
       query: (user) => ({
@@ -64,7 +70,9 @@ const authApi = createApi({
         console.log(response.status);
       },
     }),
+
   }),
+
 });
 
 export const {
@@ -72,6 +80,7 @@ export const {
   useLoginMutation,
   useGuestLoginMutation,
   useUpdateUserMutation,
+  useGetUsersQuery
 } = authApi;
 
 export default authApi;

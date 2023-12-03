@@ -12,32 +12,27 @@ import Box from "@mui/material/Box";
 const InventoryForm = () => {
     const navigate = useNavigate();
     const [updateInventory] = useUpdateInventoryMutation();
-    const [inventory, setInventory] = useState({
-        productId: "",
-        quantity: "",
-        product: {
-          name: "",
-          petCategory: "",
-          categoryName: "",
-        },
-      });
+    const [inventory, setInventory] = useState({})
 
 
  
 async function onSubmit(e) {
     e.preventDefault();
 
+    console.log("inventoryId: ", inventory.productId);
+    console.log("updateInventory:", updateInventory);
+    
     try {
-
-        const result = await updateInventory(
-            inventory.productId, 
-            inventory.quantity, 
-            inventory.product.name, 
-            inventory.product.petCategory, 
-            inventory.product.categoryName
-            )
+     const result = await updateInventory({
+      inventoryId: inventory.productId,
+      updateInventory: {
+       productId: parseInt(inventory.productId),
+       quantity: parseInt(inventory.quantity),
+      },
+     });
         console.log("Inventory updated", result)
         window.alert("Inventory succesfully updated!")
+        navigate("/admin")
         
     }catch(error){
         console.error("Error updating inventory", error)
@@ -78,6 +73,7 @@ const styles = {
         UPDATE INVENTORY DETAILS 
         </Typography>
         <br/>
+
         <TextField
         label="Enter ProductID"
         value={inventory.productId}
@@ -89,47 +85,11 @@ const styles = {
         <TextField 
         label="Enter Quantity"
         value={inventory.quantity}
-        onChange={(e) => setInventory({ ...inventory, quantity: e.target.value })}>
+        onChange={(e) => setInventory({...inventory, quantity: e.target.value})}>
         </TextField>
 
         <br /> 
         <br />
-
-        <TextField
-        label="Enter Product Name"
-        value={inventory.product.name}
-        onChange={(e) =>   setInventory({
-            ...inventory,
-            product: { ...inventory.product, name: e.target.value },
-          })}>
-        </TextField>
-
-        <br/>
-        <br/>
-
-        <TextField
-        label="Enter Category Name"
-        value={inventory.product.categoryName}
-        onChange={(e) =>   setInventory({
-            ...inventory,
-            product: { ...inventory.product, categoryName: e.target.value },
-          })}>
-        </TextField>
-
-        <br/>
-        <br/>
-
-        <TextField
-        label="Enter Pet Category"
-        value={inventory.product.petCategory}
-        onChange={(e) =>   setInventory({
-            ...inventory,
-            product: { ...inventory.product, petCategory: e.target.value },
-          })}>
-        </TextField>
-
-        <br/>
-        <br/>
 
         <Button onClick={onSubmit}
           type="submit"
