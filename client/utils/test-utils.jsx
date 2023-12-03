@@ -34,8 +34,10 @@ export function renderWithProviders(
         [reviewApi.reducerPath]:reviewApi.reducer,
          token: tokenReducer 
         },
+        
       preloadedState,
     }),
+    
     ...renderOptions
   } = {}
 ) {

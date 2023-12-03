@@ -67,7 +67,12 @@ const OrderHistory = ({ productId }) => {
 
 const Account = () => {
   const user = useAppSelector((state) => state.token.user);
-  const [order, setOrder] = useState([user.order]);
+  const [order, setOrder] = useState(user!== null ? [user.order]:null);
+
+  // if(user !== (null && undefined)){
+  //   console.log(user.order)
+  //   setOrder(user.order)
+  // }
 
   console.log("user:", user);
   console.log("order:", order);
@@ -132,7 +137,7 @@ const Account = () => {
           <br />
           <br />
           {order[0].map((order) => {
-            return <OrderHistory productId={order.productId} />;
+            return <div key={order.productId}><OrderHistory productId={order.productId} /></div>;
           })}
         </div>
       ) : (
