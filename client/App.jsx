@@ -31,7 +31,7 @@ const App = () => {
           <Route path="/cart" element={<Cart/>}/>
           <Route path="/guestlogin" element={<GuestLogin/>} />
           <Route path="/updateForm" element={<UpdateForm/>}/>
-          <Route path='/review' element={<Review/>}/>
+          <Route path='/review/:productId' element={<Review/>}/>
           {/* Add a catch-all route */}
           <Route path="*" element={<h1>Page not found</h1>} />
         </Routes>
