@@ -66,9 +66,12 @@ inventoryRouter.put("/:inventoryId", requireAdmin, async (req, res, next) => {
                 id: Number(req.params.inventoryId)
             },
             data: {
-                product: req.params.productId,
-                quantity: req.body.quantity
-            }
+                product:{
+                    connect: { id:(req.body.productId) },
+                },
+                quantity:(req.body.quantity)
+            },
+           
         });
 
         res.status(200).send({updateInventory})
@@ -85,8 +88,9 @@ inventoryRouter.delete("/:inventoryId", requireAdmin, async (req, res, next) => 
                 id:Number(req.params.inventoryId)
             }
         });
-
-        res.status(200).send('Inventory deleted successfully');
+        
+        res.status(200).send('Inventory deleted successfully');    
+        console.log("DELETED SUCCESSFULLY")
 
     }catch({name, message}){
         next({name, message})
