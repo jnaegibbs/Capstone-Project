@@ -44,7 +44,7 @@ const inventoryApi = createApi ({
 
         //update existing inventory
         updateInventory: builder.mutation({
-            query: (inventoryId, updateInventory) => ({
+            query: ({inventoryId, updateInventory}) => ({
                 url: `api/pets/inventory/${inventoryId}`,
                 method: "PUT",
                 body: updateInventory

@@ -1,14 +1,11 @@
 import React from "react";
 import { useSelector } from 'react-redux' 
 import { useState } from "react";
-
 import {useGetInventoryQuery} from "../redux/inventoryApi";
 import { useDeleteInventoryMutation } from "../redux/inventoryApi";
 import {useAddInventoryMutation} from "../redux/inventoryApi";
 
-
 import SearchBar from "./SearchBar";
-
 import {Typography, Grid} from '@mui/material'
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -16,18 +13,18 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
-
-
 import { DataGrid } from '@mui/x-data-grid';
 import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
-
 import Box from '@mui/joy/Box';
 import Chip from '@mui/joy/Chip';
 import { Navigate, useNavigate } from "react-router-dom";
+import { useGetUsersQuery } from "../redux/authApi";
 
 
 const Admin = () => {
     const { data, error, isLoading } = useGetInventoryQuery();
+    const { data: users } = useGetUsersQuery(); 
+    console.log("Users:", users)
     const [DeleteInventory] = useDeleteInventoryMutation()
     const [CreateInventory] = useAddInventoryMutation();
     const user = useSelector((state) => state.token.user);
@@ -64,9 +61,18 @@ const Admin = () => {
     return <div>Error: {error.message}</div>;
   }
 
+  const styles = {
+    mr: 2,
+    display: { xs: "none", md: "flex" },
+    fontFamily: "monospace",
+    fontWeight: 500,
+    fontSize: "large",
+    letterSpacing: ".1rem",
+    color: "inherit",
+    textDecoration: "none",
+  };
 
-
-// <------------------------------ CREATE, DELETEINVENTORY ---------------------------------------->
+// <------------------------------ CREATE, DELETE INVENTORY ---------------------------------------->
 //CREATE 
 const handleCreate = async (inventory) => {
    
@@ -92,6 +98,7 @@ const handleCreate = async (inventory) => {
     }
    
   }
+
 
 // <------------------------------INVENTORY TABLE DATA--------------------------------->
 
@@ -123,7 +130,7 @@ const handleCreate = async (inventory) => {
   return(
 
     <div>
-            <Typography margin={10} fontFamily={"monospace"} fontWeight={500} fontSize={30}>Hi there, {user.profile[0].name}!</Typography>
+      <Typography margin={10} fontFamily={"monospace"} fontWeight={500} fontSize={30}>Hi there, {user.profile[0].name}!</Typography>
      
 
     
@@ -156,12 +163,7 @@ const handleCreate = async (inventory) => {
         Product ID: {inventory.productId}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Price: {inventory.product.price}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          CategoryName: {inventory.product.categoryName}
-          <br/>
-          PetCategory: {inventory.product.petCategory}
+       Quantity: {inventory.quantity}
         </Typography>
       </CardContent>
       <CardActions>
@@ -241,12 +243,27 @@ const handleCreate = async (inventory) => {
       </IconButton>
 
 
-{/* //TODO: CALL GET ALL USERS API --> No query for this yet */}
-{/* {showUsers && (
 
+{showUsers && (
+  <>
+  
+    {users.map((user)=> (
+      <Box>
+      <div key={user.id}>
+      <ol>
+      <Typography sx={styles}>ID: {user.id} </Typography>
+      <Typography sx={styles}>Username: {user.username}  </Typography>
+      <Typography sx={styles}>Is Admin: {user.isAdmin ? 'Yes' : 'No'} </Typography>
+      ----------------------------------------------------
+      </ol>
+     
 
+    </div>
+    </Box>
+    ))}
 
-)} */}
+  </>
+)}
 
 </div>       
 )}

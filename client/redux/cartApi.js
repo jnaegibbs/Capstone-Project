@@ -5,7 +5,15 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const cartApi = createApi ({
     reducerPath: "cartApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:8080/"
+        baseUrl: "http://localhost:8080/",
+        prepareHeaders: (headers, {getState} )=> {
+            const token = getState().token.token
+            if (token) {
+                headers.set("authorization", `Bearer ${token}`)
+            }
+            return headers
+        }
+      
     }),
 
 
@@ -28,13 +36,6 @@ const cartApi = createApi ({
                 console.log(response.status)
             },
 
-            // transformHeaders: (headers, { getState }) => {
-            //     const token = getAuthToken(getState());
-            //     if (token) {
-            //       headers.set('Authorization', `Bearer ${token}`);
-            //     }
-            //     return headers;
-            // },
         }),
 
         createCart: builder.mutation({

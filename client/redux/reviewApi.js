@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 
-const orderApi = createApi({
-  reducerPath: "orderApi",
+const reviewApi = createApi({
+  reducerPath: "reviewApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8080/",
     prepareHeaders: (headers, {getState} )=> {
@@ -16,22 +16,24 @@ const orderApi = createApi({
   }),
 
   endpoints: (builder) => ({
-    //get all the orders
-    getOrders: builder.query({
-      query: () => `api/pets/order`,
+    //get all the reviews
+    getReviews: builder.query({
+      query: () => `api/pets/review`,
     }),
-     // get a single order
-    getSingleorder: builder.query({
-      query: (orderId) => `api/pets/order/${orderId}`,
+     // get a single review
+    getSingleReview: builder.query({
+      query: (reviewId) => `api/pets/review/${reviewId}`,
     }),
 
-    //create a new order
-    addOrder: builder.mutation({
-      query: (orderDetails) => ({
-        url: `api/pets/order`,
+    //create a new review
+    addReview: builder.mutation({
+      query: (reviewDetails) => ({
+        url: `api/pets/review`,
         method: "POST",
-        body: orderDetails,
-      }),
+        body: reviewDetails,
+      }
+     
+      ),
       transformResponse: (response, meta, arg) => {
         console.log(response);
         return response;
@@ -42,12 +44,12 @@ const orderApi = createApi({
     
     }),
 
-    //update the existed order
-    updateOrder: builder.mutation({
-      query: (orderId, ...orderDetails) => ({
-        url: `api/pets/order/${orderId}`,
+    //update the existed review
+    updateReview: builder.mutation({
+      query: (reviewId, ...reviewDetails) => ({
+        url: `api/pets/review/${reviewId}`,
         method: "PUT",
-        body: orderDetails,
+        body: reviewDetails,
       }),
       transformResponse: (response, meta, arg) => {
         console.log(response);
@@ -58,10 +60,10 @@ const orderApi = createApi({
       },
     }),
 
-    //delete the existed order
-    deleteOrder: builder.mutation({
-      query: (orderId) => ({
-        url: `api/pets/order/${orderId}`,
+    //delete the existed review
+    deleteReview: builder.mutation({
+      query: (reviewId) => ({
+        url: `api/pets/review/${reviewId}`,
         method: "DELETE",
       }),
       transformResponse: (response, meta, arg) => {
@@ -75,11 +77,11 @@ const orderApi = createApi({
   }),
 });
 
-export default orderApi;
+export default reviewApi;
 export const {
-  useGetOrdersQuery,
-  useGetSingleorderQuery,
-  useAddOrderMutation,
-  useUpdateOrderMutation,
-  useDeleteOrderMutation,
-} = orderApi;
+  useGetReviewsQuery,
+  useGetSingleReviewQuery,
+  useAddReviewMutation,
+  useUpdateReviewMutation,
+  useDeleteReviewMutation,
+} = reviewApi;

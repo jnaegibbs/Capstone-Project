@@ -8,6 +8,7 @@ import productsApi from './productsApi';
 import inventoryApi from './inventoryApi';
 import cartApi from './cartApi';
 import cartItemApi from './cartItemApi';
+import reviewApi from './reviewApi';
 
 const store = configureStore({
     reducer: {
@@ -17,6 +18,7 @@ const store = configureStore({
         [inventoryApi.reducerPath]:inventoryApi.reducer,
         [cartApi.reducerPath]:cartApi.reducer,
         [cartItemApi.reducerPath]:cartItemApi.reducer,
+        [reviewApi.reducerPath]:reviewApi.reducer,
         token: tokenReducer,
     },
     middleware: (getDefaultMiddleware) =>
@@ -28,7 +30,6 @@ const store = configureStore({
         cartApi.middleware,
         cartItemApi.middleware
      ),
-
 });
 
 export default store;

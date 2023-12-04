@@ -9,6 +9,7 @@ import productsApi from "../redux/productsApi";
 import inventoryApi from "../redux/inventoryApi";
 import cartApi from "../redux/cartApi";
 import cartItemApi from "../redux/cartItemApi";
+import reviewApi from "../redux/reviewApi";
 import { selectUser } from "../redux/tokenSlice";
 
 const rootReducer = combineReducers({
@@ -30,10 +31,13 @@ export function renderWithProviders(
         [inventoryApi.reducerPath]:inventoryApi.reducer,
         [cartApi.reducerPath]:cartApi.reducer,
         [cartItemApi.reducerPath]:cartItemApi.reducer,
+        [reviewApi.reducerPath]:reviewApi.reducer,
          token: tokenReducer 
         },
+        
       preloadedState,
     }),
+    
     ...renderOptions
   } = {}
 ) {
