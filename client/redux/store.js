@@ -22,10 +22,14 @@ const store = configureStore({
         token: tokenReducer,
     },
     middleware: (getDefaultMiddleware) =>
-     getDefaultMiddleware().concat(authApi.middleware),
-    // getDefaultMiddleware().concat(productsApi.middleware),
-     //getDefaultMiddleware().concat(cartApi.middleware)
-    
+     getDefaultMiddleware().concat(
+        authApi.middleware,
+        orderApi.middleware,
+        productsApi.middleware,
+        inventoryApi.middleware,
+        cartApi.middleware,
+        cartItemApi.middleware
+     ),
 });
 
 export default store;
