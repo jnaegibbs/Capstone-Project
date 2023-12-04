@@ -108,6 +108,7 @@ const SingleView = () => {
         return;
       }
       if (!user) {
+       
         navigate('/guestlogin');
         return;
       }
@@ -120,16 +121,17 @@ const SingleView = () => {
       dispatch(addCartItem(response));
 
     //   // Handle success, e.g., show a success message or update UI
-     console.log('Item added to cart:', response);
+     console.log('Item added to cart from buy now:', response);
 
        // Optionally reset the quantity after adding to the cart
       setQuantity(1);
+      navigate('/checkout');
      } catch (error) {
       // Handle error, e.g., show an error message
       console.error('Error adding item to cart:', error);
      }
 
-    navigate('/guestlogin');
+  
   };
 
   return (
