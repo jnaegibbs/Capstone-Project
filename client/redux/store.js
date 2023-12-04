@@ -21,11 +21,11 @@ const store = configureStore({
         [reviewApi.reducerPath]:reviewApi.reducer,
         token: tokenReducer,
     },
-    middleware: (getDefaultMiddleware) =>{
+    middleware: (getDefaultMiddleware) =>
      getDefaultMiddleware().concat(authApi.middleware),
-     getDefaultMiddleware().concat(productsApi.middleware),
-     getDefaultMiddleware().concat(cartApi.middleware)
-    }
+    // getDefaultMiddleware().concat(productsApi.middleware),
+     //getDefaultMiddleware().concat(cartApi.middleware)
+    
 });
 
 export default store;
