@@ -18,16 +18,6 @@ module.exports = {
   testEnvironmentOptions: {
     customExportConditions: [""],
   },
-  //setupFiles: ["./jest.polyfills.js"],
-  setupFiles: ["./jest.polyfills.js", "<rootDir>/mocks/localStorageMock.js"],
+  setupFiles: ["./jest.polyfills.js"],
  
-
-  // globals: {
-  //   fetch,
-  //   Headers,
-  //   Request,
-  //   Response,
-  //   FormData,
-  //   Blob,
-  // },
 };
