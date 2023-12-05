@@ -17,6 +17,29 @@ userRouter.get("/", async (req, res, next) => {
   }
 });
 
+//GET /auth/user/:id
+userRouter.get("/:userId", async (req, res, next) => {
+  console.log("userId  "+req.params.userId)
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: Number(req.params.userId),
+      },
+      include: {
+        profile: true,
+        cart: true,
+        review: true,
+      },
+    });
+    delete user.password;
+    console.log("displaying user----"+user)
+    res.send({ user} );
+  } catch (error) {
+    console.log("displaying user catch----")
+    next(error);
+  }
+});
+
 //POST /auth/user/register
 userRouter.post("/register", async (req, res, next) => {
   try {
@@ -30,7 +53,7 @@ userRouter.post("/register", async (req, res, next) => {
       },
     });
     if (userExists) {
-      return res.status(403).json({error: "UserExistsError"})
+      return res.status(403).json({ error: "UserExistsError" });
     }
     const user = await prisma.user.create({
       data: {
@@ -46,13 +69,13 @@ userRouter.post("/register", async (req, res, next) => {
           },
         },
         cart: {
-          create: {}
-        }
+          create: {},
+        },
       },
       include: {
         profile: true,
         order: true,
-        cart: true
+        cart: true,
       },
     });
 
@@ -75,7 +98,7 @@ userRouter.post("/login", async (req, res, next) => {
       include: {
         profile: true,
         order: true,
-        cart: true
+        cart: true,
       },
     });
     console.log(user);
@@ -108,35 +131,34 @@ userRouter.post("/guest", async (req, res, next) => {
     if (userExists) {
       res.send(userExists);
     }
-      const user = await prisma.user.create({
-        data: {
-          username,
-          password,
-          isAdmin,
-          profile: {
-            create: {
-              name,
-              email,
-              phoneNumber: Number(phone),
-              address,
-            },
+    const user = await prisma.user.create({
+      data: {
+        username,
+        password,
+        isAdmin,
+        profile: {
+          create: {
+            name,
+            email,
+            phoneNumber: Number(phone),
+            address,
           },
-          cart: {
-            create: {}
-          }
         },
-        include: {
-          profile: true,
-          order: true,
-          cart: true
+        cart: {
+          create: {},
         },
-      });
-      const token = jwt.sign({ id: user.id }, JWT_SECRET);
-      console.log(user);
-      // delete user.password;
-      // res.status(201).send({ user, token });
-      res.status(201).send({ user, token });
-    
+      },
+      include: {
+        profile: true,
+        order: true,
+        cart: true,
+      },
+    });
+    const token = jwt.sign({ id: user.id }, JWT_SECRET);
+    console.log(user);
+    // delete user.password;
+    // res.status(201).send({ user, token });
+    res.status(201).send({ user, token });
   } catch (error) {
     next(error);
   }
@@ -174,7 +196,7 @@ userRouter.put("/register/:userId", async (req, res, next) => {
       include: {
         profile: true,
         order: true,
-        cart: true
+        cart: true,
       },
     });
     console.log(userExists);

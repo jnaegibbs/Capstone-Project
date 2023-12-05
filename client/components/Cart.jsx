@@ -12,6 +12,7 @@ import { useFetchSingleProductQuery } from "../redux/productsApi";
 import { useUpdateCartItemMutation, useDeleteCartItemMutation } from "../redux/cartItemApi";
 import { useAppSelector } from "../hooks";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ProductDetails = ({ productId }) => {
     const { data: productData, error: productError, isLoading: productLoading } = useFetchSingleProductQuery(productId);
@@ -28,9 +29,9 @@ const ProductDetails = ({ productId }) => {
 
     return (
         <div>
-            <Card variant="elevation" sx={{ display: 'flex', width: 300 }}>
+            <Card variant="elevation" sx={{ display: 'flex', width: 300, height:200 }}>
                 <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', maxHeight: 200, p: 2 }}>
-                    <Typography gutterBottom variant="h6" component="div">
+                    <Typography gutterBottom variant="body1" component="div">
                         <p>{product.name}</p>
                         {/* Add more details as needed */}
                     </Typography>
@@ -51,6 +52,7 @@ const Cart = () => {
     const user = useAppSelector((state) => state.token.user);
  
     const [isUpdated, setIsUpdated] = useState(false);
+    const navigate = useNavigate();
 
     const { data: userCartData, error: userCartError, isLoading: userCartLoading } = useFetchCartByUserQuery(user.id);
 
@@ -143,7 +145,7 @@ const Cart = () => {
                                         </Button>
                                         <Button
                                             variant="contained"
-                                            sx={{ bgcolor: "#FF5733", padding: .5, width: 45 }}
+                                            sx={{ bgcolor: "#FF5733", padding: .5, width: 45 ,marginLeft:.5}}
                                             size="large"
                                             onClick={() => handleDecreaseQuantity(item.id)}
                                         >
@@ -164,6 +166,14 @@ const Cart = () => {
                                     </CardContent>
                                 </Card>
                             ))}
+                             <Button
+                                            variant="contained"
+                                            sx={{ bgcolor: "#7071E8", padding: 1, width: 300,m:'0 25%' }}
+                                            size="medium"
+                                            onClick={() => navigate('/checkout')}
+                                        >
+                                           Proceed to Checkout
+                                        </Button>
                         </div>
                     )}
                 </div>

@@ -8,5 +8,6 @@ apiRouter.use("/pets/order",require('./order'));
 apiRouter.use("/pets/inventory",require('./inventory'));
 apiRouter.use("/pets/cartItem",require('./cartItem'));
 apiRouter.use("/pets/cart",require("./cart"));
+apiRouter.use("/pets/review",require("./review"));
 
 module.exports = apiRouter;

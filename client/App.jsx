@@ -12,6 +12,7 @@ import Checkout from "./components/Checkout";
 import Confirmation from "./components/Confirmation";
 import GuestLogin from "./components/GuestLogin";
 import UpdateForm from "./components/UpdateForm";
+import Review from "./components/Review";
 
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/cart" element={<Cart/>}/>
           <Route path="/guestlogin" element={<GuestLogin/>} />
           <Route path="/updateForm" element={<UpdateForm/>}/>
+          <Route path='/review/:productId' element={<Review/>}/>
           {/* Add a catch-all route */}
           <Route path="*" element={<h1>Page not found</h1>} />
         </Routes>
