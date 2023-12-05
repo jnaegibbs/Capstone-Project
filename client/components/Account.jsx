@@ -34,7 +34,7 @@ const OrderHistory = ({ productId }) => {
   return (
     <Paper elevation={1} sx={{ width: "80%", m: "1% 5%", padding: "20px" }}>
       <br />
-      {data !== (null && undefined) ? (
+      {data && data !== (null && undefined) ? (
         <Stack direction="row" spacing={2}>
           <Box sx={styles2}>
             <img src={data.product.image} width="100px" height="100px" />

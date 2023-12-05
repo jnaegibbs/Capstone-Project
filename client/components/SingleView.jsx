@@ -27,7 +27,7 @@ import { FaMagnifyingGlassMinus } from "react-icons/fa6";
 import { GrPowerReset } from "react-icons/gr";
 import { useState } from "react";
 import { addCartItem } from "../redux/cartSlice";
-import { stringAvatar } from "./theme";
+
 
 
 
@@ -291,9 +291,6 @@ const ReviewContent = ({ userId }) => {
   console.log(userId);
   const { data , error, isLoading } = useGetSingleUserQuery(userId);
   console.log(data);
-  //let userData = JSON.parse(data);
-  //console.log("username ===== " + data.user.username)
-  //console.log(data.user.id);
   return (
     <>
       {data && (
