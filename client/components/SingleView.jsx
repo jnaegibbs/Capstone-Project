@@ -9,12 +9,14 @@ import {
   InputLabel,
   FormControl,
   IconButton,
+  Avatar,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useCreateCartItemMutation } from "../redux/cartItemApi";
 import { useFetchSingleProductQuery } from "../redux/productsApi";
+import { useGetSingleUserQuery } from "../redux/authApi";
 import { useParams, useNavigate } from "react-router-dom";
-import { useAppDispatch,useAppSelector } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   TransformWrapper,
   TransformComponent,
@@ -25,6 +27,9 @@ import { FaMagnifyingGlassMinus } from "react-icons/fa6";
 import { GrPowerReset } from "react-icons/gr";
 import { useState } from "react";
 import { addCartItem } from "../redux/cartSlice";
+import { stringAvatar } from "./theme";
+
+
 
 const SingleView = () => {
   const { productId: productId } = useParams();
@@ -32,44 +37,42 @@ const SingleView = () => {
   const user = useAppSelector((state) => state.token.user);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
-  const { data = {}, error, isLoading } = useFetchSingleProductQuery(productId);
-
-  
-  
   const [createCartItem] = useCreateCartItemMutation();
 
+  const { data = {}, error, isLoading } = useFetchSingleProductQuery(productId);
+  console.log(data);
+
   const handleAddToCart = async () => {
-    try { 
+    try {
       // Check if productId, quantity are available
-      if (!productId || !quantity ) {
-        console.error('Product or quanitity is missing.');
+      if (!productId || !quantity) {
+        console.error("Product or quanitity is missing.");
         return;
       }
       if (!user) {
         // Redirect to guest login page if not logged in
-        navigate('/guestlogin');
+        navigate("/guestlogin");
         return;
       }
-   
-    //   // Make the API call to add the item to the cart
+
+      //   // Make the API call to add the item to the cart
       const response = await createCartItem({
-       productId: productId,
+        productId: productId,
         quantity: quantity,
-        cartId: user.cart[0].id
+        cartId: user.cart[0].id,
       }).unwrap();
 
       dispatch(addCartItem(response));
 
-    //   // Handle success, e.g., show a success message or update UI
-     console.log('Item added to cart:', response);
+      //   // Handle success, e.g., show a success message or update UI
+      console.log("Item added to cart:", response);
 
-       // Optionally reset the quantity after adding to the cart
+      // Optionally reset the quantity after adding to the cart
       setQuantity(1);
-     } catch (error) {
+    } catch (error) {
       // Handle error, e.g., show an error message
-      console.error('Error adding item to cart:', error);
-     }
+      console.error("Error adding item to cart:", error);
+    }
   };
 
   if (isLoading) {
@@ -84,7 +87,7 @@ const SingleView = () => {
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: "center",
-   
+
     color: theme.palette.text.secondary,
   }));
 
@@ -92,44 +95,49 @@ const SingleView = () => {
     const { zoomIn, zoomOut, resetTransform } = useControls();
     return (
       <>
-      <br/>
-      <br/>
-        <IconButton variant= "contained" onClick={() => zoomIn()}><FaMagnifyingGlassPlus /></IconButton>{" "}
-        <IconButton variant= "contained" onClick={() => zoomOut()}><FaMagnifyingGlassMinus /></IconButton>{" "}
-        <IconButton variant= "contained" onClick={() => resetTransform()}><GrPowerReset /></IconButton>{" "}
+        <br />
+        <br />
+        <IconButton variant="contained" onClick={() => zoomIn()}>
+          <FaMagnifyingGlassPlus />
+        </IconButton>{" "}
+        <IconButton variant="contained" onClick={() => zoomOut()}>
+          <FaMagnifyingGlassMinus />
+        </IconButton>{" "}
+        <IconButton variant="contained" onClick={() => resetTransform()}>
+          <GrPowerReset />
+        </IconButton>{" "}
       </>
     );
   };
 
-  const handleBuyNow = async () =>{
-    try { 
-      if (!productId || !quantity ) {
-        console.error('Product or quanitity is missing.');
+  const handleBuyNow = async () => {
+    try {
+      if (!productId || !quantity) {
+        console.error("Product or quanitity is missing.");
         return;
       }
       if (!user) {
-        navigate('/guestlogin');
+        navigate("/guestlogin");
         return;
       }
       const response = await createCartItem({
-       productId: productId,
+        productId: productId,
         quantity: quantity,
-        cartId: user.cart[0].id
+        cartId: user.cart[0].id,
       }).unwrap();
 
       dispatch(addCartItem(response));
 
-    //   // Handle success, e.g., show a success message or update UI
-     console.log('Item added to cart:', response);
+      //   // Handle success, e.g., show a success message or update UI
+      console.log("Item added to cart from buy now:", response);
 
-       // Optionally reset the quantity after adding to the cart
+      // Optionally reset the quantity after adding to the cart
       setQuantity(1);
-     } catch (error) {
+      navigate("/checkout");
+    } catch (error) {
       // Handle error, e.g., show an error message
-      console.error('Error adding item to cart:', error);
-     }
-
-    navigate('/guestlogin');
+      console.error("Error adding item to cart:", error);
+    }
   };
 
   return (
@@ -152,11 +160,9 @@ const SingleView = () => {
           alignItems="left"
           spacing={2}
         >
-          <Item >
+          <Item>
             <TransformWrapper>
-               
               <TransformComponent>
-              
                 <img
                   src={data.product.image}
                   style={{
@@ -164,12 +170,15 @@ const SingleView = () => {
                     height: "100%",
                     objectFit: "cover",
                     overflow: "hidden",
-                    aspectRatio:'3/2 auto',
-                    margin:'20% 0'
+                    aspectRatio: "3/2 auto",
+                    margin: "20% 0",
                   }}
                 />
               </TransformComponent>
-             <div> <Controls /></div>
+              <div>
+                {" "}
+                <Controls />
+              </div>
             </TransformWrapper>
           </Item>
           <Item>
@@ -195,7 +204,7 @@ const SingleView = () => {
               <Typography>
                 <Rating
                   name="product-rating"
-                  defaultValue={() => (Math.floor(Math.random() * 5) + 3)}
+                  defaultValue={() => Math.floor(Math.random() * 5) + 3}
                   precision={0.5}
                   size="large"
                   readOnly
@@ -236,7 +245,7 @@ const SingleView = () => {
                   variant="contained"
                   sx={{ bgcolor: "#7071E8", padding: 2, width: 300 }}
                   size="large"
-                  onClick={()=>handleBuyNow()}
+                  onClick={() => handleBuyNow()}
                 >
                   Buy Now
                 </Button>
@@ -252,8 +261,50 @@ const SingleView = () => {
       >
         Product Reviews
       </Typography>
+      <Stack
+        direction="column"
+        justifyContent="center"
+        alignItems="left"
+        spacing={2}
+      >
+        {data.product.review && data.product.review.length >= 1 ? (
+          data.product.review.map((review) => {
+            return (
+              <div key={review.id}>
+                <Paper sx={{padding:'30px'}}>
+                  <ReviewContent userId={review.userId} />
+                  <Rating readOnly size="large" value={review.rating} />
+                  <Typography>{review.content}</Typography>
+                </Paper>
+              </div>
+            );
+          })
+        ) : (
+          <Typography variant="h4">No Review Found</Typography>
+        )}
+      </Stack>
     </Paper>
   );
 };
 
+const ReviewContent = ({ userId }) => {
+  console.log(userId);
+  const { data , error, isLoading } = useGetSingleUserQuery(userId);
+  console.log(data);
+  //let userData = JSON.parse(data);
+  //console.log("username ===== " + data.user.username)
+  //console.log(data.user.id);
+  return (
+    <>
+      {data && (
+        <Stack sx={{padding:' 10px 30px'}} direction="row">
+          <Avatar >{data.user.profile[0].name.charAt(0)}</Avatar>
+          <Typography variant="body1" sx={{padding:'10px'}}>{data.user.profile[0].name}</Typography>
+        </Stack>
+      )}
+    </>
+  );
+};
+
 export default SingleView;
+

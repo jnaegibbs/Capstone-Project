@@ -32,21 +32,20 @@ const OrderHistory = ({ productId }) => {
   console.log("product data ---" + data);
 
   return (
-    <Paper elevation={1} sx={{width:'80%',m:'1% 5%',padding:'20px'}}>
-    
-      <br/>
-      {data && (
-        
+    <Paper elevation={1} sx={{ width: "80%", m: "1% 5%", padding: "20px" }}>
+      <br />
+      {data !== (null && undefined) ? (
         <Stack direction="row" spacing={2}>
-         
           <Box sx={styles2}>
             <img src={data.product.image} width="100px" height="100px" />
           </Box>
-      
+
           <Box sx={styles2}>
             <Typography variant="h6">{data.product.name}</Typography>
           </Box>
-          <Box sx={styles2}><Typography variant="h6">{data.product.price}</Typography></Box>
+          <Box sx={styles2}>
+            <Typography variant="h6">{data.product.price}</Typography>
+          </Box>
           <Box>
             <Button
               variant="contained"
@@ -58,22 +57,17 @@ const OrderHistory = ({ productId }) => {
             </Button>
           </Box>
         </Stack>
+      ) : (
+        <Typography sx={styles}>No Order History Found</Typography>
       )}
-      <br/>
-     
+      <br />
     </Paper>
   );
 };
 
 const Account = () => {
   const user = useAppSelector((state) => state.token.user);
-  const [order, setOrder] = useState(user!== null ? [user.order]:null);
-
-  // if(user !== (null && undefined)){
-  //   console.log(user.order)
-  //   setOrder(user.order)
-  // }
-
+  const [order, setOrder] = useState(user !== null ? [user.order] : null);
   console.log("user:", user);
   console.log("order:", order);
 
@@ -136,9 +130,17 @@ const Account = () => {
           </Box>
           <br />
           <br />
-          {order[0].map((order) => {
-            return <div key={order.productId}><OrderHistory productId={order.productId} /></div>;
-          })}
+          {order[0].length >= 1 ? (
+            order[0].map((order) => {
+              return (
+                <div key={order.productId}>
+                  <OrderHistory productId={order.productId} />
+                </div>
+              );
+            })
+          ) : (
+            <Typography sx={styles}>No Order History Found</Typography>
+          )}
         </div>
       ) : (
         <div>
@@ -150,4 +152,4 @@ const Account = () => {
 };
 
 export default Account;
-export {OrderHistory}
+export { OrderHistory };
