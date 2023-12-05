@@ -172,7 +172,7 @@ const Cart = () => {
                                             size="medium"
                                             onClick={() => navigate('/checkout')}
                                         >
-                                           Place Your Order
+                                           Proceed to Checkout
                                         </Button>
                         </div>
                     )}
