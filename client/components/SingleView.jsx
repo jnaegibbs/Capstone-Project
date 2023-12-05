@@ -32,6 +32,7 @@ const SingleView = () => {
   const user = useAppSelector((state) => state.token.user);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const { data = {}, error, isLoading } = useFetchSingleProductQuery(productId);
 
@@ -66,6 +67,8 @@ const SingleView = () => {
 
        // Optionally reset the quantity after adding to the cart
       setQuantity(1);
+
+      setShowSuccessMessage(true);
      } catch (error) {
       // Handle error, e.g., show an error message
       console.error('Error adding item to cart:', error);
@@ -230,6 +233,7 @@ const SingleView = () => {
                 >
                   Add to cart
                 </Button>
+                {showSuccessMessage && <p>Your item has been added to your cart</p>}
               </Typography>
               <Typography>
                 <Button
