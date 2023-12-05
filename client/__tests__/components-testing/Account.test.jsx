@@ -101,30 +101,30 @@ describe("<Account/>", () => {
     ).toBeInTheDocument();
   });
 
-  // test("render and display the account page with user details if user logged In", async () => {
-  //   useAppSelector.mockReturnValue(user.user);
-  //   useFetchSingleProductQuery.mockReturnValue(user.user.order)
-  //   renderWithProviders(<Account />);
+  test("render and display the account page with user details if user logged In", async () => {
+    useAppSelector.mockReturnValue(user.user);
+    useFetchSingleProductQuery.mockReturnValue(user.user.order)
+    renderWithProviders(<Account />);
    
    
-  //   const LoggedInusername = await screen.findByDisplayValue("test username");
-  //   const LoggedInname = await screen.findByDisplayValue("test name");
-  //   const LoggedInEmail = await screen.findByDisplayValue("test@test.com");
-  //   const LoggedInPhoneNumber = await screen.findByDisplayValue("12345");
-  //   const LoggedInAddress = await screen.findByDisplayValue("test address");
+    const LoggedInusername = await screen.findByDisplayValue("test username");
+    const LoggedInname = await screen.findByDisplayValue("test name");
+    const LoggedInEmail = await screen.findByDisplayValue("test@test.com");
+    const LoggedInPhoneNumber = await screen.findByDisplayValue("12345");
+    const LoggedInAddress = await screen.findByDisplayValue("test address");
 
-  //   expect(screen.getByText("BASIC INFORMATION")).toBeInTheDocument();
-  //   expect(screen.getByLabelText("Username")).toBeInTheDocument();
-  //   expect(screen.getByLabelText("Name")).toBeInTheDocument();
-  //   expect(screen.getByLabelText("Email")).toBeInTheDocument();
-  //   expect(screen.getByLabelText("Phone Number")).toBeInTheDocument();
-  //   expect(screen.getByLabelText("Address")).toBeInTheDocument();
+    expect(screen.getByText("BASIC INFORMATION")).toBeInTheDocument();
+    expect(screen.getByLabelText("Username")).toBeInTheDocument();
+    expect(screen.getByLabelText("Name")).toBeInTheDocument();
+    expect(screen.getByLabelText("Email")).toBeInTheDocument();
+    expect(screen.getByLabelText("Phone Number")).toBeInTheDocument();
+    expect(screen.getByLabelText("Address")).toBeInTheDocument();
 
-  //   expect(LoggedInusername).toBeInTheDocument;
-  //   expect(LoggedInname).toBeInTheDocument;
-  //   expect(LoggedInEmail).toBeInTheDocument;
-  //   expect(LoggedInPhoneNumber).toBeInTheDocument;
-  //   expect(LoggedInAddress).toBeInTheDocument;
-  // });
+    expect(LoggedInusername).toBeInTheDocument;
+    expect(LoggedInname).toBeInTheDocument;
+    expect(LoggedInEmail).toBeInTheDocument;
+    expect(LoggedInPhoneNumber).toBeInTheDocument;
+    expect(LoggedInAddress).toBeInTheDocument;
+  });
  });
 
