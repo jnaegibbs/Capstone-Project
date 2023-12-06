@@ -11,14 +11,16 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import IconButton from '@mui/material/IconButton';
-import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
+import Button from "@mui/material/Button";
 import { DataGrid } from '@mui/x-data-grid';
-import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
 import Box from '@mui/joy/Box';
 import Chip from '@mui/joy/Chip';
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useGetUsersQuery } from "../redux/authApi";
+import { createTheme } from '@mui/material/styles';
+import { PetsTwoTone, TableChart, VerifiedUserSharp } from "@mui/icons-material";
+import { FaUserFriends, FaUserSlash, FaUserTimes, FaUsers } from "react-icons/fa";
+
 
 
 const Admin = () => {
@@ -38,6 +40,15 @@ const Admin = () => {
 
     const navigate = useNavigate();
 
+
+    const theme = createTheme({
+      palette: {
+        primary: {
+          main: '#5c6bc0',
+        },
+      },
+    });
+    
 
   
   // <------------- HIDE/VIEW TOGGLE----------------->
@@ -72,8 +83,9 @@ const Admin = () => {
     textDecoration: "none",
   };
 
-// <------------------------------ CREATE, DELETE INVENTORY ---------------------------------------->
-//CREATE 
+
+
+// <--------------------------------------- CREATE, DELETE INVENTORY ---------------------------------------->
 const handleCreate = async (inventory) => {
    
   try {
@@ -87,7 +99,7 @@ const handleCreate = async (inventory) => {
     
 }
 
-//DELETE 
+
   const handleDelete = async (inventoryId) => {
     try{
       const result = await DeleteInventory(inventoryId)
@@ -100,15 +112,15 @@ const handleCreate = async (inventory) => {
   }
 
 
-// <------------------------------INVENTORY TABLE DATA--------------------------------->
+// <-------------------------------- INVENTORY TABLE DATA --------------------------------------->
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
     { field: 'ProductId', headerName: 'ProductId', width: 130 },
     { field: 'Quantity', headerName: 'Quantity', width: 130 },
-    { field: 'Name', headerName: 'Name', width: 130 },
-    { field: 'categoryName', headerName: 'categoryName', width: 130 },
-    { field: 'petCategory', headerName: 'petCategory', width: 130 },
+    { field: 'Name', headerName: 'Name', width: 600 },
+    { field: 'categoryName', headerName: 'categoryName', width: 150 },
+    { field: 'petCategory', headerName: 'petCategory', width: 150 },
     { field: 'price', headerName: 'Price', width: 130 },
   ];
   
@@ -134,29 +146,29 @@ const handleCreate = async (inventory) => {
      
 
     
-{/* <------------------------ SEARCH BAR &  VIEW INVENTORY LIST---------------------------------------------> */}
+{/* <-----------------------------   INVENTORY LIST  ---------------------------------------------> */}
+      <Button theme={theme} size="large" style={{ marginLeft: '50px'}} onClick={handleInventory}>     
+        <PetsTwoTone sx={{paddingRight: 2}}></PetsTwoTone>
+            {showInventory ? <h3>Hide Inventory</h3> : <h3>Edit Inventory</h3> }
+      </Button>
 
-      <IconButton margin={10} variant="outlined" size="large" onClick={handleInventory}>
-        {showInventory ? 'Hide Inventory' : 'View Inventory'}
-        <Inventory2OutlinedIcon margin={10}/>
-      </IconButton>
 
       {showInventory && (
       <>
-       <SearchBar setSearchProduct={setSearchProduct} />
-       <br /> 
-       <br />
-
+      <SearchBar setSearchProduct={setSearchProduct} />
+      <br/>
+      <br/>
+    
     <Grid container spacing={2}>
     {filteredData.map((inventory) => (
      
     <Grid item key={inventory.id} xs={12} sm={6} md={4} lg={3}>
-    <Card key={inventory.id}variant="elevation" sx={{ width: 300, mb: 5, p: 1, mx: "auto"  }}>
-  
+    <Card key={inventory.id}variant="elevation" sx={{ width: 300, mb: 2, p: 1, mx: "auto"  }}>
+      
       <CardMedia 
       />
       <CardContent>
-        <Typography gutterBottom variant="h6" component="div">
+        <Typography gutterBottom variant="h7" component="div">
           {inventory.product.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
@@ -211,13 +223,10 @@ const handleCreate = async (inventory) => {
 
 
 {/* <------------------------------------VIEW INVENTORY DATA---------------------------------------------> */}
-<>
-<IconButton margin={10} variant="outlined" size="large" onClick={handleData}>
-  {showData ? 'Hide Inventory Data' : 'View Inventory Data'}
-  <TableChartOutlinedIcon margin={10}/>
-</IconButton>
-</>
-
+<Button theme={theme} size="large" style={{ marginLeft: '50px', marginTop: '20px'  }} onClick={handleData}>
+  <TableChart  sx={{paddingRight: 2}}></TableChart>
+    {showData ? <h3>Hide Inventory Data</h3> : <h3>View Inventory Data</h3>}
+</Button>
 
 {showData && (
 
@@ -235,14 +244,13 @@ const handleCreate = async (inventory) => {
 
 )}
 
+<br/>
 {/* <------------------------------------VIEW USERS---------------------------------------------> */}
-<br />
-<IconButton margin={10} variant="outlined" size="large" onClick={handleUsers}>
-        {showUsers ? 'Hide Users' : 'View Users'}
-        <Inventory2OutlinedIcon margin={10}/>
-      </IconButton>
 
-
+<Button theme={theme} size="large" style={{ marginLeft: '50px', marginTop: '20px'}}onClick={handleUsers}>
+    <VerifiedUserSharp  sx={{paddingRight: 2}} ></VerifiedUserSharp>
+      {showUsers ? <h3>Hide Users</h3> : <h3>View Users</h3>}
+</Button>
 
 {showUsers && (
   <>
