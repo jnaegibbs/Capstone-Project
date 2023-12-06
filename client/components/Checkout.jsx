@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import { useAddOrderMutation } from "../redux/orderApi";
 
+
 const Product = ({ productId, quantity }) => {
   const { data } = useFetchSingleProductQuery(productId);
 
@@ -47,30 +48,27 @@ const Checkout = () => {
   const user = useAppSelector((state) => state.token.user);
   const [cart, setCart] = useState(user !== null ? user.cart : null);
   const { data } = useFetchCartByIdQuery(cart[0].id);
+  const navigate = useNavigate();
   const [createOrder] = useAddOrderMutation();
 
- // console.log(data);
+ 
+ function handleOrder() {
+    let noOfOrder = data.cart.cartItem.length;
 
-  const navigate = useNavigate();
+    try {
+      data.cart.cartItem.map(async (order) => {
+        const { data } =  await createOrder({
+          productId: order.productId,
+          quantity: order.quantity,
+          userId: user.id,
+        });
+       
+      });
 
-  async function handleOrder (){
-  let orderId = "";
-    await data.cart.cartItem.map(async (order)=>{
-       const {data} = await createOrder({
-        productId : order.productId,
-        quantity:order.quantity,
-        userId:user.id
-       })
-       console.log(data)
-       orderId = data.newOrder.id+","+orderId
-       console.log("orderId ==== "+orderId);
-     })
-
-     navigate("/confirmPage", {
-      params: {
-          orderIds: "foo"
-      }
-  })
+       navigate(`/confirmPage/${noOfOrder}`);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   const styles = {
@@ -192,7 +190,6 @@ const Checkout = () => {
           Place your Order
         </Button>
 
-
         <br />
       </Paper>
     </div>
@@ -200,3 +197,4 @@ const Checkout = () => {
 };
 
 export default Checkout;
+export { Product };

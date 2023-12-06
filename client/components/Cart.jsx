@@ -1,187 +1,257 @@
 import React from "react";
 import {
-    Typography,
-    Paper,
-    Card,
-    CardContent,
-    CardMedia,
-    Button
+  Typography,
+  Paper,
+  Card,
+  CardContent,
+  CardMedia,
+  Button,
 } from "@mui/material";
-import { useFetchCartByUserQuery, useFetchCartByIdQuery } from "../redux/cartApi";
+import {
+  useFetchCartByUserQuery,
+  useFetchCartByIdQuery,
+} from "../redux/cartApi";
 import { useFetchSingleProductQuery } from "../redux/productsApi";
-import { useUpdateCartItemMutation, useDeleteCartItemMutation } from "../redux/cartItemApi";
+import {
+  useUpdateCartItemMutation,
+  useDeleteCartItemMutation,
+} from "../redux/cartItemApi";
 import { useAppSelector } from "../hooks";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ProductDetails = ({ productId }) => {
-    const { data: productData, error: productError, isLoading: productLoading } = useFetchSingleProductQuery(productId);
+  const {
+    data: productData,
+    error: productError,
+    isLoading: productLoading,
+  } = useFetchSingleProductQuery(productId);
 
-    if (productLoading) {
-        return <p>Loading product details...</p>;
-    }
+  if (productLoading) {
+    return <p>Loading product details...</p>;
+  }
 
-    if (productError) {
-        return <p>Error fetching product details: {productError.message}</p>;
-    }
+  if (productError) {
+    return <p>Error fetching product details: {productError.message}</p>;
+  }
 
-    const product = productData.product;
+  const product = productData.product;
 
-    return (
-        <div>
-            <Card variant="elevation" sx={{ display: 'flex', width: 300, height:200 }}>
-                <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', maxHeight: 200, p: 2 }}>
-                    <Typography gutterBottom variant="body1" component="div">
-                        <p>{product.name}</p>
-                        {/* Add more details as needed */}
-                    </Typography>
-                </CardContent>
-                <CardMedia
-                    component="img"
-                    alt="Product Image"
-                    height="auto"
-                    sx={{ height: '35%', width: '35%', display: 'block', margin: 'auto' }}
-                    image={product.image}
-                />
-            </Card>
-        </div>
-    );
+  return (
+    <div>
+      <Card
+        variant="elevation"
+        sx={{ display: "flex", width: 300, height: 200 }}
+      >
+        <CardContent
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            maxHeight: 200,
+            p: 2,
+          }}
+        >
+          <Typography gutterBottom variant="body1" component="div">
+            <p>{product.name}</p>
+            {/* Add more details as needed */}
+          </Typography>
+        </CardContent>
+        <CardMedia
+          component="img"
+          alt="Product Image"
+          height="auto"
+          sx={{ height: "35%", width: "35%", display: "block", margin: "auto" }}
+          image={product.image}
+        />
+      </Card>
+    </div>
+  );
 };
 
 const Cart = () => {
-    const user = useAppSelector((state) => state.token.user);
- 
-    const [isUpdated, setIsUpdated] = useState(false);
-    const navigate = useNavigate();
+  const user = useAppSelector((state) => state.token.user);
 
-    const { data: userCartData, error: userCartError, isLoading: userCartLoading } = useFetchCartByUserQuery(user.id);
+  const [isUpdated, setIsUpdated] = useState(false);
+  const navigate = useNavigate();
 
-    const { data: cartByIdData, error: cartByIdError, isLoading: cartByIdLoading } = useFetchCartByIdQuery(userCartData?.cart?.id || null);
+  const {
+    data: userCartData,
+    error: userCartError,
+    isLoading: userCartLoading,
+  } = useFetchCartByUserQuery(user.id);
 
-    const [increaseQuantity] = useUpdateCartItemMutation();
-    const [decreaseQuantity] = useUpdateCartItemMutation();
-    const [deleteCartItem] = useDeleteCartItemMutation();
+  const {
+    data: cartByIdData,
+    error: cartByIdError,
+    isLoading: cartByIdLoading,
+  } = useFetchCartByIdQuery(userCartData?.cart?.id || null);
 
-    const handleDeleteItem = async (cartItemId) => {
-        try {
+  const [increaseQuantity] = useUpdateCartItemMutation();
+  const [decreaseQuantity] = useUpdateCartItemMutation();
+  const [deleteCartItem] = useDeleteCartItemMutation();
 
-            const response = await deleteCartItem(cartItemId).unwrap();
+  const handleDeleteItem = async (cartItemId) => {
+    try {
+      const response = await deleteCartItem(cartItemId).unwrap();
 
-            console.log('Item deleted from cart:', response);
-            setIsUpdated(true);
-
-        } catch (error) {
-            console.error('Error deleting item from cart:', error);
-        }
+      console.log("Item deleted from cart:", response);
+      setIsUpdated(true);
+    } catch (error) {
+      console.error("Error deleting item from cart:", error);
     }
+  };
 
-    const handleIncreaseQuantity = async (cartItemId) => {
-        try {
-            const response = await increaseQuantity({
-                cartItemId,
-                updatedCartItem: {
-                    quantity: userCartData.cart.cartItem.find((item) => item.id === cartItemId).quantity + 1,
-                },
-            }).unwrap();
+  const handleIncreaseQuantity = async (cartItemId) => {
+    try {
+      const response = await increaseQuantity({
+        cartItemId,
+        updatedCartItem: {
+          quantity:
+            userCartData.cart.cartItem.find((item) => item.id === cartItemId)
+              .quantity + 1,
+        },
+      }).unwrap();
 
-            console.log('Item quantity updated in cart:', response);
+      console.log("Item quantity updated in cart:", response);
 
-            setIsUpdated(true);
+      setIsUpdated(true);
+    } catch (error) {
+      console.error("Error updating item quantity in cart:", error);
+    }
+  };
 
-        } catch (error) {
-            console.error('Error updating item quantity in cart:', error);
-        }
-    };
+  const handleDecreaseQuantity = async (cartItemId) => {
+    try {
+      const response = await decreaseQuantity({
+        cartItemId,
+        updatedCartItem: {
+          quantity:
+            userCartData.cart.cartItem.find((item) => item.id === cartItemId)
+              .quantity - 1,
+        },
+      }).unwrap();
 
-    const handleDecreaseQuantity = async (cartItemId) => {
-        try {
-            const response = await decreaseQuantity({
-                cartItemId,
-                updatedCartItem: {
-                    quantity: userCartData.cart.cartItem.find((item) => item.id === cartItemId).quantity - 1,
-                },
-            }).unwrap();
+      console.log("Item quantity updated in cart:", response);
 
-            console.log('Item quantity updated in cart:', response);
+      setIsUpdated(true);
+    } catch (error) {
+      console.error("Error updating item quantity in cart:", error);
+    }
+  };
 
-            setIsUpdated(true);
+  useEffect(() => {
+    if (isUpdated) {
+      window.location.reload();
+    }
+  }, [isUpdated]);
 
-        } catch (error) {
-            console.error('Error updating item quantity in cart:', error);
-        }
-    };
-
-    useEffect(() => {
-        if (isUpdated) {
-            window.location.reload();
-        }
-    }, [isUpdated]);
-
-
-    return (
-        <>
-            <Paper elevation={0} sx={{ width: "80%", m: "2% 10%" }}>
-                <div>
-                    <Typography
-                        fontFamily="monospace"
-                        variant="h4"
-                        sx={{ m: 5, alignContent: "center" }}
+  return (
+    <>
+      <Paper elevation={0} sx={{ width: "80%", m: "2% 10%" }}>
+        <Button size="medium" onClick={() => navigate("/")}>
+          continue shopping
+        </Button>
+        <div>
+          <Typography
+            fontFamily="monospace"
+            variant="h4"
+            sx={{ m: 5, alignContent: "center" }}
+          >
+            Your Shopping Cart Items:
+          </Typography>
+          {cartByIdData?.cart && (
+            <div key={cartByIdData.cart.id}>
+              {cartByIdData.cart.cartItem.map((item) => (
+                <Card
+                  key={item.id}
+                  variant="elevation"
+                  sx={{
+                    width: 850,
+                    mb: 5,
+                    p: 1,
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    backgroundColor: "rgba(240, 240, 240, 0.8)",
+                  }}
+                >
+                  <ProductDetails productId={item.productId} />
+                  <CardContent sx={{ maxHeight: 200 }}>
+                    <Button
+                      variant="contained"
+                      sx={{ bgcolor: "#4CAF50", padding: 0.5, width: 45 }}
+                      size="large"
+                      onClick={() => handleIncreaseQuantity(item.id)}
                     >
-                        Your Shopping Cart Items:
+                      +
+                    </Button>
+                    <Button
+                      variant="contained"
+                      sx={{
+                        bgcolor: "#FF5733",
+                        padding: 0.5,
+                        width: 45,
+                        marginLeft: 0.5,
+                      }}
+                      size="large"
+                      onClick={() => handleDecreaseQuantity(item.id)}
+                    >
+                      -
+                    </Button>
+                    <Typography
+                      gutterBottom
+                      variant="h6"
+                      component="div"
+                      sx={{ margin: "10px 0" }}
+                    >
+                      Quantity: {item.quantity}
                     </Typography>
-                    {cartByIdData?.cart && (
-                        <div key={cartByIdData.cart.id}>
-                            {cartByIdData.cart.cartItem.map((item) => (
-                                <Card key={item.id} variant="elevation" sx={{ width: 850, mb: 5, p: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'rgba(240, 240, 240, 0.8)' }}>
-                                    <ProductDetails productId={item.productId} />
-                                    <CardContent sx={{ maxHeight: 200 }}>
-                                        <Button
-                                            variant="contained"
-                                            sx={{ bgcolor: "#4CAF50", padding: .5, width: 45 }}
-                                            size="large"
-                                            onClick={() => handleIncreaseQuantity(item.id)}
-                                        >
-                                            +
-                                        </Button>
-                                        <Button
-                                            variant="contained"
-                                            sx={{ bgcolor: "#FF5733", padding: .5, width: 45 ,marginLeft:.5}}
-                                            size="large"
-                                            onClick={() => handleDecreaseQuantity(item.id)}
-                                        >
-                                            -
-                                        </Button>
-                                        <Typography gutterBottom variant="h6" component="div" sx={{ margin: '10px 0' }}>
-                                            Quantity: {item.quantity}
-                                        </Typography>
-                                        <Button
-                                            variant="contained"
-                                            sx={{ bgcolor: "#7071E8", padding: 1, width: 120 }}
-                                            size="medium"
-                                            onClick={() => handleDeleteItem(item.id)}
-                                        >
-                                            Remove Item
-                                        </Button>
-
-                                    </CardContent>
-                                </Card>
-                            ))}
-                             <Button
-                                            variant="contained"
-                                            sx={{ bgcolor: "#7071E8", padding: 1, width: 300,m:'0 25%' }}
-                                            size="medium"
-                                            onClick={() => navigate('/checkout')}
-                                        >
-                                           Proceed to Checkout
-                                        </Button>
-                        </div>
-                    )}
-                </div>
-            </Paper>
-        </>
-    );
+                    <Button
+                      variant="contained"
+                      sx={{ bgcolor: "#7071E8", padding: 1, width: 120 }}
+                      size="medium"
+                      onClick={() => handleDeleteItem(item.id)}
+                    >
+                      Remove Item
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+              <div>
+                {cartByIdData.cart.length >= 1 ? (
+                  <Button
+                    variant="contained"
+                    sx={{
+                      bgcolor: "#7071E8",
+                      padding: 1,
+                      width: 300,
+                      m: "0 25%",
+                    }}
+                    size="medium"
+                    onClick={() => navigate("/checkout")}
+                  >
+                    Proceed to Checkout
+                  </Button>
+                ) : (
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      padding: 1,
+                      width: 300,
+                      m: "0 25%",
+                    }}
+                  >
+                    No item found
+                  </Typography>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      </Paper>
+    </>
+  );
 };
-
-
 
 export default Cart;
