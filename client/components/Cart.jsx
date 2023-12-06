@@ -219,7 +219,7 @@ const Cart = () => {
                 </Card>
               ))}
               <div>
-                {cartByIdData.cart.length >= 1 ? (
+                {cartByIdData.cart.cartItem.length >= 1 ? (
                   <Button
                     variant="contained"
                     sx={{
