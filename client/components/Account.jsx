@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAppSelector } from "../hooks";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -7,6 +7,7 @@ import Login from "./Login";
 import { useState } from "react";
 import { useFetchSingleProductQuery } from "../redux/productsApi";
 import { useNavigate } from "react-router-dom";
+import { useGetUserOrderQuery } from "../redux/orderApi";
 
 const styles = {
   mr: 2,
@@ -29,7 +30,6 @@ const styles2 = {
 const OrderHistory = ({ productId }) => {
   const navigate = useNavigate();
   const { data, error, isLoading } = useFetchSingleProductQuery(productId);
-  console.log("product data ---" + data);
 
   return (
     <Paper elevation={1} sx={{ width: "80%", m: "1% 5%", padding: "20px" }}>
@@ -64,12 +64,26 @@ const OrderHistory = ({ productId }) => {
     </Paper>
   );
 };
-
+const Order = ({ userId }) => {
+  const { data, error, isLoading } = useGetUserOrderQuery(userId);
+  return (
+    <>
+      {data && data.orders.length >= 1 ? (
+        data.orders.map((order) => {
+          return (
+            <div key={order.id}>
+              <OrderHistory productId={order.productId} />
+            </div>
+          );
+        })
+      ) : (
+        <Typography sx={styles}>No Order History Found</Typography>
+      )}
+    </>
+  );
+};
 const Account = () => {
   const user = useAppSelector((state) => state.token.user);
-  const [order, setOrder] = useState(user !== null ? [user.order] : null);
-  console.log("user:", user);
-  console.log("order:", order);
 
   return (
     <>
@@ -130,17 +144,7 @@ const Account = () => {
           </Box>
           <br />
           <br />
-          {order[0].length >= 1 ? (
-            order[0].map((order) => {
-              return (
-                <div key={order.productId}>
-                  <OrderHistory productId={order.productId} />
-                </div>
-              );
-            })
-          ) : (
-            <Typography sx={styles}>No Order History Found</Typography>
-          )}
+          <Order userId={user.id} />
         </div>
       ) : (
         <div>

@@ -14,6 +14,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { useAddOrderMutation } from "../redux/orderApi";
 
 const Product = ({ productId, quantity }) => {
   const { data } = useFetchSingleProductQuery(productId);
@@ -46,10 +47,31 @@ const Checkout = () => {
   const user = useAppSelector((state) => state.token.user);
   const [cart, setCart] = useState(user !== null ? user.cart : null);
   const { data } = useFetchCartByIdQuery(cart[0].id);
+  const [createOrder] = useAddOrderMutation();
 
-  console.log(data);
+ // console.log(data);
 
   const navigate = useNavigate();
+
+  async function handleOrder (){
+  let orderId = "";
+    await data.cart.cartItem.map(async (order)=>{
+       const {data} = await createOrder({
+        productId : order.productId,
+        quantity:order.quantity,
+        userId:user.id
+       })
+       console.log(data)
+       orderId = data.newOrder.id+","+orderId
+       console.log("orderId ==== "+orderId);
+     })
+
+     navigate("/confirmPage", {
+      params: {
+          orderIds: "foo"
+      }
+  })
+  }
 
   const styles = {
     mr: 2,
@@ -165,10 +187,12 @@ const Checkout = () => {
           type="submit"
           variant="contained"
           sx={{ bgcolor: "#7071E8", padding: "8px 10px" }}
-          onClick={() => navigate("/confirmPage")}
+          onClick={() => handleOrder()}
         >
           Place your Order
         </Button>
+
+
         <br />
       </Paper>
     </div>

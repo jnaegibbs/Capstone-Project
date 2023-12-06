@@ -28,13 +28,6 @@ const cartApi = createApi ({
 
         fetchCartByUser: builder.query({
             query: (userId) =>  `api/pets/cart/${userId}`,
-            transformResponse: (response) => {
-                console.log(response);
-                return(response);
-            },
-            transformErrorResponse: (response) => {
-                console.log(response.status)
-            },
 
         }),
 
