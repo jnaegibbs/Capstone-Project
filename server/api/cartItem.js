@@ -113,17 +113,34 @@ cartItemRouter.patch("/:cartItemId", async (req, res, next) => {
 
 // DELETE /api/pets/cartItem/:cartItemId
 cartItemRouter.delete("/:cartItemId", async (req, res, next) => {
+    
    try {
        const deleteItem = await prisma.cartItem.delete({
            where: {
                id: Number(req.params.cartItemId)
            },
        })
-       console.log(deleteItem)
+       
        res.status(200).send(deleteItem)
    } catch (error) {
        next (error)
    }
+})
+
+//DELETE /api/pets/cartItem/cart/:cartId
+cartItemRouter.delete('/cart/:cartId',async (req,res,next)=>{
+   
+    try{
+        const deletecartItem = await prisma.cartItem.deleteMany({
+            where:{
+               cartId:Number(req.params.cartId)
+            },
+            
+        })
+        res.send({deletecartItem})
+    }catch (error) {
+        next (error)
+    }
 })
 
 

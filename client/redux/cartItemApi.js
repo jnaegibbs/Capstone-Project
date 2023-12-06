@@ -37,6 +37,12 @@ const cartItemApi = createApi({
         method: 'DELETE',
       }),
     }),
+    deleteAllCartItem: builder.mutation({
+      query: (cartId) => ({
+        url: `api/pets/cartItem/cart/${cartId}`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 });
 
@@ -45,6 +51,7 @@ export const {
   useCreateCartItemMutation,
   useUpdateCartItemMutation,
   useDeleteCartItemMutation,
+  useDeleteAllCartItemMutation
 } = cartItemApi;
 
 export default cartItemApi;

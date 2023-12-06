@@ -64,7 +64,7 @@ const Products = ({ petValue, categoryValue }) => {
       >
         {data &&
           productData.map((product) => (
-            <Card variant="elevation" sx={{ width: 300, mb: 5, p: 1 }}>
+            <Card key={product.id} variant="elevation" sx={{ width: 300, mb: 5, p: 1 }}>
               <CardActionArea onClick={() => navigate(`/${product.id}`)}>
                 <CardMedia 
                 sx={{ height: 250, objectFit: "contain" }} 
