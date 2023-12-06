@@ -24,6 +24,10 @@ const orderApi = createApi({
     getSingleorder: builder.query({
       query: (orderId) => `api/pets/order/${orderId}`,
     }),
+     // get a single order
+     getUserOrder: builder.query({
+      query: (userId) => `api/pets/order/user/${userId}`,
+    }),
 
     //create a new order
     addOrder: builder.mutation({
@@ -79,6 +83,7 @@ export default orderApi;
 export const {
   useGetOrdersQuery,
   useGetSingleorderQuery,
+  useGetUserOrderQuery,
   useAddOrderMutation,
   useUpdateOrderMutation,
   useDeleteOrderMutation,

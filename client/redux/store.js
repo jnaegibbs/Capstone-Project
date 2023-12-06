@@ -28,7 +28,8 @@ const store = configureStore({
         productsApi.middleware,
         inventoryApi.middleware,
         cartApi.middleware,
-        cartItemApi.middleware
+        cartItemApi.middleware,
+        reviewApi.middleware
      ),
 });
 

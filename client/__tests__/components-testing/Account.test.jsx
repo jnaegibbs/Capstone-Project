@@ -12,6 +12,7 @@ import Account from "../../components/Account";
 import { screen } from "@testing-library/react";
 import { useAppSelector } from "../../hooks";
 import { useFetchSingleProductQuery } from "../../redux/productsApi";
+import { useGetUserOrderQuery } from "../../redux/orderApi";
 
 const server = setupServer(...productApiHandlers);
 const mockedUsedNavigate = jest.fn();
@@ -30,6 +31,11 @@ jest.mock("../../redux/productsApi",()=>({
   ...jest.requireActual("../../redux/productsApi"),
   useFetchSingleProductQuery:jest.fn(),
 }));
+
+jest.mock("../../redux/orderApi",()=>({
+  ...jest.requireActual("../../redux/orderApi"),
+  useGetUserOrderQuery:jest.fn(),
+}))
 
 const user = {
   token: "token",
@@ -79,8 +85,10 @@ describe("<Account/>", () => {
   });
 
   test("renders the Account Component", () => {
+    useGetUserOrderQuery.mockReturnValue(null);
     useAppSelector.mockReturnValue(null);
     useFetchSingleProductQuery.mockReturnValue(null);
+   
     const account = renderWithProviders(<Account />);
     expect(account).not.toBe(null);
   });
@@ -88,6 +96,7 @@ describe("<Account/>", () => {
   test("render and display the login page if user not logged In", () => {
     useAppSelector.mockReturnValue(null);
     useFetchSingleProductQuery.mockReturnValue(null);
+    useGetUserOrderQuery.mockReturnValue(null);
     renderWithProviders(<Account />);
     expect(screen.getByText("Sign In")).toBeInTheDocument();
 
@@ -104,6 +113,7 @@ describe("<Account/>", () => {
   test("render and display the account page with user details if user logged In", async () => {
     useAppSelector.mockReturnValue(user.user);
     useFetchSingleProductQuery.mockReturnValue(user.user.order)
+    useGetUserOrderQuery.mockReturnValue(user.user.order)
     renderWithProviders(<Account />);
    
    
