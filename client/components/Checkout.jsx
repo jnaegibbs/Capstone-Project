@@ -1,6 +1,6 @@
 import { Avatar, Paper, Stack, Typography } from "@mui/material";
 import { useAppSelector } from "../hooks";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import { useFetchCartByIdQuery } from "../redux/cartApi";
@@ -16,9 +16,14 @@ import {
 } from "@mui/material";
 import { useAddOrderMutation } from "../redux/orderApi";
 import Login from "./Login";
+const grandTotal = [];
 
 const Product = ({ productId, quantity }) => {
   const { data } = useFetchSingleProductQuery(productId);
+  if (data) {
+    grandTotal.push(Number(data.product.price.substring(1)) * quantity);
+    console.log(grandTotal);
+  }
 
   return (
     <>
@@ -35,8 +40,11 @@ const Product = ({ productId, quantity }) => {
           <TableCell>
             <Typography variant="body1">{data.product.name}</Typography>
           </TableCell>
-          <TableCell>
+          <TableCell align="center">
             <Typography variant="h6">{data.product.price} </Typography>
+          </TableCell>
+          <TableCell align="center">
+            <Typography variant="body1">x{quantity}</Typography>
           </TableCell>
         </>
       )}
@@ -50,6 +58,8 @@ const Checkout = () => {
   const { data } = useFetchCartByIdQuery(cart[0].id);
   const navigate = useNavigate();
   const [createOrder] = useAddOrderMutation();
+  const{total:total} = useParams();
+
 
   function handleOrder() {
     let noOfOrder = data.cart.cartItem.length;
@@ -141,7 +151,7 @@ const Checkout = () => {
           </Typography>
           <br />
           <br />
-          <TableContainer sx={{ minWidth: 700, m: "0 20%" }} component={Paper}>
+          <TableContainer sx={{ minWidth: 800, m: "0 20%" }} component={Paper}>
             <Table>
               <TableHead>
                 <TableRow>
@@ -165,18 +175,16 @@ const Checkout = () => {
                           productId={cartItem.productId}
                           quantity={cartItem.quantity}
                         />
-
-                        <TableCell>
-                          <Typography variant="body1">
-                            {cartItem.quantity}
-                          </Typography>
-                        </TableCell>
                       </TableRow>
                     );
                   })}
                 <TableRow>
                   <TableCell rowSpan={3} />
-                  <TableCell colSpan={1}>Subtotal</TableCell>
+                  <TableCell colSpan={1}><Typography variant="h6">Total Price</Typography></TableCell>
+                 
+                  <TableCell align="center">
+                    <Typography variant="h6">${total/2}</Typography>
+                  </TableCell>
                 </TableRow>
               </TableBody>
             </Table>
@@ -185,7 +193,7 @@ const Checkout = () => {
           <Button
             type="submit"
             variant="contained"
-            sx={{ bgcolor: "#7071E8", padding: "8px 10px" }}
+            sx={{ bgcolor: "#7071E8", padding: "8px 10px",m:"5% 20%" }}
             onClick={() => handleOrder()}
           >
             Place your Order
