@@ -18,18 +18,18 @@ const inventoryApi = createApi ({
     endpoints: (builder) => ({
         //get all inventory
         getInventory: builder.query({
-            query: () => `api/pets/inventory`
+            query: () => `/api/pets/inventory`
         }),
 
         //get single inventory
         getSingleInventory: builder.query({
-            query: (inventoryId) => `api/pets/inventory/${inventoryId}`
+            query: (inventoryId) => `/api/pets/inventory/${inventoryId}`
         }),
 
         //create new inventory
         addInventory: builder.mutation({
             query: (newInventory) => ({
-                url: `api/pets/inventory`,
+                url: `/api/pets/inventory`,
                 method: "POST",
                 body: newInventory,
             }),
@@ -45,7 +45,7 @@ const inventoryApi = createApi ({
         //update existing inventory
         updateInventory: builder.mutation({
             query: ({inventoryId, updateInventory}) => ({
-                url: `api/pets/inventory/${inventoryId}`,
+                url: `/api/pets/inventory/${inventoryId}`,
                 method: "PUT",
                 body: updateInventory
             }),
@@ -62,7 +62,7 @@ const inventoryApi = createApi ({
         //delete existing inventory
         deleteInventory: builder.mutation({
             query: (inventoryId) => ({
-                url: `api/pets/inventory/${inventoryId}`,
+                url: `/api/pets/inventory/${inventoryId}`,
                 method: "DELETE",
             }),
             transformResponse: (response) => {

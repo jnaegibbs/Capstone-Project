@@ -18,18 +18,18 @@ const productsApi = createApi ({
     endpoints: (builder) => ({
         //get all products
         fetchProducts: builder.query({
-            query: () => `api/pets/product`,
+            query: () => `/api/pets/product`,
         }),
 
         //get single product
         fetchSingleProduct: builder.query({
-            query: (productId) => `api/pets/product/${productId}`
+            query: (productId) => `/api/pets/product/${productId}`
         }),
 
         //create a new product 
         newProduct: builder.mutation({
             query: (newProduct) => ({
-                url: `api/pets/product`,
+                url: `/api/pets/product`,
                 method: "POST",
                 body: newProduct,
             }),
@@ -45,7 +45,7 @@ const productsApi = createApi ({
         //update existing product
         updateProduct: builder.mutation({
             query:(productId, updateProduct) => ({
-                url:`api/pets/product/${productId}`,
+                url:`/api/pets/product/${productId}`,
                 method: "POST",
                 body: updateProduct
             }),
@@ -61,7 +61,7 @@ const productsApi = createApi ({
         //delete existing product
         deleteProduct: builder.mutation({
             query: (productId) => ({
-                url:`api/pets/product/${productId}`,
+                url:`/api/pets/product/${productId}`,
                 method: "DELETE",
             }),
             transformResponse: (response) => {

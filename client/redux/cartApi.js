@@ -21,19 +21,19 @@ const cartApi = createApi ({
      
         //get all carts
         fetchCart: builder.query({
-            query: () => `api/pets/cart`
+            query: () => `/api/pets/cart`
         }),
         fetchCartById: builder.query({
-            query: (cartId) =>  `api/pets/cart/${cartId}`,}),
+            query: (cartId) =>  `/api/pets/cart/${cartId}`,}),
 
         fetchCartByUser: builder.query({
-            query: (userId) =>  `api/pets/cart/${userId}`,
+            query: (userId) =>  `/api/pets/cart/${userId}`,
 
         }),
 
         createCart: builder.mutation({
             query: (newCart) => ({
-              url: `api/pets/cart`,
+              url: `/api/pets/cart`,
               method: "POST",
               body: newCart,
             })

@@ -18,21 +18,21 @@ const orderApi = createApi({
   endpoints: (builder) => ({
     //get all the orders
     getOrders: builder.query({
-      query: () => `api/pets/order`,
+      query: () => `/api/pets/order`,
     }),
      // get a single order
     getSingleorder: builder.query({
-      query: (orderId) => `api/pets/order/${orderId}`,
+      query: (orderId) => `/api/pets/order/${orderId}`,
     }),
      // get a single order
      getUserOrder: builder.query({
-      query: (userId) => `api/pets/order/user/${userId}`,
+      query: (userId) => `/api/pets/order/user/${userId}`,
     }),
 
     //create a new order
     addOrder: builder.mutation({
       query: (orderDetails) => ({
-        url: `api/pets/order`,
+        url: `/api/pets/order`,
         method: "POST",
         body: orderDetails,
       }),

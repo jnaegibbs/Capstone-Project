@@ -18,17 +18,17 @@ const reviewApi = createApi({
   endpoints: (builder) => ({
     //get all the reviews
     getReviews: builder.query({
-      query: () => `api/pets/review`,
+      query: () => `/api/pets/review`,
     }),
      // get a single review
     getSingleReview: builder.query({
-      query: (reviewId) => `api/pets/review/${reviewId}`,
+      query: (reviewId) => `/api/pets/review/${reviewId}`,
     }),
 
     //create a new review
     addReview: builder.mutation({
       query: (reviewDetails) => ({
-        url: `api/pets/review`,
+        url: `/api/pets/review`,
         method: "POST",
         body: reviewDetails,
       }
@@ -47,7 +47,7 @@ const reviewApi = createApi({
     //update the existed review
     updateReview: builder.mutation({
       query: (reviewId, ...reviewDetails) => ({
-        url: `api/pets/review/${reviewId}`,
+        url: `/api/pets/review/${reviewId}`,
         method: "PUT",
         body: reviewDetails,
       }),
@@ -63,7 +63,7 @@ const reviewApi = createApi({
     //delete the existed review
     deleteReview: builder.mutation({
       query: (reviewId) => ({
-        url: `api/pets/review/${reviewId}`,
+        url: `/api/pets/review/${reviewId}`,
         method: "DELETE",
       }),
       transformResponse: (response, meta, arg) => {

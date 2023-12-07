@@ -15,31 +15,31 @@ const cartItemApi = createApi({
   }),
   endpoints: (builder) => ({
     fetchCartItems: builder.query({
-      query: () => 'api/pets/cartItem',
+      query: () => '/api/pets/cartItem',
     }),
     createCartItem: builder.mutation({
       query: (newCartItem) => ({
-        url: 'api/pets/cartItem',
+        url: '/api/pets/cartItem',
         method: 'POST',
         body: newCartItem,
       }),
     }),
     updateCartItem: builder.mutation({
       query: ({ cartItemId, updatedCartItem }) => ({
-        url: `api/pets/cartItem/${cartItemId}`,
+        url: `/api/pets/cartItem/${cartItemId}`,
         method: 'PATCH',
         body: updatedCartItem,
       }),
     }),
     deleteCartItem: builder.mutation({
       query: (cartItemId) => ({
-        url: `api/pets/cartItem/${cartItemId}`,
+        url: `/api/pets/cartItem/${cartItemId}`,
         method: 'DELETE',
       }),
     }),
     deleteAllCartItem: builder.mutation({
       query: (cartId) => ({
-        url: `api/pets/cartItem/cart/${cartId}`,
+        url: `/api/pets/cartItem/cart/${cartId}`,
         method: 'DELETE',
       }),
     }),
