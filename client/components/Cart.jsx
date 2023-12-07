@@ -19,14 +19,18 @@ import {
 import { useAppSelector } from "../hooks";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+const total = [];
 
-const ProductDetails = ({ productId }) => {
+const ProductDetails = ({ productId, quantity }) => {
   const {
     data: productData,
     error: productError,
     isLoading: productLoading,
   } = useFetchSingleProductQuery(productId);
-
+  if (productData) {
+    total.push(Number(productData.product.price.substring(1)) * quantity);
+    console.log(total);
+  }
   if (productLoading) {
     return <p>Loading product details...</p>;
   }
@@ -71,7 +75,6 @@ const ProductDetails = ({ productId }) => {
 
 const Cart = () => {
   const user = useAppSelector((state) => state.token.user);
-
   const [isUpdated, setIsUpdated] = useState(false);
   const navigate = useNavigate();
 
@@ -176,7 +179,10 @@ const Cart = () => {
                     backgroundColor: "rgba(240, 240, 240, 0.8)",
                   }}
                 >
-                  <ProductDetails productId={item.productId} />
+                  <ProductDetails
+                    productId={item.productId}
+                    quantity={item.quantity}
+                  />
                   <CardContent sx={{ maxHeight: 200 }}>
                     <Button
                       variant="contained"
@@ -229,7 +235,9 @@ const Cart = () => {
                       m: "0 25%",
                     }}
                     size="medium"
-                    onClick={() => navigate("/checkout")}
+                    onClick={() =>
+                      navigate(`/checkout/${total.reduce((s, c) => s + c)}`)
+                    }
                   >
                     Proceed to Checkout
                   </Button>
