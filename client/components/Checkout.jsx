@@ -183,7 +183,7 @@ const Checkout = () => {
                   <TableCell colSpan={1}><Typography variant="h6">Total Price</Typography></TableCell>
                  
                   <TableCell align="center">
-                    <Typography variant="h6">${total/2}</Typography>
+                    <Typography variant="h6">${total}</Typography>
                   </TableCell>
                 </TableRow>
               </TableBody>
