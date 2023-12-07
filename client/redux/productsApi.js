@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const productsApi = createApi ({
     reducerPath: "productsApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:8080/",
+        baseUrl: "/",
         prepareHeaders: (headers, {getState} )=> {
             const token = getState().token.token
             if (token) {
