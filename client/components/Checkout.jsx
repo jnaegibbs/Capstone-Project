@@ -15,7 +15,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { useAddOrderMutation } from "../redux/orderApi";
-
+import Login from "./Login";
 
 const Product = ({ productId, quantity }) => {
   const { data } = useFetchSingleProductQuery(productId);
@@ -51,21 +51,19 @@ const Checkout = () => {
   const navigate = useNavigate();
   const [createOrder] = useAddOrderMutation();
 
- 
- function handleOrder() {
+  function handleOrder() {
     let noOfOrder = data.cart.cartItem.length;
 
     try {
       data.cart.cartItem.map(async (order) => {
-        const { data } =  await createOrder({
+        const { data } = await createOrder({
           productId: order.productId,
           quantity: order.quantity,
           userId: user.id,
         });
-       
       });
 
-       navigate(`/confirmPage/${noOfOrder}`);
+      navigate(`/confirmPage/${noOfOrder}`);
     } catch (e) {
       console.log(e);
     }
@@ -102,96 +100,100 @@ const Checkout = () => {
 
   return (
     <div>
-      <Paper elevation={0} sx={styles2}>
-        <br />
-        <br />
-        <Typography variant="h1" sx={styles}>
-          Contact
-        </Typography>
-        <br />
+      {user === null ? (
+        <Login />
+      ) : (
+        <Paper elevation={0} sx={styles2}>
+          <br />
+          <br />
+          <Typography variant="h1" sx={styles}>
+            Contact
+          </Typography>
+          <br />
 
-        <Typography variant="body1" sx={bodyStyle}>
-          {user.profile[0].email}
-        </Typography>
-        <Typography variant="body1" sx={bodyStyle}>
-          {user.profile[0].phoneNumber}
-        </Typography>
-        <br />
-        <br />
-        <Typography variant="h1" sx={styles}>
-          Shipping Address
-        </Typography>
-        <br />
-        <Typography variant="body1" sx={bodyStyle}>
-          {user.profile[0].name}
-        </Typography>
-        <Typography variant="body1" sx={bodyStyle}>
-          {user.profile[0].address}
-        </Typography>
-        <br />
-        <br />
-        <Typography variant="h1" sx={styles}>
-          Payment
-        </Typography>
-        <br />
-        <br />
-        <Typography variant="h1" sx={styles}>
-          Review Item
-        </Typography>
-        <br />
-        <br />
-        <TableContainer sx={{ minWidth: 700, m: "0 20%" }} component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell align="center" colSpan={2}>
-                  Product Details
-                </TableCell>
-                <TableCell align="center" colSpan={1}>
-                  Price
-                </TableCell>
-                <TableCell align="right" colSpan={1}>
-                  Quantity
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data &&
-                data.cart.cartItem.map((cartItem) => {
-                  return (
-                    <TableRow key={cartItem.id}>
-                      <Product
-                        productId={cartItem.productId}
-                        quantity={cartItem.quantity}
-                      />
+          <Typography variant="body1" sx={bodyStyle}>
+            {user.profile[0].email}
+          </Typography>
+          <Typography variant="body1" sx={bodyStyle}>
+            {user.profile[0].phoneNumber}
+          </Typography>
+          <br />
+          <br />
+          <Typography variant="h1" sx={styles}>
+            Shipping Address
+          </Typography>
+          <br />
+          <Typography variant="body1" sx={bodyStyle}>
+            {user.profile[0].name}
+          </Typography>
+          <Typography variant="body1" sx={bodyStyle}>
+            {user.profile[0].address}
+          </Typography>
+          <br />
+          <br />
+          <Typography variant="h1" sx={styles}>
+            Payment
+          </Typography>
+          <br />
+          <br />
+          <Typography variant="h1" sx={styles}>
+            Review Item
+          </Typography>
+          <br />
+          <br />
+          <TableContainer sx={{ minWidth: 700, m: "0 20%" }} component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center" colSpan={2}>
+                    Product Details
+                  </TableCell>
+                  <TableCell align="center" colSpan={1}>
+                    Price
+                  </TableCell>
+                  <TableCell align="right" colSpan={1}>
+                    Quantity
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {data &&
+                  data.cart.cartItem.map((cartItem) => {
+                    return (
+                      <TableRow key={cartItem.id}>
+                        <Product
+                          productId={cartItem.productId}
+                          quantity={cartItem.quantity}
+                        />
 
-                      <TableCell>
-                        <Typography variant="body1">
-                          {cartItem.quantity}
-                        </Typography>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              <TableRow>
-                <TableCell rowSpan={3} />
-                <TableCell colSpan={1}>Subtotal</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <br />
-        <Button
-          type="submit"
-          variant="contained"
-          sx={{ bgcolor: "#7071E8", padding: "8px 10px" }}
-          onClick={() => handleOrder()}
-        >
-          Place your Order
-        </Button>
+                        <TableCell>
+                          <Typography variant="body1">
+                            {cartItem.quantity}
+                          </Typography>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                <TableRow>
+                  <TableCell rowSpan={3} />
+                  <TableCell colSpan={1}>Subtotal</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <br />
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{ bgcolor: "#7071E8", padding: "8px 10px" }}
+            onClick={() => handleOrder()}
+          >
+            Place your Order
+          </Button>
 
-        <br />
-      </Paper>
+          <br />
+        </Paper>
+      )}
     </div>
   );
 };
