@@ -14,7 +14,6 @@ const NavBar = () => {
   const navigate = useNavigate();
   const { token } = useAppSelector((state) => state.token);
   const dispatch = useAppDispatch();
-  // console.log(token);
   const user = useAppSelector((state) => state.token.user);
 
   const styles = {
@@ -29,7 +28,11 @@ const NavBar = () => {
   };
 
   const navigateToCart = () => {
-    navigate(`/cart`);
+   if(user) {
+    navigate(`/cart`)
+  }else{
+    navigate('/guestlogin')
+  }
   };
 
   return (
