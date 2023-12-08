@@ -13,6 +13,7 @@ import Confirmation from "./components/Confirmation";
 import GuestLogin from "./components/GuestLogin";
 import UpdateForm from "./components/UpdateForm";
 import Review from "./components/Review";
+import CartItem from "./components/CartItem"
 
 
 const App = () => {
@@ -28,7 +29,7 @@ const App = () => {
           <Route path='/:productId' element={<SingleView/>}/>
           <Route path="/checkout/:total" element={<Checkout />} />
           <Route path="/confirmPage/:noOfOrder" element={<Confirmation/>} />
-          <Route path="/cart" element={<Cart/>}/>
+          <Route path="/cart" element={<CartItem/>}/>
           <Route path="/guestlogin" element={<GuestLogin/>} />
           <Route path="/updateForm" element={<UpdateForm/>}/>
           <Route path='/review/:productId' element={<Review/>}/>
