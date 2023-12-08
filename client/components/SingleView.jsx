@@ -43,18 +43,20 @@ const SingleView = () => {
 
 
   const { data = {}, error, isLoading } = useFetchSingleProductQuery(productId);
-  console.log(data);
 
-  const handleAddToCart = async () => {
+
+  const handleAddToCart = async (data) => {
     try {
       // Check if productId, quantity are available
+     
       if (!productId || !quantity) {
         console.error("Product or quanitity is missing.");
         return;
       }
       if (!user) {
         // Redirect to guest login page if not logged in
-        navigate("/guestlogin");
+        dispatch(addCartItem(data));
+       // navigate("/guestlogin");
         return;
       }
 
@@ -65,7 +67,7 @@ const SingleView = () => {
         cartId: user.cart[0].id,
       }).unwrap();
 
-      dispatch(addCartItem(response));
+      dispatch(addCartItem(data));
 
       //   // Handle success, e.g., show a success message or update UI
       console.log("Item added to cart:", response);
@@ -116,14 +118,15 @@ const SingleView = () => {
     );
   };
 
-  const handleBuyNow = async () => {
+  const handleBuyNow = async (data) => {
     try {
       if (!productId || !quantity) {
         console.error("Product or quanitity is missing.");
         return;
       }
       if (!user) {
-        navigate("/guestlogin");
+        dispatch(addCartItem(data));
+        navigate("/checkout");
         return;
       }
       const response = await createCartItem({
@@ -132,7 +135,7 @@ const SingleView = () => {
         cartId: user.cart[0].id,
       }).unwrap();
 
-      dispatch(addCartItem(response));
+      dispatch(addCartItem(data));
 
       //   // Handle success, e.g., show a success message or update UI
       console.log("Item added to cart from buy now:", response);
@@ -241,7 +244,7 @@ const SingleView = () => {
                   variant="contained"
                   sx={{ bgcolor: "#7071E8", padding: 2, width: 300 }}
                   size="large"
-                  onClick={() => handleAddToCart()}
+                  onClick={() => handleAddToCart(data.product)}
                 >
                   Add to cart
                 </Button>
@@ -252,7 +255,7 @@ const SingleView = () => {
                   variant="contained"
                   sx={{ bgcolor: "#7071E8", padding: 2, width: 300 }}
                   size="large"
-                  onClick={() => handleBuyNow()}
+                  onClick={() => handleBuyNow(data.product)}
                 >
                   Buy Now
                 </Button>
