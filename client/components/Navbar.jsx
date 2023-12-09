@@ -19,6 +19,17 @@ const NavBar = () => {
   console.log(cart);
   console.log(cart.cartItems.length);
 
+
+  const buttonStyles = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: '9px',
+    marginLeft: '9px',
+    width: '100px',
+    cursor: 'pointer',
+  }
+
   const styles = {
     mr: 2,
     display: { xs: "none", md: "flex" },
@@ -30,10 +41,13 @@ const NavBar = () => {
     textDecoration: "none",
   };
 
+
   const navigateToCart = () => {
-  
-    navigate(`/cart`)
- 
+    if (user) {
+      navigate(`/cart`)
+    } else {
+      navigate('/guestlogin')
+    }
   };
 
   return (
@@ -48,68 +62,77 @@ const NavBar = () => {
               <Typography variant="h6" component="a" href="/" sx={styles}>
                 FLUFFY FRIENDS
               </Typography>
-              {token === null ? (
-                <Typography
-                  className="button"
-                  variant="h6"
-                  noWrap
-                  component="a"
-                  onClick={() => navigate("/login")}
-                  style={{ marginLeft: "50%" }}
-                  sx={styles}
-                >
-                  SignUp
-                </Typography>
-              ) : (
-                <>
+              <Container fixed sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                {token === null ? (
                   <Typography
                     className="button"
                     variant="h6"
                     noWrap
                     component="a"
-                    onClick={() => {
-                      dispatch(logout());
-                    }}
-                    style={{ marginLeft: "50%" }}
+                    onClick={() => navigate("/login")}
+                    style={buttonStyles}
                     sx={styles}
                   >
-                    Logout
+                    SignIn
                   </Typography>
-
-                  <Typography
-                    className="button"
-                    variant="h6"
-                    noWrap
-                    component="a"
-                    sx={styles}
-                    onClick={() => navigate("/account")}
-                  >
-                    Account
-                  </Typography>
-
-                  {user.isAdmin && (
+                ) : (
+                  <>
                     <Typography
                       className="button"
-                      variant="h1"
+                      variant="h6"
                       noWrap
                       component="a"
+                      onClick={() => {
+                        dispatch(logout());
+                      }}
+                      style={buttonStyles}
                       sx={styles}
-                      onClick={() => navigate("/admin")}
                     >
-                      Admin
+                      Logout
                     </Typography>
-                  )}
-                </>
-              )}
-              <IconButton color="inherit" size="large">
-                <Badge badgeContent={cart.cartItems.length} color="secondary">
-                <FaShoppingCart
-                  onClick={() => { navigateToCart() }}
-                  
-                  className="icon-button"
+
+                    <Typography
+                      className="button"
+                      variant="h6"
+                      noWrap
+                      component="a"
+                      style={buttonStyles}
+                      sx={styles}
+                      onClick={() => navigate("/account")}
+                    >
+                      Account
+                    </Typography>
+
+                    {user.isAdmin && (
+                      <Typography
+                        className="button"
+                        variant="h1"
+                        noWrap
+                        component="a"
+                        style={buttonStyles}
+                        sx={styles}
+                        onClick={() => navigate("/admin")}
+                      >
+                        Admin
+                      </Typography>
+                    )}
+                  </>
+                )}
+                <IconButton
+                  color="inherit"
+                >
+                <Badge badgeContent={cart.cartItems.length} color="secondary">                 
+                  <FaShoppingCart
+                    onClick={() => { navigateToCart() }}
+
+                    className="icon-button"
+                    style={{
+                      fontSize: '1.2rem',
+                      }}
                   />
                   </Badge>
-              </IconButton>
+                </IconButton>
+              </Container>
             </Toolbar>
           </Container>
         </AppBar>
