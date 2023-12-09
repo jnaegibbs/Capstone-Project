@@ -13,6 +13,8 @@ import Confirmation from "./components/Confirmation";
 import GuestLogin from "./components/GuestLogin";
 import UpdateForm from "./components/UpdateForm";
 import Review from "./components/Review";
+import CreateInventoryForm from "./components/NewProductForm";
+import NewProductForm from "./components/NewProductForm";
 
 
 const App = () => {
@@ -30,8 +32,9 @@ const App = () => {
           <Route path="/confirmPage/:noOfOrder" element={<Confirmation/>} />
           <Route path="/cart" element={<Cart/>}/>
           <Route path="/guestlogin" element={<GuestLogin/>} />
-          <Route path="/updateForm" element={<UpdateForm/>}/>
+          <Route path="/updateForm/:productId" element={<UpdateForm/>}/>
           <Route path='/review/:productId' element={<Review/>}/>
+          <Route path="/NewProductForm" element={<NewProductForm/>} />
           {/* Add a catch-all route */}
           <Route path="*" element={<h1>Page not found</h1>} />
         </Routes>
