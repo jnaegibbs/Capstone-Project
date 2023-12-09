@@ -115,7 +115,11 @@ describe("Authentication", () => {
           include: {
             profile: true,
             order: true,
-            cart: true
+            cart: {
+              include:{
+                cartItem:true
+              }
+            }
           },
         });
       });
@@ -148,7 +152,11 @@ describe("Authentication", () => {
               username: "testuser",
             },
             include: {
-              cart: true,
+              cart: {
+                include:{
+                  cartItem:true
+                }
+              },
               order: true,
               profile: true,
             },
@@ -189,7 +197,11 @@ describe("Authentication", () => {
             username: "testuser",
           },
           include: {
-            cart: true,
+            cart:{
+              include:{
+                cartItem:true
+              }
+            },
             order: true,
             profile: true,
           },

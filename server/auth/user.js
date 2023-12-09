@@ -19,7 +19,6 @@ userRouter.get("/", async (req, res, next) => {
 
 //GET /auth/user/:id
 userRouter.get("/:userId", async (req, res, next) => {
-  console.log("userId  "+req.params.userId)
   try {
     const user = await prisma.user.findUnique({
       where: {
@@ -27,15 +26,19 @@ userRouter.get("/:userId", async (req, res, next) => {
       },
       include: {
         profile: true,
-        cart: true,
+        cart: {
+          include:{
+            cartItem:true,
+          }
+        },
         review: true,
       },
     });
     delete user.password;
-    console.log("displaying user----"+user)
+   
     res.send({ user} );
   } catch (error) {
-    console.log("displaying user catch----")
+   
     next(error);
   }
 });
@@ -43,18 +46,18 @@ userRouter.get("/:userId", async (req, res, next) => {
 //POST /auth/user/register
 userRouter.post("/register", async (req, res, next) => {
   try {
-    const { username, name, password, isAdmin, email, phone, address } =
-      req.body;
+    const { username, name, password, isAdmin, email, phone, address } = req.body;
+
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
 
     const userExists = await prisma.user.findUnique({
-      where: {
-        username,
-      },
+      where: { username },
     });
+
     if (userExists) {
-      return res.status(403).json({ error: "UserExistsError" });
+      return res.status(401).send({ error: "Username already exists!" });
     }
+
     const user = await prisma.user.create({
       data: {
         username,
@@ -75,43 +78,63 @@ userRouter.post("/register", async (req, res, next) => {
       include: {
         profile: true,
         order: true,
-        cart: true,
+        cart: {
+          include:{
+            cartItem:true
+          }
+        },
       },
     });
 
     const token = jwt.sign({ id: user.id }, JWT_SECRET);
+
     delete user.password;
-    res.status(201).send({ user, token });
+
+    res.status(200).send({ user, token });
+
   } catch (error) {
-    next(error);
+    console.error(error);
+    res.send({message: "Unable to register. Please try again."})
   }
 });
+
 
 //POST /auth/user/login
 userRouter.post("/login", async (req, res, next) => {
   try {
     const { username, password } = req.body;
+
     const user = await prisma.user.findUnique({
-      where: {
-        username: username,
-      },
+      where: { username: username },
       include: {
         profile: true,
         order: true,
-        cart: true,
+        cart: {
+          include:{
+            cartItem:true,
+          }
+        },
       },
     });
+    
     console.log(user);
+
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+     res.status(401).send({ message: "Username not found" });
     }
+
     const passwordValid = await bcrypt.compare(password, user.password);
+
     if (!passwordValid) {
-      return res.status(401).json({ message: "Invalid password" });
+      res.status(401).send({ message: "Invalid password" });
     }
+
     const token = jwt.sign({ id: user.id }, JWT_SECRET);
+
     delete user.password;
-    res.status(200).json({ user, token });
+
+    res.status(200).send({ user, token });
+
   } catch (error) {
     next(error);
   }
@@ -151,11 +174,15 @@ userRouter.post("/guest", async (req, res, next) => {
       include: {
         profile: true,
         order: true,
-        cart: true,
+        cart: {
+          include:{
+            cartItem:true
+          }
+        },
       },
     });
     const token = jwt.sign({ id: user.id }, JWT_SECRET);
-    console.log(user);
+  
     // delete user.password;
     // res.status(201).send({ user, token });
     res.status(201).send({ user, token });
@@ -196,10 +223,13 @@ userRouter.put("/register/:userId", async (req, res, next) => {
       include: {
         profile: true,
         order: true,
-        cart: true,
+        cart:{
+          include:{
+            cartItem:true
+          }
+        },
       },
     });
-    console.log(userExists);
     const token = jwt.sign({ id: userExists.id }, JWT_SECRET);
     delete userExists.password;
     res.status(201).send({ userExists, token });

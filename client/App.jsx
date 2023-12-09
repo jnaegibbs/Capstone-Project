@@ -13,8 +13,12 @@ import Confirmation from "./components/Confirmation";
 import GuestLogin from "./components/GuestLogin";
 import UpdateForm from "./components/UpdateForm";
 import Review from "./components/Review";
+
+import CartItem from "./components/CartItem"
+
 import CreateInventoryForm from "./components/NewProductForm";
 import NewProductForm from "./components/NewProductForm";
+
 
 
 const App = () => {
@@ -28,9 +32,9 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path='/:productId' element={<SingleView/>}/>
-          <Route path="/checkout/:total" element={<Checkout />} />
-          <Route path="/confirmPage/:noOfOrder" element={<Confirmation/>} />
-          <Route path="/cart" element={<Cart/>}/>
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/confirmPage" element={<Confirmation/>} />
+          <Route path="/cart" element={<CartItem/>}/>
           <Route path="/guestlogin" element={<GuestLogin/>} />
           <Route path="/updateForm/:productId" element={<UpdateForm/>}/>
           <Route path='/review/:productId' element={<Review/>}/>

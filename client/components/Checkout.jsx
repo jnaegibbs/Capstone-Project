@@ -2,9 +2,7 @@ import { Avatar, Paper, Stack, Typography } from "@mui/material";
 import { useAppSelector } from "../hooks";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
-import { useState } from "react";
-import { useFetchCartByIdQuery } from "../redux/cartApi";
-import { useFetchSingleProductQuery } from "../redux/productsApi";
+
 
 import {
   Table,
@@ -15,65 +13,28 @@ import {
   TableRow,
 } from "@mui/material";
 import { useAddOrderMutation } from "../redux/orderApi";
-import Login from "./Login";
-const grandTotal = [];
-
-const Product = ({ productId, quantity }) => {
-  const { data } = useFetchSingleProductQuery(productId);
-  if (data) {
-    grandTotal.push(Number(data.product.price.substring(1)) * quantity);
-    console.log(grandTotal);
-  }
-
-  return (
-    <>
-      {data && (
-        <>
-          <TableCell>
-            {" "}
-            <Avatar
-              src={data.product.image}
-              sizes="large"
-              variant="square"
-            />{" "}
-          </TableCell>
-          <TableCell>
-            <Typography variant="body1">{data.product.name}</Typography>
-          </TableCell>
-          <TableCell align="center">
-            <Typography variant="h6">{data.product.price} </Typography>
-          </TableCell>
-          <TableCell align="center">
-            <Typography variant="body1">x{quantity}</Typography>
-          </TableCell>
-        </>
-      )}
-    </>
-  );
-};
+import { selectCartItems, selectCartTotalAmount } from "../redux/cartSlice";
+import GuestLogin from "./GuestLogin";
 
 const Checkout = () => {
   const user = useAppSelector((state) => state.token.user);
-  const [cart, setCart] = useState(user !== null ? user.cart : null);
-  const { data } = useFetchCartByIdQuery(cart[0].id);
+  const cartItems = useAppSelector(selectCartItems);
+  const cartTotalAmount = useAppSelector(selectCartTotalAmount);
+
   const navigate = useNavigate();
   const [createOrder] = useAddOrderMutation();
-  const{total:total} = useParams();
-
 
   function handleOrder() {
-    let noOfOrder = data.cart.cartItem.length;
-
     try {
-      data.cart.cartItem.map(async (order) => {
+      cartItems.map(async (order) => {
         const { data } = await createOrder({
-          productId: order.productId,
-          quantity: order.quantity,
+          productId: order.id,
+          quantity: order.cartQuantity,
           userId: user.id,
         });
       });
 
-      navigate(`/confirmPage/${noOfOrder}`);
+      navigate(`/confirmPage`);
     } catch (e) {
       console.log(e);
     }
@@ -111,7 +72,7 @@ const Checkout = () => {
   return (
     <div>
       {user === null ? (
-        <Login />
+       <GuestLogin/>
       ) : (
         <Paper elevation={0} sx={styles2}>
           <br />
@@ -167,23 +128,44 @@ const Checkout = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data &&
-                  data.cart.cartItem.map((cartItem) => {
+                {cartItems &&
+                  cartItems.map((cartItem) => {
                     return (
                       <TableRow key={cartItem.id}>
-                        <Product
-                          productId={cartItem.productId}
-                          quantity={cartItem.quantity}
-                        />
+                        <TableCell>
+                          {" "}
+                          <Avatar
+                            src={cartItem.image}
+                            sizes="large"
+                            variant="square"
+                          />{" "}
+                        </TableCell>
+                        <TableCell>
+                          <Typography variant="body1">
+                            {cartItem.name}
+                          </Typography>
+                        </TableCell>
+                        <TableCell align="center">
+                          <Typography variant="h6">
+                            {cartItem.price}{" "}
+                          </Typography>
+                        </TableCell>
+                        <TableCell align="center">
+                          <Typography variant="body1">
+                            x {cartItem.cartQuantity}
+                          </Typography>
+                        </TableCell>
                       </TableRow>
                     );
                   })}
                 <TableRow>
                   <TableCell rowSpan={3} />
-                  <TableCell colSpan={1}><Typography variant="h6">Total Price</Typography></TableCell>
-                 
+                  <TableCell colSpan={1}>
+                    <Typography variant="h6">Total Price</Typography>
+                  </TableCell>
+
                   <TableCell align="center">
-                    <Typography variant="h6">${total}</Typography>
+                    <Typography variant="h6">${cartTotalAmount}</Typography>
                   </TableCell>
                 </TableRow>
               </TableBody>
@@ -193,7 +175,7 @@ const Checkout = () => {
           <Button
             type="submit"
             variant="contained"
-            sx={{ bgcolor: "#7071E8", padding: "8px 10px",m:"5% 20%" }}
+            sx={{ bgcolor: "#7071E8", padding: "8px 10px", m: "5% 20%" }}
             onClick={() => handleOrder()}
           >
             Place your Order
@@ -201,10 +183,9 @@ const Checkout = () => {
 
           <br />
         </Paper>
-      )}
+       )}
     </div>
   );
 };
 
 export default Checkout;
-export { Product };

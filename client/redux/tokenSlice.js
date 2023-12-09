@@ -5,7 +5,12 @@ const tokenSlice = createSlice({
   name: "token",
   initialState: {
     token: localStorage.getItem("token") || null,
-    user: JSON.parse(localStorage.getItem("profileDetails")) || null
+    user: JSON.parse(localStorage.getItem("profileDetails")) || null,
+    cartItems: localStorage.getItem("cartItems")
+      ? JSON.parse(localStorage.getItem("cartItems"))
+      : [],
+    cartTotalQuantity: 0,
+    cartTotalAmount: 0,
   },
   reducers: {
     logout: (state, { payload }) => {
@@ -13,6 +18,7 @@ const tokenSlice = createSlice({
       state.user = null;
       localStorage.removeItem("token");
       localStorage.removeItem("profileDetails");
+      localStorage.removeItem("cartItems");
     },
   },
 
@@ -22,6 +28,7 @@ const tokenSlice = createSlice({
       (state, { payload }) => {
         localStorage.setItem("profileDetails", JSON.stringify(payload.user));
         localStorage.setItem("token", payload.token);
+        localStorage.setItem("cartItems", []);
         return { token: payload.token, user: payload.user };
       }
     );
@@ -31,7 +38,12 @@ const tokenSlice = createSlice({
       (state, { payload }) => {
         localStorage.setItem("profileDetails", JSON.stringify(payload.user));
         localStorage.setItem("token", payload.token);
-        return { token: payload.token, user: payload.user };
+        localStorage.setItem("cartItems", JSON.stringify(payload.user.cart[0].cartItem));
+        return {
+          token: payload.token,
+          user: payload.user,
+          cartItems: payload.user.cart[0].cartItem,
+        };
       }
     );
     builder.addMatcher(
@@ -39,6 +51,7 @@ const tokenSlice = createSlice({
       (state, { payload }) => {
         localStorage.setItem("profileDetails", JSON.stringify(payload.user));
         localStorage.setItem("token", payload.token);
+        localStorage.setItem("cartItems", []);
         return { token: payload.token, user: payload.user };
       }
     );
@@ -46,7 +59,7 @@ const tokenSlice = createSlice({
 });
 
 export default tokenSlice.reducer;
-export const selectUser = state => state.token.user;
-export const selectUserWithToken = state => state.token;
+export const selectUser = (state) => state.token.user;
+export const selectUserWithToken = (state) => state.token;
 
 export const { logout } = tokenSlice.actions;
