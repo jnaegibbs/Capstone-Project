@@ -44,10 +44,10 @@ const productsApi = createApi ({
 
         //update existing product
         updateProduct: builder.mutation({
-            query:(productId, updateProduct) => ({
-                url:`api/pets/product/${productId}`,
-                method: "POST",
-                body: updateProduct
+            query:(updatedProduct) => ({
+                url:`api/pets/product/${updatedProduct.id}`,
+                method: "PUT",
+                body: updatedProduct
             }),
             transformResponse: (response) => {
                 console.log(response);
