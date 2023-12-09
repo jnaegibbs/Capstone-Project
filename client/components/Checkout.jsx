@@ -13,8 +13,8 @@ import {
   TableRow,
 } from "@mui/material";
 import { useAddOrderMutation } from "../redux/orderApi";
-import Login from "./Login";
 import { selectCartItems, selectCartTotalAmount } from "../redux/cartSlice";
+import GuestLogin from "./GuestLogin";
 
 const Checkout = () => {
   const user = useAppSelector((state) => state.token.user);
@@ -72,7 +72,7 @@ const Checkout = () => {
   return (
     <div>
       {user === null ? (
-        <Login />
+       <GuestLogin/>
       ) : (
         <Paper elevation={0} sx={styles2}>
           <br />
@@ -183,7 +183,7 @@ const Checkout = () => {
 
           <br />
         </Paper>
-      )}
+       )}
     </div>
   );
 };
