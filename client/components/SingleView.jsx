@@ -55,8 +55,7 @@ const SingleView = () => {
       }
       if (!user) {
         // Redirect to guest login page if not logged in
-        dispatch(addCartItem(data));
-       // navigate("/guestlogin");
+        dispatch(addCartItem(data,quantity));
         return;
       }
 
@@ -66,14 +65,14 @@ const SingleView = () => {
         quantity: quantity,
         cartId: user.cart[0].id,
       }).unwrap();
-
+      console.log(data)
       dispatch(addCartItem(data));
 
       //   // Handle success, e.g., show a success message or update UI
       console.log("Item added to cart:", response);
 
       // Optionally reset the quantity after adding to the cart
-      setQuantity(1);
+      // setQuantity(1);
 
       setShowSuccessMessage(true);
      } catch (error) {
@@ -223,7 +222,7 @@ const SingleView = () => {
                 <Typography variant="body1" sx={{ color: "green" }}>
                   In Stock
                 </Typography>
-                <FormControl variant="filled" sx={{ width: 300 }}>
+                {/* <FormControl variant="filled" sx={{ width: 300 }}>
                   <InputLabel id="quantity">Quantity</InputLabel>
                   <Select
                     labelId="product-quantity"
@@ -237,7 +236,7 @@ const SingleView = () => {
                     <MenuItem value={2}>2</MenuItem>
                     <MenuItem value={3}>3</MenuItem>
                   </Select>
-                </FormControl>
+                </FormControl> */}
               </Typography>
               <Typography>
                 <Button

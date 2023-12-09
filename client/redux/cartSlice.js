@@ -14,20 +14,20 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addCartItem: (state, action) => {
+     const quantity = action.payload.quantity;
       const productIndex = state.cartItems.findIndex(
         (item) => item.id === action.payload.id
       );
+      console.log(productIndex);
       if (productIndex >= 0) {
         //Item already exist in the cart
         //Increase the cart quantity
         state.cartItems[productIndex].cartQuantity += 1;
-       
       } else {
         //Item doesn't exists in the cart
         //Add item to the cart
-        const tempProduct = { ...action.payload, cartQuantity: 1 };
+        const tempProduct = { ...action.payload, cartQuantity:1};
         state.cartItems.push(tempProduct);
-       
       }
       //save cart to Local stroage
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
@@ -66,30 +66,34 @@ const cartSlice = createSlice({
           const cartItemAmount = Number(price.substring(1)) * cartQuantity;
           return array.push(cartItemAmount);
         });
-      const totalAmount = array.reduce((sum, curr) => sum + curr);
-      state.cartTotalAmount = totalAmount;
+      if (state.cartItems.length >= 1) {
+        const totalAmount = array.reduce((sum, curr) => sum + curr);
+        state.cartTotalAmount = totalAmount;
+      }
     },
     calculateQuantity: (state, action) => {
       const array = [];
       state.cartItems.map((item) => array.push(item.cartQuantity));
-      const totalQuantity = array.reduce((sum, curr) => sum + curr);
-      state.cartTotalQuantity = totalQuantity;
+      if (state.cartItems.length >= 1) {
+        const totalQuantity = array.reduce((sum, curr) => sum + curr);
+        state.cartTotalQuantity = totalQuantity;
+      }
     },
   },
   extraReducers: (builder) => {
     builder.addMatcher(
       cartItemApi.endpoints.fetchCartItemByUserCart.matchFulfilled,
       (state, payload) => {
-        console.log("cartSlice   "+payload);
+        console.log("cartSlice   " + payload);
         localStorage.setItem("cartItems", JSON.stringify(payload.product));
       }
     );
 
     builder.addMatcher(
       cartItemApi.endpoints.deleteAllCartItem.matchFulfilled,
-      (state,payload)=> localStorage.setItem('cartItems',[])
-    )
- },
+      (state, payload) => localStorage.setItem("cartItems", [])
+    );
+  },
 });
 
 export default cartSlice.reducer;

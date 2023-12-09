@@ -27,8 +27,8 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path='/:productId' element={<SingleView/>}/>
-          <Route path="/checkout/:total" element={<Checkout />} />
-          <Route path="/confirmPage/:noOfOrder" element={<Confirmation/>} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/confirmPage" element={<Confirmation/>} />
           <Route path="/cart" element={<CartItem/>}/>
           <Route path="/guestlogin" element={<GuestLogin/>} />
           <Route path="/updateForm" element={<UpdateForm/>}/>
