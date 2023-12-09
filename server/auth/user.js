@@ -19,7 +19,6 @@ userRouter.get("/", async (req, res, next) => {
 
 //GET /auth/user/:id
 userRouter.get("/:userId", async (req, res, next) => {
-  console.log("userId  "+req.params.userId)
   try {
     const user = await prisma.user.findUnique({
       where: {
@@ -27,15 +26,19 @@ userRouter.get("/:userId", async (req, res, next) => {
       },
       include: {
         profile: true,
-        cart: true,
+        cart: {
+          include:{
+            cartItem:true,
+          }
+        },
         review: true,
       },
     });
     delete user.password;
-    console.log("displaying user----"+user)
+   
     res.send({ user} );
   } catch (error) {
-    console.log("displaying user catch----")
+   
     next(error);
   }
 });
@@ -75,7 +78,11 @@ userRouter.post("/register", async (req, res, next) => {
       include: {
         profile: true,
         order: true,
-        cart: true,
+        cart: {
+          include:{
+            cartItem:true
+          }
+        },
       },
     });
 
@@ -102,9 +109,14 @@ userRouter.post("/login", async (req, res, next) => {
       include: {
         profile: true,
         order: true,
-        cart: true,
+        cart: {
+          include:{
+            cartItem:true,
+          }
+        },
       },
     });
+    
     console.log(user);
 
     if (!user) {
@@ -162,11 +174,15 @@ userRouter.post("/guest", async (req, res, next) => {
       include: {
         profile: true,
         order: true,
-        cart: true,
+        cart: {
+          include:{
+            cartItem:true
+          }
+        },
       },
     });
     const token = jwt.sign({ id: user.id }, JWT_SECRET);
-    console.log(user);
+  
     // delete user.password;
     // res.status(201).send({ user, token });
     res.status(201).send({ user, token });
@@ -207,10 +223,13 @@ userRouter.put("/register/:userId", async (req, res, next) => {
       include: {
         profile: true,
         order: true,
-        cart: true,
+        cart:{
+          include:{
+            cartItem:true
+          }
+        },
       },
     });
-    console.log(userExists);
     const token = jwt.sign({ id: userExists.id }, JWT_SECRET);
     delete userExists.password;
     res.status(201).send({ userExists, token });

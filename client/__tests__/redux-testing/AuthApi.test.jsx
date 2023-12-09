@@ -7,6 +7,9 @@ test("should return the initial state", () => {
   expect(tokenReducer(undefined, { type: undefined })).toEqual({
     token: null,
     user: null,
+    cartItems: [],
+    cartTotalAmount: 0,
+    cartTotalQuantity: 0,
   });
 });
 

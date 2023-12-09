@@ -1,4 +1,4 @@
-import { useUpdateProductMutation } from "../redux/productsApi";
+import { useNewProductMutation } from "../redux/productsApi";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import React from "react";
@@ -7,32 +7,38 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import { useParams } from 'react-router-dom';
 
 
-const UpdateForm = () => {
+const NewProductForm = () => {
     const navigate = useNavigate();
-    const [updateProduct] = useUpdateProductMutation();
-    const [product, setProduct] = useState({})
-    const { productId: productId } = useParams();
+    const [CreateNewProduct] = useNewProductMutation();
+
+
+    const [product, setProduct] = useState({
+        id: "",
+        name: "",
+        image: "",
+        price: "",
+        description: "",
+        categoryName: "",
+        petCategory: "",
+    });
 
 
 async function onSubmit(e) {
     e.preventDefault();
-
-    try {
-     const result = await updateProduct({
-        id: Number(productId),
+      
+   try {
+     const result = await CreateNewProduct({
         name: product.name,
         image: product.image,
         price: product.price,
         description: product.description,
         categoryName: product.categoryName,
         petCategory: product.petCategory
-    }
-     );
-        console.log("Product updated:", result)
-        window.alert("Product succesfully updated!")
+    });
+        console.log("New product created:", result)
+        window.alert("New product succesfully created!")
 
         setProduct({
             name: "",
@@ -43,10 +49,9 @@ async function onSubmit(e) {
             petCategory: "",
           });
 
-    
         
     }catch(error){
-        console.error("Error updating product", error)
+        console.error("Error creating inventory", error)
     }
    
 
@@ -81,7 +86,7 @@ const styles = {
         <form onSubmit={onSubmit}>
         <Box p={3} sx={{ textAlign: 'center' }}>
         <Typography sx={styles}>
-        Update Product Details:
+        Create New Product:
         </Typography>
         <br/>
 
@@ -152,4 +157,4 @@ const styles = {
 
 
 
-export default UpdateForm 
+export default NewProductForm 

@@ -1,21 +1,13 @@
-import {
-  Typography,
-  Avatar,
-  Stack,
-  Divider,
-  Button,
-  Paper,
-} from "@mui/material";
+import { Typography, Avatar, Stack, Divider, Button } from "@mui/material";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { useGetUserOrderQuery } from "../redux/orderApi";
 import HomePage from "./HomePage";
 import { useDeleteAllCartItemMutation } from "../redux/cartItemApi";
 import { useEffect } from "react";
 import { useFetchSingleProductQuery } from "../redux/productsApi";
-import { TiTick } from "react-icons/ti";
 import { GiConfirmed } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
+import { selectCartItems } from "../redux/cartSlice";
 
 const ProductDetail = ({ productId, quantity, orderId }) => {
   const { data } = useFetchSingleProductQuery(productId);
@@ -32,7 +24,7 @@ const ProductDetail = ({ productId, quantity, orderId }) => {
           <Typography variant="body1">x{quantity}</Typography>
         </Stack>
       )}
-      <Divider sx={{ width: "65%", padding: "10px",m:'10px 0'}} />
+      <Divider sx={{ width: "65%", padding: "10px", m: "10px 0" }} />
     </>
   );
 };
@@ -71,10 +63,11 @@ const Order = ({ userId, noOfOrder }) => {
 
 const Confirmation = () => {
   const user = useSelector((state) => state.token.user);
+  const cartItems = useSelector(selectCartItems);
   const [deletecartItem] = useDeleteAllCartItemMutation();
   const navigate = useNavigate();
 
-  const { noOfOrder: noOfOrder } = useParams();
+  // const { noOfOrder: noOfOrder } = useParams();
   useEffect(() => {
     async function handleDelete() {
       if (user) {
@@ -93,19 +86,17 @@ const Confirmation = () => {
           <br />
           <br />
 
-          <Typography
-            variant="h5"
-            sx={{ m: "1% 5%", fontFamily: "monospace" }}
-          >
+          <Typography variant="h5" sx={{ m: "1% 5%", fontFamily: "monospace" }}>
             {" "}
             <GiConfirmed /> Thank you! {user.profile[0].name} !!
           </Typography>
 
           <br />
           <br />
-          <Typography  variant="h6"
-            sx={{ m: "2% 8%", fontFamily: "monospace" }}>Items in this Shipment</Typography>
-          <Order userId={user.id} noOfOrder={noOfOrder} />
+          <Typography variant="h6" sx={{ m: "2% 8%", fontFamily: "monospace" }}>
+            Items in this Shipment
+          </Typography>
+          <Order userId={user.id} noOfOrder={cartItems.length} />
           <Button
             variant="contained"
             sx={{
@@ -115,7 +106,7 @@ const Confirmation = () => {
               m: "5% 10%",
             }}
             size="medium"
-            onClick={()=> navigate("/")}
+            onClick={() => navigate("/")}
           >
             Continue Shopping
           </Button>
