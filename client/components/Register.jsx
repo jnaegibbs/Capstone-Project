@@ -6,36 +6,65 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { PetsTwoTone, PhotoSizeSelectActual } from "@mui/icons-material";
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("")
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const navigate = useNavigate();
-  const [register, { error }] = useRegisterMutation();
+  const [register] = useRegisterMutation();
 
   const submitRegister = async (event) => {
     event.preventDefault();
-    const response = await register({
-      username: username,
-      password: password,
-      name: name,
-      email: email,
-      phone: phone,
-      address: address,
-    });
-    setSuccess(response.data.message);
-    setUsername("");
-    setPassword("");
-    setName("");
-    setEmail("");
-    setPhone("");
-    setAddress("");
-    navigate("/");
+
+    try{
+      const response = await register({
+        username: username,
+        password: password,
+        name: name,
+        email: email,
+        phone: phone,
+        address: address,
+      })
+      console.log("RESPONSE", response)
+
+      if (response && response.error) {
+        setError(response.error.data.error)
+
+       setTimeout(() => {setError("")}, 5000)
+
+      } else if (response.data.message) { 
+        setError(response.data.message)
+
+      } else {
+
+        setSuccess(
+          <Box>
+          <Typography>You have successfully registered! Click continue to enter the website.
+          <PetsTwoTone></PetsTwoTone> </Typography>    
+          </Box>
+        )
+      }
+      
+      setUsername("")
+      setPassword("")
+      setName("")
+      setEmail("")
+      setPhone("")
+      setAddress("")
+
+      
+    }catch(error){
+      console.error(error)
+      setError("An error occured. Please try again.")
+    }
+
   };
 
   return (
@@ -50,8 +79,6 @@ const Register = () => {
           m: "10% 20%",
         }}
       >
-        {success && <p>Registered Successfully</p>}
-        {error && <p>Oops! something went Wrong</p>}
         <Typography
           fontFamily="monospace"
           variant="h4"
@@ -106,6 +133,7 @@ const Register = () => {
             required
             label="Mobile Number"
             type="number"
+            placeholder="xxxxxxxxxx"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             fullWidth
@@ -123,17 +151,39 @@ const Register = () => {
           <br />
           <br />
           <br />
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{ bgcolor: "#7071E8", padding: "10px 15px" }}
-          >
-            continue
-          </Button>
+
+      
+  
+          {success ? (
+            <Box>
+              <Button
+                onClick={() => navigate('/')}
+                type="submit"
+                variant="contained"
+                sx={{ bgcolor: "#7071E8" }}
+              >
+                Continue
+              </Button>
+            </Box>
+          ) : (
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{ bgcolor: "#7071E8", padding: "10px 15px" }}
+            >
+              Submit
+            </Button>
+          )}
+
+          
+  
         </form>
+        {error && <p>{error}</p>}
+        {success && <p>{success}</p>}
       </Box>
     </div>
   );
 };
 
 export default Register;
+

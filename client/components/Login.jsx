@@ -11,24 +11,40 @@ import { useAppDispatch } from "../hooks";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [success, setSuccess] = useState(null);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const [login, { error }] = useLoginMutation();
+  const [login] = useLoginMutation();
 
   const dispatch = useAppDispatch();
 
   const submitLogin = async (event) => {
     event.preventDefault();
-    const response = await login({
-      username: username,
-      password: password,
-    });
 
-    console.log(response);
-    setSuccess(response.data.message);
-    setUsername("");
-    setPassword("");
-    navigate("/");
+    try {
+      const response = await login({
+        username: username,
+        password: password
+      })
+
+      console.log(response)
+
+      if (response && response.error) {
+        setError(<Typography variant="body1" align="left"> Incorrect username or password! Please try again.</Typography>) 
+
+       setTimeout(() => {setError("")}, 5000)
+
+      } else {
+        setError(null)
+        setUsername("")
+        setPassword("")
+        navigate("/")
+      }
+      
+    } catch(error){
+      console.error("Log in error:", error)
+      setError("An error occurred. Please try again.")
+    }
+  
   };
 
   return (
@@ -87,11 +103,11 @@ const Login = () => {
           Continue
           </Button>
         </form>
-        {success && <p>{success}</p>}
-        {error && <p>Error: {error.message}</p>}
+        {error && <p>{error}</p>}
       </Box>
     </div>
   );
 };
 
 export default Login;
+
