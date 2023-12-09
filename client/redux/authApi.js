@@ -4,27 +4,25 @@ const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "/",
-    prepareHeaders: (headers, {getState} )=> {
-      const token = getState().token.token
-      console.log(token)
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState().token.token;
+      console.log(token);
       if (token) {
-          headers.set("authorization", `Bearer ${token}`)
+        headers.set("authorization", `Bearer ${token}`);
       }
-      return headers
-  }
-
+      return headers;
+    },
   }),
 
   endpoints: (builder) => ({
-
-      //get all users 
-      getUsers: builder.query({
-        query: () => "/auth/user"
+    //get all users
+    getUsers: builder.query({
+      query: () => "/auth/user",
     }),
-     //get single users 
-     getSingleUser: builder.query({
-      query: (userId) => `/auth/user/${userId}`
-  }),
+    //get single users
+    getSingleUser: builder.query({
+      query: (userId) => `/auth/user/${userId}`,
+    }),
 
     //user registration
     register: builder.mutation({
@@ -74,9 +72,7 @@ const authApi = createApi({
         console.log(response.status);
       },
     }),
-
   }),
-
 });
 
 export const {
@@ -85,7 +81,7 @@ export const {
   useGuestLoginMutation,
   useUpdateUserMutation,
   useGetUsersQuery,
-  useGetSingleUserQuery
+  useGetSingleUserQuery,
 } = authApi;
 
 export default authApi;

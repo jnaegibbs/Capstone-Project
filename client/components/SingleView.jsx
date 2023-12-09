@@ -43,18 +43,19 @@ const SingleView = () => {
 
 
   const { data = {}, error, isLoading } = useFetchSingleProductQuery(productId);
-  console.log(data);
 
-  const handleAddToCart = async () => {
+
+  const handleAddToCart = async (data) => {
     try {
       // Check if productId, quantity are available
+     
       if (!productId || !quantity) {
         console.error("Product or quanitity is missing.");
         return;
       }
       if (!user) {
         // Redirect to guest login page if not logged in
-        navigate("/guestlogin");
+        dispatch(addCartItem(data,quantity));
         return;
       }
 
@@ -64,14 +65,14 @@ const SingleView = () => {
         quantity: quantity,
         cartId: user.cart[0].id,
       }).unwrap();
-
-      dispatch(addCartItem(response));
+      console.log(data)
+      dispatch(addCartItem(data));
 
       //   // Handle success, e.g., show a success message or update UI
       console.log("Item added to cart:", response);
 
       // Optionally reset the quantity after adding to the cart
-      setQuantity(1);
+      // setQuantity(1);
 
       setShowSuccessMessage(true);
      } catch (error) {
@@ -116,14 +117,15 @@ const SingleView = () => {
     );
   };
 
-  const handleBuyNow = async () => {
+  const handleBuyNow = async (data) => {
     try {
       if (!productId || !quantity) {
         console.error("Product or quanitity is missing.");
         return;
       }
       if (!user) {
-        navigate("/guestlogin");
+        dispatch(addCartItem(data));
+        navigate("/checkout");
         return;
       }
       const response = await createCartItem({
@@ -132,7 +134,7 @@ const SingleView = () => {
         cartId: user.cart[0].id,
       }).unwrap();
 
-      dispatch(addCartItem(response));
+      dispatch(addCartItem(data));
 
       //   // Handle success, e.g., show a success message or update UI
       console.log("Item added to cart from buy now:", response);
@@ -220,7 +222,7 @@ const SingleView = () => {
                 <Typography variant="body1" sx={{ color: "green" }}>
                   In Stock
                 </Typography>
-                <FormControl variant="filled" sx={{ width: 300 }}>
+                {/* <FormControl variant="filled" sx={{ width: 300 }}>
                   <InputLabel id="quantity">Quantity</InputLabel>
                   <Select
                     labelId="product-quantity"
@@ -234,14 +236,14 @@ const SingleView = () => {
                     <MenuItem value={2}>2</MenuItem>
                     <MenuItem value={3}>3</MenuItem>
                   </Select>
-                </FormControl>
+                </FormControl> */}
               </Typography>
               <Typography>
                 <Button
                   variant="contained"
                   sx={{ bgcolor: "#7071E8", padding: 2, width: 300 }}
                   size="large"
-                  onClick={() => handleAddToCart()}
+                  onClick={() => handleAddToCart(data.product)}
                 >
                   Add to cart
                 </Button>
@@ -252,7 +254,7 @@ const SingleView = () => {
                   variant="contained"
                   sx={{ bgcolor: "#7071E8", padding: 2, width: 300 }}
                   size="large"
-                  onClick={() => handleBuyNow()}
+                  onClick={() => handleBuyNow(data.product)}
                 >
                   Buy Now
                 </Button>
