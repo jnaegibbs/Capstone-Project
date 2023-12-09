@@ -1,4 +1,4 @@
-import { Typography, Container, Toolbar, IconButton, Box } from "@mui/material";
+import { Typography, Container, Toolbar, IconButton, Box, Badge } from "@mui/material";
 import React from "react";
 import AppBar from "@mui/material/AppBar";
 import { FaPaw } from "react-icons/fa6";
@@ -15,6 +15,9 @@ const NavBar = () => {
   const { token } = useAppSelector((state) => state.token);
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.token.user);
+  const cart = useAppSelector((state)=> state.cart);
+  console.log(cart);
+  console.log(cart.cartItems.length);
 
 
   const buttonStyles = {
@@ -118,6 +121,7 @@ const NavBar = () => {
                 <IconButton
                   color="inherit"
                 >
+                <Badge badgeContent={cart.cartItems.length} color="secondary">                 
                   <FaShoppingCart
                     onClick={() => { navigateToCart() }}
 
@@ -126,6 +130,7 @@ const NavBar = () => {
                       fontSize: '1.2rem',
                       }}
                   />
+                  </Badge>
                 </IconButton>
               </Container>
             </Toolbar>
