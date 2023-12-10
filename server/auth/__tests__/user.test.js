@@ -48,7 +48,7 @@ describe("Authentication", () => {
           .send(newUser);
 
         expect(response.status).toBe(401);
-        expect(response.body.error).toBe("UserExistsError");
+        expect(response.body.error).toBe("Username already exists!");
 
         expect(prismaMock.user.findUnique).toHaveBeenCalledTimes(1);
         expect(prismaMock.user.findUnique).toHaveBeenCalledWith({
@@ -170,7 +170,7 @@ describe("Authentication", () => {
           .send({ username: "nonexistentuser", password: "password123" });
 
         expect(response.status).toBe(401);
-        expect(response.body).toEqual({ message: "User not found" });
+        expect(response.body).toEqual({ message: "Username not found"});
         expect(prismaMock.user.findUnique).toHaveBeenCalledTimes(1);
       });
 
