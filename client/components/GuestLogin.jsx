@@ -19,15 +19,19 @@ const GuestLogin = () => {
   const navigate = useNavigate(); "ne"
   const [guestLogin, { error }] = useGuestLoginMutation();
   const password = "guestpassword";
+
   const submitRegister = async (event) => {
     console.log("submit clicked")
     event.preventDefault();
+
+    const sanitizedPhone = phone.replace(/\D/g, '');
+
     const response = await guestLogin({
       username: email,
       password: password,
       name: name,
       email: email,
-      phone: phone,
+      phone: sanitizedPhone,
       address: address,
     });
     setSuccess(response.data.message);
@@ -129,7 +133,8 @@ const GuestLogin = () => {
             <TextField
               required
               label="Mobile Number"
-              type="number"
+              type="text"
+              placeholder="XXX-XXX-XXXX"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               fullWidth
