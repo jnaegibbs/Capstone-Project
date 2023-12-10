@@ -48,7 +48,7 @@ describe("<Register/>", () => {
     const Address = screen.getByText("Address");
 
     const continueButton = screen.getByRole("button", {
-      name: "continue",
+      name: "Continue",
       hidden: true,
     });
     expect(title).toBeInTheDocument();
