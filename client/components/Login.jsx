@@ -29,7 +29,7 @@ const Login = () => {
       console.log(response)
 
       if (response && response.error) {
-        setError(<Typography variant="body1" align="left"> Incorrect username or password! Please try again.</Typography>) 
+        setError(<Typography fontWeight="bold" color="red" align="center"> Incorrect username or password! Please try again.</Typography>) 
 
        setTimeout(() => {setError("")}, 5000)
 
@@ -42,7 +42,7 @@ const Login = () => {
       
     } catch(error){
       console.error("Log in error:", error)
-      setError("An error occurred. Please try again.")
+      setError(<Typography fontWeight="bold" color="red" >An error occurred. Please try again.</Typography>)
     }
   
   };
@@ -59,6 +59,7 @@ const Login = () => {
           m: "10% 20%",
         }}
       >
+         {error && <p>{error}</p>}
         <Typography
           fontFamily="monospace"
           variant="h4"
@@ -103,7 +104,6 @@ const Login = () => {
           Continue
           </Button>
         </form>
-        {error && <p>{error}</p>}
       </Box>
     </div>
   );

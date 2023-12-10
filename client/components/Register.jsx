@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { PetsTwoTone, PhotoSizeSelectActual } from "@mui/icons-material";
+import { blue } from "@mui/material/colors";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -35,9 +36,11 @@ const Register = () => {
       console.log("RESPONSE", response)
 
       if (response && response.error) {
-        setError(response.error.data.error)
+        setError(
+           <Typography fontWeight="bold" color="red">{response.error.data.error}</Typography>
+          )
 
-       setTimeout(() => {setError("")}, 5000)
+       setTimeout(() => {setError("")}, 10000)
 
       } else if (response.data.message) { 
         setError(response.data.message)
@@ -46,7 +49,7 @@ const Register = () => {
 
         setSuccess(
           <Box>
-          <Typography>You have successfully registered! Click continue to enter the website.
+          <Typography fontWeight="bold" color="blue">You have successfully registered! Click continue to enter the website.
           <PetsTwoTone></PetsTwoTone> </Typography>    
           </Box>
         )
