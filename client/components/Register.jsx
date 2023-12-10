@@ -23,13 +23,15 @@ const Register = () => {
   const submitRegister = async (event) => {
     event.preventDefault();
 
+    const sanitizedPhone = phone.replace(/\D/g, '');
+
     try{
       const response = await register({
         username: username,
         password: password,
         name: name,
         email: email,
-        phone: phone,
+        phone: sanitizedPhone,
         address: address,
       })
       console.log("RESPONSE", response)
@@ -132,8 +134,8 @@ const Register = () => {
           <TextField
             required
             label="Mobile Number"
-            type="number"
-            placeholder="xxxxxxxxxx"
+            type="text"
+            placeholder="XXX-XXX-XXXX"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             fullWidth
