@@ -55,7 +55,7 @@ const SingleView = () => {
       }
       if (!user) {
         // Redirect to guest login page if not logged in
-        dispatch(addCartItem(data,quantity));
+        dispatch(addCartItem(data));
         return;
       }
 

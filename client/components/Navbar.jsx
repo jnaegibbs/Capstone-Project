@@ -43,11 +43,7 @@ const NavBar = () => {
 
 
   const navigateToCart = () => {
-    if (user) {
       navigate(`/cart`)
-    } else {
-      navigate('/guestlogin')
-    }
   };
 
   return (
