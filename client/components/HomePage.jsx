@@ -190,12 +190,12 @@ const HomePage = () => {
           }}
         >
           <Grid container spacing={2} columns={16}>
-            <Grid item xs={4}>
+            <Grid item xs={3}>
               <Item>
                 <VerticalTab />
               </Item>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={13}>
               <Item>
                 <TabContainer
                   petValue={petValue}
@@ -215,12 +215,12 @@ const HomePage = () => {
           }}
         >
           <Grid container spacing={2} columns={16}>
-            <Grid item xs={4}>
+            <Grid item xs={3}>
               <Item>
                 <VerticalTab />
               </Item>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={13}>
               <Item>
                 <TabContainer
                   petValue={petValue}

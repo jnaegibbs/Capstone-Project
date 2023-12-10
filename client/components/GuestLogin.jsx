@@ -93,7 +93,7 @@ const GuestLogin = () => {
             border: "1px solid #F3EEEA",
             padding: 10,
             borderRadius: 10,
-            m: "10% 20%",
+            m: "7% 20%",
           }}
         >
           <Typography
@@ -102,7 +102,7 @@ const GuestLogin = () => {
             align="left"
             gutterBottom
           >
-            Login as Guest
+            Login as a Guest
           </Typography>
           <form onSubmit={(event) => {submitRegister(event); handleFormSubmit();}}>
             <TextField
