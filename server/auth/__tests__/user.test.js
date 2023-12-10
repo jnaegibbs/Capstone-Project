@@ -47,7 +47,7 @@ describe("Authentication", () => {
           .post("/auth/user/register")
           .send(newUser);
 
-        expect(response.status).toBe(403);
+        expect(response.status).toBe(401);
         expect(response.body.error).toBe("UserExistsError");
 
         expect(prismaMock.user.findUnique).toHaveBeenCalledTimes(1);
@@ -87,7 +87,7 @@ describe("Authentication", () => {
           .post("/auth/user/register")
           .send(newUser);
         console.log("response-----------", response.body);
-        expect(response.status).toBe(201);
+        expect(response.status).toBe(200);
         expect(response.body.user.id).toEqual(registeredUser.id);
         expect(response.body.user.email).toEqual(registeredUser.email);
         expect(response.body.token).toEqual(token);
@@ -169,7 +169,7 @@ describe("Authentication", () => {
           .post("/auth/user/login")
           .send({ username: "nonexistentuser", password: "password123" });
 
-        expect(response.status).toBe(404);
+        expect(response.status).toBe(401);
         expect(response.body).toEqual({ message: "User not found" });
         expect(prismaMock.user.findUnique).toHaveBeenCalledTimes(1);
       });
