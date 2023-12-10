@@ -47,8 +47,8 @@ describe("<Register/>", () => {
     const mobile = screen.getByText("Mobile Number");
     const Address = screen.getByText("Address");
 
-    const continueButton = screen.getByRole("button", {
-      name: "continue",
+    const submitButton = screen.getByRole("button", {
+      name: "Submit",
       hidden: true,
     });
     expect(title).toBeInTheDocument();
@@ -59,15 +59,15 @@ describe("<Register/>", () => {
     expect(email).toBeInTheDocument();
     expect(mobile).toBeInTheDocument();
     expect(Address).toBeInTheDocument();
-    expect(continueButton).toBeInTheDocument();
+    expect(submitButton).toBeInTheDocument();
   });
   test("the user should login into their account after clicked submit with correct username and password", async () => {
     renderWithProviders(<Register />);
-    const continueButton = screen.getByRole("button", {
-      name: "submit",
+    const submitButton = screen.getByRole("button", {
+      name: "Submit",
       hidden: true,
     });
-    fireEvent.click(continueButton);
+    fireEvent.click(submitButton);
     const response = await fetch("http://localhost:8080/auth/user/register", {
       method: "POST",
       headers: {
