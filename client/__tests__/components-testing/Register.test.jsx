@@ -61,10 +61,10 @@ describe("<Register/>", () => {
     expect(Address).toBeInTheDocument();
     expect(continueButton).toBeInTheDocument();
   });
-  test("the user should login into their account after clicked continue with correct username and password", async () => {
+  test("the user should login into their account after clicked submit with correct username and password", async () => {
     renderWithProviders(<Register />);
     const continueButton = screen.getByRole("button", {
-      name: "continue",
+      name: "submit",
       hidden: true,
     });
     fireEvent.click(continueButton);
