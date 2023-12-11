@@ -7,10 +7,11 @@ import { useEffect } from "react";
 import { useFetchSingleProductQuery } from "../redux/productsApi";
 import { GiConfirmed } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
-import { clearCart, selectCartItems } from "../redux/cartSlice";
+import { clearCart, selectCartItems, selectCartTotalQuantity } from "../redux/cartSlice";
 
 const ProductDetail = ({ productId, quantity, orderId }) => {
   const { data } = useFetchSingleProductQuery(productId);
+ 
 
   return (
     <>
@@ -70,13 +71,17 @@ const Order = ({ userId, noOfOrder }) => {
 
 const Confirmation = () => {
   const user = useSelector((state) => state.token.user);
-  const cartItems = useSelector(selectCartItems);
-  const [deletecartItem] = useDeleteAllCartItemMutation();
+  const cartLength = useSelector(selectCartTotalQuantity);
+  console.log(cartLength)
   const navigate = useNavigate();
+  const [deletecartItem] = useDeleteAllCartItemMutation();
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function handleDelete() {
       if (user) {
+        dispatch(clearCart())
         const { data } = await deletecartItem(user.cart[0].id);
       }
     }
@@ -102,7 +107,7 @@ const Confirmation = () => {
           <Typography variant="h6" sx={{ m: "2% 8%", fontFamily: "monospace" }}>
             Items in this Shipment
           </Typography>
-          <Order userId={user.id} noOfOrder={cartItems.length} />
+          <Order userId={user.id} noOfOrder={cartLength} />
           <Button
             variant="contained"
             sx={{
