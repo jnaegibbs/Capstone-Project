@@ -72,7 +72,6 @@ const Order = ({ userId, noOfOrder }) => {
 const Confirmation = () => {
   const user = useSelector((state) => state.token.user);
   const cartLength = useSelector(selectCartTotalQuantity);
-  console.log(cartLength)
   const navigate = useNavigate();
   const [deletecartItem] = useDeleteAllCartItemMutation();
 
