@@ -2,12 +2,12 @@
 
 <h2>Live: https://fluffy-friends.onrender.com/</h2>
 
-<div style="text-align: justify"> 
+<div align="justify"> 
 Are you a pet owner looking for a one-stop destination for all your animal friends’ needs? Look no further than our new pet supply shop, Fluffy Friends! This site is more than just a retailer, it’s the home of a pet-loving community dedicated to helping pets live happy, healthy lives. Our user friendly interface will allow customers to seamlessly browse items by category, add to cart, complete transactions, and view and save favorite items. We also have a community page where we will showcase dogs and cats up for adoption and promote community rescues and resources. Helping our local animals find loving homes and access needed resources is very important to us.
 </div>
 
 ## Key Features:
-<div style="text-align: justify"> 
+<div align="justify"> 
 <ul>
 <li> Registration and Account Management: Register or log in to your account with ease. Enjoy a personalized shopping experience with your saved preferences and order history.</li>
 <li>Extensive Inventory: Explore a vast selection of pet supplies for sale, from pet food and accessories to toys and grooming products. Our website offers individual item listings with detailed descriptions and images, ensuring you make informed choices.</li>
@@ -22,7 +22,7 @@ Are you a pet owner looking for a one-stop destination for all your animal frien
 </div>
 
 ## Stretch Goal Features:
-<div style="text-align: justify"> 
+<div align="justify"> 
 <ul>
 <li>Pets for Adoption: Not only can you shop for supplies, but you can also explore adorable pets looking for a loving home. Connect with local shelters and rescue organizations through our platform.</li>
 <li>Discounts and Memberships: Unlock exclusive discounts and membership benefits to save on your favorite pet products.</li>
@@ -32,7 +32,7 @@ Are you a pet owner looking for a one-stop destination for all your animal frien
 </div>
 
 ## Please see our database model below for reference:
-![image](https://github.com/jnaegibbs/Capstone-Project/assets/135480996/5868c811-dfed-40b3-b202-1f2c47d3a646)
+![image](https://github.com/jnaegibbs/Capstone-Project/blob/main/client/images/fluffy-friends-DB.png)
 
 ## Getting Started
 
