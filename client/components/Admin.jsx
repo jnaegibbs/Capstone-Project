@@ -174,7 +174,7 @@ const Admin = () => {
       <Chip
         variant="outlined"
         color="primary"
-        onClick={() => navigate(`/updateForm/${inventory.productId}`)}
+        onClick={() => navigate(`/updateForm/${inventory.productId}/${inventory.product.name}/${inventory.product.price}/${inventory.product.categoryName}/${inventory.product.petCategory}`)}
       >
        
         Update

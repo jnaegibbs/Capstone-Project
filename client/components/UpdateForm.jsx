@@ -14,7 +14,8 @@ const UpdateForm = () => {
     const navigate = useNavigate();
     const [updateProduct] = useUpdateProductMutation();
     const [product, setProduct] = useState({})
-    const { productId: productId } = useParams();
+    const { productId: productId, productName, productPrice, categoryName, petCategory} = useParams();
+    
 
 
 async function onSubmit(e) {
@@ -87,6 +88,7 @@ const styles = {
 
         <TextField
         label="Enter Product Name"
+        defaultValue={productName}
         value={product.name}
         onChange={(e) => setProduct({...product, name: e.target.value})}>
         </TextField>
@@ -104,6 +106,7 @@ const styles = {
 
         <TextField 
         label="Enter price"
+        defaultValue={productPrice}
         value={product.price}
         onChange={(e) => setProduct({...product, price: e.target.value})}>
         </TextField>
@@ -113,6 +116,7 @@ const styles = {
 
         <TextField 
         label="Enter categoryName"
+        defaultValue={categoryName}
         value={product.categoryName}
         onChange={(e) => setProduct({...product, categoryName: e.target.value})}>
         </TextField>
@@ -122,6 +126,7 @@ const styles = {
 
         <TextField 
         label="Enter petCategory"
+        defaultValue={petCategory}
         value={product.petCategory}
         onChange={(e) => setProduct({...product, petCategory: e.target.value})}>
         </TextField>
