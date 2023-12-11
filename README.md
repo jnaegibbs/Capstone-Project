@@ -7,6 +7,7 @@ Are you a pet owner looking for a one-stop destination for all your animal frien
 </div>
 
 ## Key Features:
+
 <div align="justify"> 
 <ul>
 <li> Registration and Account Management: Register or log in to your account with ease. Enjoy a personalized shopping experience with your saved preferences and order history.</li>
@@ -22,6 +23,7 @@ Are you a pet owner looking for a one-stop destination for all your animal frien
 </div>
 
 ## Stretch Goal Features:
+
 <div align="justify"> 
 <ul>
 <li>Pets for Adoption: Not only can you shop for supplies, but you can also explore adorable pets looking for a loving home. Connect with local shelters and rescue organizations through our platform.</li>
@@ -32,6 +34,7 @@ Are you a pet owner looking for a one-stop destination for all your animal frien
 </div>
 
 ## Please see our database model below for reference:
+
 ![image](https://github.com/jnaegibbs/Capstone-Project/blob/main/client/images/fluffy-friends-DB.png)
 
 ## Getting Started
@@ -43,10 +46,10 @@ Are you a pet owner looking for a one-stop destination for all your animal frien
 5. Setup your `.env` file locally - you can use the `.env.example` as a guideline. In particular, you will need to setup `PORT` and `DATABASE_URL` environment variables. But you may as well at a `JWT_SECRET` while you're in there.
 6. Run `npm run dev` to run locally
 
-
 ### Starting the App
 
 Start just the server (great while only working on API endpoints)
+
 ```
 npm run server:dev
 ```
@@ -60,16 +63,19 @@ npm run dev
 ### Running Tests
 
 This will run Jest with verbose output enabled:
+
 ```
 npm run test
 ```
 
 If you want Jest to continually run as files are changed, you can call:
+
 ```
 npm run test -- --watch
 ```
 
 Or if you want Jest to continually run all tests when files change:
+
 ```
 npm run test -- --watchAll
 ```
@@ -77,6 +83,7 @@ npm run test -- --watchAll
 ### Seed the Database
 
 This will run the `server/db/seed.js` file:
+
 ```
 npm run seed
 ```
@@ -93,6 +100,7 @@ Whichever provider you use, you will need to set the following settings:
 **Start Command:** `npm start`
 
 ## Basic File Structure
+
 ```
 .
 ├── client/
@@ -112,53 +120,94 @@ Whichever provider you use, you will need to set the following settings:
 ### Client Files
 
 ```
-.
-├── client/
-│   ├── components/
-│   │   ├── __tests__/
-│   │   │   └── MyComponent.test.js
-│   │   ├── MyComponent.jsx
-│   │   ├── ... (etc, with as many nested folders as needed to keep organized)
-│   │   └── profile/
-│   │       ├── Profile.jsx
-│   │       ├── ProfileImage.jsx
-│   │       └── ProfileHeader.jsx
-│   ├── app/
-│   │   └── store.js
-│   ├── features/
-│   │   ├── api/
-│   │   │   └── apiSlice.js
-│   │   ├── auth/
-│   │   │   └── authSlice.js
-│   │   └── counter/
-│   │       └── counterSlice.js
-│   ├── App.jsx
-│   ├── index.css
-│   └── main.jsx
+client
+    ┣ __tests__
+    ┃ ┣ components-testing
+    ┃ ┃ ┣ Account.test.jsx
+    ┃ ┃ ┣ Login.test.jsx
+    ┃ ┃ ┗ Register.test.jsx
+    ┃ ┗ redux-testing
+    ┃ ┃ ┗ AuthApi.test.jsx
+    ┣ components
+    ┃ ┣ Account.jsx
+    ┃ ┣ Admin.jsx
+    ┃ ┣ Cart.jsx
+    ┃ ┣ CartItem.jsx
+    ┃ ┣ Checkout.jsx
+    ┃ ┣ Confirmation.jsx
+    ┃ ┣ GuestLogin.jsx
+    ┃ ┣ HomePage.jsx
+    ┃ ┣ Login.jsx
+    ┃ ┣ Navbar.jsx
+    ┃ ┣ NewProductForm.jsx
+    ┃ ┣ Products.jsx
+    ┃ ┣ Register.jsx
+    ┃ ┣ Review.jsx
+    ┃ ┣ SearchBar.jsx
+    ┃ ┣ SingleView.jsx
+    ┃ ┣ UpdateForm.jsx
+    ┃ ┗ theme.jsx
+    ┣ images
+    ┃ ┣ fluffy-friends-DB.png
+    ┃ ┗ images.png
+    ┣ redux
+    ┃ ┣ authApi.js
+    ┃ ┣ cartApi.js
+    ┃ ┣ cartItemApi.js
+    ┃ ┣ cartSlice.js
+    ┃ ┣ inventoryApi.js
+    ┃ ┣ orderApi.js
+    ┃ ┣ productsApi.js
+    ┃ ┣ reviewApi.js
+    ┃ ┣ store.js
+    ┃ ┗ tokenSlice.js
+    ┣ utils
+    ┃ ┗ test-utils.jsx
+    ┣ App.jsx
+    ┣ hooks.js
+    ┣ index.css
+    ┗ main.jsx
+    ```
+
+    ### Server Files
+
+    ```
+    .
+    server
+    ┣ api
+    ┃  ┣ __tests__
+    ┃  ┃  ┣ category.test.js
+    ┃  ┃  ┣ inventory.test.js
+    ┃  ┃  ┣ order.test.js
+    ┃  ┃  ┗ product.test.js
+    ┃  ┣ cart.js
+    ┃  ┣ cartItem.js
+    ┃  ┣ category.js
+    ┃  ┣ index.js
+    ┃  ┣ inventory.js
+    ┃  ┣ order.js
+    ┃  ┣ product.js
+    ┃  ┣ review.js
+    ┃  ┗ utils.js
+    ┣ auth
+    ┃  ┣ __tests__
+    ┃  ┃ ┣ admin.test.js
+    ┃  ┃ ┗ user.test.js
+    ┃  ┣ admin.js
+    ┃  ┣ index.js
+    ┃  ┗ user.js
+    ┣ db
+    ┃  ┣ client.js
+    ┃  ┗ seed.js
+    ┣ prisma
+    ┃  ┣ migrations
+    ┃  ┃ ┣ 20231207021553_new_final
+    ┃  ┃ ┃ ┗ migration.sql
+    ┃  ┃ ┗ migration_lock.toml
+    ┃  ┗ schema.prisma
+    ┣ app.js (configure the app)
+    ┣ index.js (start the app)
+    ┗ utils.js
 ```
 
-### Server Files
 
-```
-.
-├── server/
-│   ├── __tests__/
-│   │   └── app.test.js
-│   ├── api/
-│   │   ├── __tests__/
-│   │   │   └── user.test.js
-│   │   ├── index.js
-│   │   ├── user.js
-│   │   └── // ... (etc, with nested folders for sub-routes as needed to keep organized)
-│   ├── auth/
-│   │   ├── __tests__/
-│   │   │   └── auth.test.js
-│   │   └── index.js (used for authenticating with your app)
-│   ├── db/
-│   │   ├── client.js
-│   │   ├── seed.js
-│   │   └── // ... (optionally, add files / sub-folders with helper methods for accessing the DB with Prisma)
-│   ├── app.js (configure the app)
-│   └── index.js (start the app)
-```
-## Basic File Structure
