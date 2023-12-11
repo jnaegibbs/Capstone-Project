@@ -1,4 +1,5 @@
 import { useUpdateProductMutation } from "../redux/productsApi";
+import { useFetchSingleProductQuery } from "../redux/productsApi";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import React from "react";
@@ -11,10 +12,22 @@ import { useParams } from "react-router-dom";
 
 const UpdateForm = () => {
 
-  const navigate = useNavigate();
-  const [updateProduct] = useUpdateProductMutation();
-  const [product, setProduct] = useState({});
-  const { productId: productId } = useParams();
+    const navigate = useNavigate();
+    const [updateProduct] = useUpdateProductMutation();
+    const [product, setProduct] = useState({})
+    const { productId: productId} = useParams();
+    const {data, error, isLoading} = useFetchSingleProductQuery(productId)
+
+
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
   
   async function onSubmit(e) {
     e.preventDefault();
@@ -57,89 +70,87 @@ const UpdateForm = () => {
   };
 
   return (
-    <>
-      <div>
+        
+  <div> 
         <>
-          <Button
-            onClick={() => navigate("/admin")}
-            variant="contained"
-            color="primary"
-          >
-            BACK
-          </Button>
 
-          <br />
+        <Button 
+        onClick={() => navigate('/admin')}
+        variant="contained"
+        color="primary">BACK
+        </Button>
 
-          <form onSubmit={onSubmit}>
-            <Box p={3} sx={{ textAlign: "center" }}>
-              <Typography sx={styles}>Update Product Details:</Typography>
-              <br />
+        <br /> 
 
-              <TextField
-                label="Enter Product Name"
-                value={product.name}
-                onChange={(e) =>
-                  setProduct({ ...product, name: e.target.value })
-                }
-              ></TextField>
+        <form onSubmit={onSubmit}>
+        <Box p={3} sx={{ textAlign: 'center' }}>
+        <Typography sx={styles}>
+        Update Product Details:
+        </Typography>
+        <br/>
 
-              <br />
-              <br />
-              <TextField
-                label="Enter image URL"
-                value={product.image}
-                onChange={(e) =>
-                  setProduct({ ...product, image: e.target.value })
-                }
-              ></TextField>
+        <TextField
+        label="Enter Product Name"
+        defaultValue={data.product.name}
+        value={product.name}
+        onChange={(e) => setProduct({...product, name: e.target.value})}>
+        </TextField>
 
-              <br />
-              <br />
+        <br/>
+        <br/>
+        <TextField 
+        label="Enter image URL"
+        defaultValue={data.product.image}
+        value={product.image}
+        onChange={(e) => setProduct({...product, image: e.target.value})}>
+        </TextField>
 
-              <TextField
-                label="Enter price"
-                value={product.price}
-                onChange={(e) =>
-                  setProduct({ ...product, price: e.target.value })
-                }
-              ></TextField>
+        <br /> 
+        <br />
 
-              <br />
-              <br />
+        <TextField 
+        label="Enter price"
+        defaultValue={data.product.price}
+        value={product.price}
+        onChange={(e) => setProduct({...product, price: e.target.value})}>
+        </TextField>
 
-              <TextField
-                label="Enter categoryName"
-                value={product.categoryName}
-                onChange={(e) =>
-                  setProduct({ ...product, categoryName: e.target.value })
-                }
-              ></TextField>
+        <br /> 
+        <br />
 
-              <br />
-              <br />
+        <TextField 
+        label="Enter categoryName"
+        defaultValue={data.product.categoryName}
+        value={product.categoryName}
+        onChange={(e) => setProduct({...product, categoryName: e.target.value})}>
+        </TextField>
 
-              <TextField
-                label="Enter petCategory"
-                value={product.petCategory}
-                onChange={(e) =>
-                  setProduct({ ...product, petCategory: e.target.value })
-                }
-              ></TextField>
+        <br /> 
+        <br />
 
-              <br />
-              <br />
+        <TextField 
+        label="Enter petCategory"
+        defaultValue={data.product.petCategory}
+        value={product.petCategory}
+        onChange={(e) => setProduct({...product, petCategory: e.target.value})}>
+        </TextField>
 
-              <Button type="submit" variant="contained" color="primary">
-                Submit
-              </Button>
+        <br /> 
+        <br />
 
-              <br />
-              <br />
-            </Box>
-          </form>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+        >Submit</Button>
+        
+        <br/>
+        <br />
+        </Box>
+        </form>
         </>
-      </div>
-    </>
+</div>
+
   );
 };
 
