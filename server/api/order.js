@@ -54,7 +54,7 @@ orderRouter.post("/", async (req, res, next) => {
         quantity: Number(quantity),
       },
     });
-    console.log(newOrder);
+
     res.status(201).send({ newOrder });
   } catch (error) {
     next(error);
@@ -89,7 +89,7 @@ orderRouter.delete("/:orderId", async (req, res, next) => {
         id: Number(req.params.orderId),
       },
     });
-    console.log(deleteOrder);
+
     res.status(200).send(deleteOrder);
   } catch (error) {
     next(error);

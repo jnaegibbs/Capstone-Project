@@ -1,10 +1,8 @@
-import React, { useEffect } from "react";
 import { useAppSelector } from "../hooks";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Paper, Stack, Typography, Button } from "@mui/material";
 import Login from "./Login";
-import { useState } from "react";
 import { useFetchSingleProductQuery } from "../redux/productsApi";
 import { useNavigate } from "react-router-dom";
 import { useGetUserOrderQuery } from "../redux/orderApi";
@@ -156,4 +154,4 @@ const Account = () => {
 };
 
 export default Account;
-export { OrderHistory,Order };
+export { OrderHistory, Order };

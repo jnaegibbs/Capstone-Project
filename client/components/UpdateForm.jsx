@@ -8,10 +8,10 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import { useParams } from 'react-router-dom';
-
+import { useParams } from "react-router-dom";
 
 const UpdateForm = () => {
+
     const navigate = useNavigate();
     const [updateProduct] = useUpdateProductMutation();
     const [product, setProduct] = useState({})
@@ -28,42 +28,36 @@ const UpdateForm = () => {
     return <div>Error: {error.message}</div>;
   }
 
-
-async function onSubmit(e) {
+  
+  async function onSubmit(e) {
     e.preventDefault();
 
     try {
-     const result = await updateProduct({
+      const result = await updateProduct({
         id: Number(productId),
         name: product.name,
         image: product.image,
         price: product.price,
         description: product.description,
         categoryName: product.categoryName,
-        petCategory: product.petCategory
+        petCategory: product.petCategory,
+      });
+
+      window.alert("Product succesfully updated!");
+
+      setProduct({
+        name: "",
+        image: "",
+        price: "",
+        description: "",
+        categoryName: "",
+        petCategory: "",
+      });
+    } catch (error) {
+      console.error("Error updating product", error);
     }
-     );
-        console.log("Product updated:", result)
-        window.alert("Product succesfully updated!")
-
-        setProduct({
-            name: "",
-            image: "",
-            price: "",
-            description: "",
-            categoryName: "",
-            petCategory: "",
-          });
-
-    
-        
-    }catch(error){
-        console.error("Error updating product", error)
-    }
-   
-
-}
-const styles = {
+  }
+  const styles = {
     mr: 2,
     mt: 5,
     alignItems: "center",
@@ -74,10 +68,8 @@ const styles = {
     color: "inherit",
     textDecoration: "none",
   };
-     
 
-    return (
-        <>
+  return (
         
   <div> 
         <>
@@ -159,14 +151,7 @@ const styles = {
         </>
 </div>
 
+  );
+};
 
-
-        </>
-    )
-
-}
-
-
-
-
-export default UpdateForm 
+export default UpdateForm;

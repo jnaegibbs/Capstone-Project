@@ -42,20 +42,17 @@ const CartItem = () => {
   const [deleteCartItem] = useDeleteAllCartItemMutation();
   const [quantity,setQuantity] = useState(1)
   const navigate = useNavigate();
-  console.log(cartItems);
   const increaseHandle = (cart) => {
     dispatch(addCartItem(cart));
   };
 
   const decreaseHandle = (cart) => {
-    console.log(cart.cartQuantity)
     if(cart.cartQuantity > 1) dispatch(decreaseQuantity(cart));
   };
 
   const clearItemFromCart = async () => {
     dispatch(clearCart());
     const { data } = await deleteCartItem(user.cart[0].id);
-    console.log(data);
   };
 
   const removeItem = (cart) => {

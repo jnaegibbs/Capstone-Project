@@ -39,9 +39,6 @@ cartItemRouter.post("/", async (req, res, next) => {
       // Handle the error or return an appropriate response
       return res.status(400).json({ error: "Invalid cartId provided" });
     }
-    console.log("Parsed Product ID:", productId);
-    console.log("Parsed Cart ID:", cartId);
-    // const { productId, quantity, cartId } = req.body;
 
     const newCartItem = await prisma.cartItem.create({
       data: {

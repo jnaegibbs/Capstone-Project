@@ -129,7 +129,6 @@ cartRouter.delete("/:cartId", async (req, res, next) => {
                id: Number(req.params.cartId)
            },
        })
-       console.log(deleteCart)
        res.status(200).send(deleteCart)
    } catch (error) {
        next (error)
