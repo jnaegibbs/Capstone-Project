@@ -33,7 +33,6 @@ const Review = () => {
   const user = useAppSelector((state) => state.token.user);
   const { productId: productId } = useParams();
   const { data, error, isLoading } = useFetchSingleProductQuery(productId);
-  console.log(productId);
 
  
 
@@ -46,7 +45,6 @@ const Review = () => {
         userId: user.id,
         productId: productId,
       });
-      console.log(response);
       setRating(0);
       setContent("");
       setSuccess(" Thank You!! Your Review Added Successfully");

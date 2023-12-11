@@ -84,7 +84,6 @@ const cartSlice = createSlice({
     builder.addMatcher(
       cartItemApi.endpoints.fetchCartItemByUserCart.matchFulfilled,
       (state, payload) => {
-        console.log("cartSlice   " + payload);
         localStorage.setItem("cartItems", JSON.stringify(payload.product));
       }
     );

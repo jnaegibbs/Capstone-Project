@@ -29,7 +29,6 @@ const ProductDetails = ({ productId, quantity }) => {
   } = useFetchSingleProductQuery(productId);
   if (productData) {
     total.push(Number(productData.product.price.substring(1)) * quantity);
-    console.log(total);
   }
   if (productLoading) {
     return <p>Loading product details...</p>;
@@ -97,8 +96,6 @@ const Cart = () => {
   const handleDeleteItem = async (cartItemId) => {
     try {
       const response = await deleteCartItem(cartItemId).unwrap();
-
-      console.log("Item deleted from cart:", response);
       setIsUpdated(true);
     } catch (error) {
       console.error("Error deleting item from cart:", error);
@@ -116,8 +113,6 @@ const Cart = () => {
         },
       }).unwrap();
 
-      console.log("Item quantity updated in cart:", response);
-
       setIsUpdated(true);
     } catch (error) {
       console.error("Error updating item quantity in cart:", error);
@@ -134,8 +129,6 @@ const Cart = () => {
               .quantity - 1,
         },
       }).unwrap();
-
-      console.log("Item quantity updated in cart:", response);
 
       setIsUpdated(true);
     } catch (error) {

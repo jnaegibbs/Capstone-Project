@@ -90,7 +90,6 @@ inventoryRouter.delete("/:inventoryId", requireAdmin, async (req, res, next) => 
         });
         
         res.status(200).send('Inventory deleted successfully');    
-        console.log("DELETED SUCCESSFULLY")
 
     }catch({name, message}){
         next({name, message})

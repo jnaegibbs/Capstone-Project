@@ -1,5 +1,5 @@
 import { Typography, Avatar, Stack, Divider, Button } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useGetUserOrderQuery } from "../redux/orderApi";
 import HomePage from "./HomePage";
 import { useDeleteAllCartItemMutation } from "../redux/cartItemApi";
@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { useFetchSingleProductQuery } from "../redux/productsApi";
 import { GiConfirmed } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
-import { selectCartItems } from "../redux/cartSlice";
+import { clearCart, selectCartItems } from "../redux/cartSlice";
 
 const ProductDetail = ({ productId, quantity, orderId }) => {
   const { data } = useFetchSingleProductQuery(productId);
@@ -67,7 +67,6 @@ const Confirmation = () => {
   const [deletecartItem] = useDeleteAllCartItemMutation();
   const navigate = useNavigate();
 
-  // const { noOfOrder: noOfOrder } = useParams();
   useEffect(() => {
     async function handleDelete() {
       if (user) {

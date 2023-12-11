@@ -15,7 +15,7 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("")
+  const [success, setSuccess] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const navigate = useNavigate();
@@ -24,9 +24,9 @@ const Register = () => {
   const submitRegister = async (event) => {
     event.preventDefault();
 
-    const sanitizedPhone = phone.replace(/\D/g, '');
+    const sanitizedPhone = phone.replace(/\D/g, "");
 
-    try{
+    try {
       const response = await register({
         username: username,
         password: password,
@@ -34,42 +34,42 @@ const Register = () => {
         email: email,
         phone: sanitizedPhone,
         address: address,
-      })
-      console.log("RESPONSE", response)
+      });
 
       if (response && response.error) {
         setError(
-           <Typography fontWeight="bold" color="red">{response.error.data.error}</Typography>
-          )
+          <Typography fontWeight="bold" color="red">
+            {response.error.data.error}
+          </Typography>
+        );
 
-       setTimeout(() => {setError("")}, 10000)
-
-      } else if (response.data.message) { 
-        setError(response.data.message)
-
+        setTimeout(() => {
+          setError("");
+        }, 10000);
+      } else if (response.data.message) {
+        setError(response.data.message);
       } else {
-
         setSuccess(
           <Box>
-          <Typography fontWeight="bold" color="blue">You have successfully registered! Click continue to enter the website.
-          <PetsTwoTone></PetsTwoTone> </Typography>    
+            <Typography fontWeight="bold" color="blue">
+              You have successfully registered! Click continue to enter the
+              website.
+              <PetsTwoTone></PetsTwoTone>{" "}
+            </Typography>
           </Box>
-        )
+        );
       }
-      
-      setUsername("")
-      setPassword("")
-      setName("")
-      setEmail("")
-      setPhone("")
-      setAddress("")
 
-      
-    }catch(error){
-      console.error(error)
-      setError("An error occured. Please try again.")
+      setUsername("");
+      setPassword("");
+      setName("");
+      setEmail("");
+      setPhone("");
+      setAddress("");
+    } catch (error) {
+      console.error(error);
+      setError("An error occured. Please try again.");
     }
-
   };
 
   return (
@@ -157,12 +157,10 @@ const Register = () => {
           <br />
           <br />
 
-      
-  
           {success ? (
             <Box>
               <Button
-                onClick={() => navigate('/')}
+                onClick={() => navigate("/")}
                 type="submit"
                 variant="contained"
                 sx={{ bgcolor: "#7071E8" }}
@@ -179,9 +177,6 @@ const Register = () => {
               Submit
             </Button>
           )}
-
-          
-  
         </form>
         {error && <p>{error}</p>}
         {success && <p>{success}</p>}
@@ -191,4 +186,3 @@ const Register = () => {
 };
 
 export default Register;
-
