@@ -39,7 +39,7 @@ const Products = ({ petValue, categoryValue }) => {
       );
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="loader"></div>;
   }
 
   if (error) {

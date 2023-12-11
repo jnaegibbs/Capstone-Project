@@ -64,6 +64,14 @@ const OrderHistory = ({ productId }) => {
 };
 const Order = ({ userId }) => {
   const { data, error, isLoading } = useGetUserOrderQuery(userId);
+  if (isLoading) {
+    return <div className="loader"></div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
   return (
     <>
       {data && data.orders.length >= 1 ? (

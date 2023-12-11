@@ -31,6 +31,13 @@ const ProductDetail = ({ productId, quantity, orderId }) => {
 
 const Order = ({ userId, noOfOrder }) => {
   const { data, error, isLoading } = useGetUserOrderQuery(userId);
+  if (isLoading) {
+    return <div className="loader"></div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
   const orderDetail = [];
 
   if (data) {
