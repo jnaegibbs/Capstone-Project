@@ -1,4 +1,5 @@
 import { useUpdateProductMutation } from "../redux/productsApi";
+import { useFetchSingleProductQuery } from "../redux/productsApi";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import React from "react";
@@ -14,8 +15,18 @@ const UpdateForm = () => {
     const navigate = useNavigate();
     const [updateProduct] = useUpdateProductMutation();
     const [product, setProduct] = useState({})
-    const { productId: productId, productName, productPrice, categoryName, petCategory} = useParams();
-    
+    const { productId: productId} = useParams();
+    const {data, error, isLoading} = useFetchSingleProductQuery(productId)
+
+
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
 
 async function onSubmit(e) {
@@ -88,7 +99,7 @@ const styles = {
 
         <TextField
         label="Enter Product Name"
-        defaultValue={productName}
+        defaultValue={data.product.name}
         value={product.name}
         onChange={(e) => setProduct({...product, name: e.target.value})}>
         </TextField>
@@ -97,6 +108,7 @@ const styles = {
         <br/>
         <TextField 
         label="Enter image URL"
+        defaultValue={data.product.image}
         value={product.image}
         onChange={(e) => setProduct({...product, image: e.target.value})}>
         </TextField>
@@ -106,7 +118,7 @@ const styles = {
 
         <TextField 
         label="Enter price"
-        defaultValue={productPrice}
+        defaultValue={data.product.price}
         value={product.price}
         onChange={(e) => setProduct({...product, price: e.target.value})}>
         </TextField>
@@ -116,7 +128,7 @@ const styles = {
 
         <TextField 
         label="Enter categoryName"
-        defaultValue={categoryName}
+        defaultValue={data.product.categoryName}
         value={product.categoryName}
         onChange={(e) => setProduct({...product, categoryName: e.target.value})}>
         </TextField>
@@ -126,7 +138,7 @@ const styles = {
 
         <TextField 
         label="Enter petCategory"
-        defaultValue={petCategory}
+        defaultValue={data.product.petCategory}
         value={product.petCategory}
         onChange={(e) => setProduct({...product, petCategory: e.target.value})}>
         </TextField>
