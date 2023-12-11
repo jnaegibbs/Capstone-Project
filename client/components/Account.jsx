@@ -154,4 +154,4 @@ const Account = () => {
 };
 
 export default Account;
-export { OrderHistory,Order };
+export { OrderHistory, Order };

@@ -1,5 +1,5 @@
 import { Typography, Avatar, Stack, Divider, Button } from "@mui/material";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useGetUserOrderQuery } from "../redux/orderApi";
 import HomePage from "./HomePage";
 import { useDeleteAllCartItemMutation } from "../redux/cartItemApi";
@@ -66,17 +66,14 @@ const Confirmation = () => {
   const cartItems = useSelector(selectCartItems);
   const [deletecartItem] = useDeleteAllCartItemMutation();
   const navigate = useNavigate();
- 
-
 
   useEffect(() => {
     async function handleDelete() {
       if (user) {
         const { data } = await deletecartItem(user.cart[0].id);
-        
       }
     }
-     
+
     handleDelete();
   }, []);
 

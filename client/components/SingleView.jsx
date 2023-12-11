@@ -28,9 +28,6 @@ import { GrPowerReset } from "react-icons/gr";
 import { useState } from "react";
 import { addCartItem } from "../redux/cartSlice";
 
-
-
-
 const SingleView = () => {
   const { productId: productId } = useParams();
   const [quantity, setQuantity] = useState(1);
@@ -41,14 +38,12 @@ const SingleView = () => {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [createCartItem] = useCreateCartItemMutation();
 
-
   const { data = {}, error, isLoading } = useFetchSingleProductQuery(productId);
-
 
   const handleAddToCart = async (data) => {
     try {
       // Check if productId, quantity are available
-     
+
       if (!productId || !quantity) {
         console.error("Product or quanitity is missing.");
         return;
@@ -65,18 +60,16 @@ const SingleView = () => {
         quantity: quantity,
         cartId: user.cart[0].id,
       }).unwrap();
-      console.log(data)
+
       dispatch(addCartItem(data));
 
       //   // Handle success, e.g., show a success message or update UI
-      console.log("Item added to cart:", response);
 
       // Optionally reset the quantity after adding to the cart
       // setQuantity(1);
 
       setShowSuccessMessage(true);
-     } catch (error) {
-
+    } catch (error) {
       // Handle error, e.g., show an error message
       console.error("Error adding item to cart:", error);
     }
@@ -247,7 +240,9 @@ const SingleView = () => {
                 >
                   Add to cart
                 </Button>
-                {showSuccessMessage && <p>Your item has been added to your cart</p>}
+                {showSuccessMessage && (
+                  <p>Your item has been added to your cart</p>
+                )}
               </Typography>
               <Typography>
                 <Button
@@ -280,7 +275,7 @@ const SingleView = () => {
           data.product.review.map((review) => {
             return (
               <div key={review.id}>
-                <Paper sx={{padding:'30px'}}>
+                <Paper sx={{ padding: "30px" }}>
                   <ReviewContent userId={review.userId} />
                   <Rating readOnly size="large" value={review.rating} />
                   <Typography>{review.content}</Typography>
@@ -297,15 +292,16 @@ const SingleView = () => {
 };
 
 const ReviewContent = ({ userId }) => {
-  console.log(userId);
-  const { data , error, isLoading } = useGetSingleUserQuery(userId);
-  console.log(data);
+  const { data, error, isLoading } = useGetSingleUserQuery(userId);
+
   return (
     <>
       {data && (
-        <Stack sx={{padding:' 10px 30px'}} direction="row">
-          <Avatar >{data.user.profile[0].name.charAt(0)}</Avatar>
-          <Typography variant="body1" sx={{padding:'10px'}}>{data.user.profile[0].name}</Typography>
+        <Stack sx={{ padding: " 10px 30px" }} direction="row">
+          <Avatar>{data.user.profile[0].name.charAt(0)}</Avatar>
+          <Typography variant="body1" sx={{ padding: "10px" }}>
+            {data.user.profile[0].name}
+          </Typography>
         </Stack>
       )}
     </>
@@ -313,4 +309,3 @@ const ReviewContent = ({ userId }) => {
 };
 
 export default SingleView;
-

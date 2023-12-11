@@ -3,7 +3,6 @@ import { useAppSelector } from "../hooks";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 
-
 import {
   Table,
   TableBody,
@@ -72,7 +71,7 @@ const Checkout = () => {
   return (
     <div>
       {user === null ? (
-       <GuestLogin/>
+        <GuestLogin />
       ) : (
         <Paper elevation={0} sx={styles2}>
           <br />
@@ -183,7 +182,7 @@ const Checkout = () => {
 
           <br />
         </Paper>
-       )}
+      )}
     </div>
   );
 };

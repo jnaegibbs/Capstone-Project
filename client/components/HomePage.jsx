@@ -134,11 +134,36 @@ const HomePage = () => {
           aria-label="Vertical tabs example"
           sx={{ borderRight: 1, borderColor: "divider" }}
         >
-          <StyledTab icon={<SiPetsathome/>}  iconPosition="start"  label="All Products" {...a11yProps(0)} />
-          <StyledTab icon={<PiBowlFoodFill/>}  iconPosition="start" label="Foods" {...a11yProps(1)} />
-          <StyledTab icon={<GiClothes/>}  iconPosition="start"label="Clothes" {...a11yProps(2)} />
-          <StyledTab icon={<LuToyBrick/>}  iconPosition="start" label="Toys" {...a11yProps(3)} />
-          <StyledTab icon={<GiMightySpanner/>}  iconPosition="start" label="Accessories" {...a11yProps(4)} />
+          <StyledTab
+            icon={<SiPetsathome />}
+            iconPosition="start"
+            label="All Products"
+            {...a11yProps(0)}
+          />
+          <StyledTab
+            icon={<PiBowlFoodFill />}
+            iconPosition="start"
+            label="Foods"
+            {...a11yProps(1)}
+          />
+          <StyledTab
+            icon={<GiClothes />}
+            iconPosition="start"
+            label="Clothes"
+            {...a11yProps(2)}
+          />
+          <StyledTab
+            icon={<LuToyBrick />}
+            iconPosition="start"
+            label="Toys"
+            {...a11yProps(3)}
+          />
+          <StyledTab
+            icon={<GiMightySpanner />}
+            iconPosition="start"
+            label="Accessories"
+            {...a11yProps(4)}
+          />
         </StyledTabs>
       </>
     );
@@ -151,9 +176,24 @@ const HomePage = () => {
         aria-label="pet-category"
         centered
       >
-        <StyledTab icon={<FaDog/>}  iconPosition="start" label="Dog" {...a11yProps(0)} />
-        <StyledTab icon={<FaCat/>}  iconPosition="start" label="Cat" {...a11yProps(1)} />
-        <StyledTab icon={<GiReptileTail/>}  iconPosition="start" label="Small Pets" {...a11yProps(2)} />
+        <StyledTab
+          icon={<FaDog />}
+          iconPosition="start"
+          label="Dog"
+          {...a11yProps(0)}
+        />
+        <StyledTab
+          icon={<FaCat />}
+          iconPosition="start"
+          label="Cat"
+          {...a11yProps(1)}
+        />
+        <StyledTab
+          icon={<GiReptileTail />}
+          iconPosition="start"
+          label="Small Pets"
+          {...a11yProps(2)}
+        />
       </StyledTabs>
       <Divider />
       <CustomTabPanel value={petValue} index={0}>

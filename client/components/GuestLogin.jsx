@@ -1,30 +1,28 @@
 import { Typography } from "@mui/material";
 import { useState } from "react";
-import { useGuestLoginMutation} from "../redux/authApi";
+import { useGuestLoginMutation } from "../redux/authApi";
 
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
-
 const GuestLogin = () => {
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [success, setSuccess] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const navigate = useNavigate(); "ne"
+  const navigate = useNavigate();
+  ("ne");
   const [guestLogin, { error }] = useGuestLoginMutation();
   const password = "guestpassword";
 
   const submitRegister = async (event) => {
-    console.log("submit clicked")
     event.preventDefault();
 
-    const sanitizedPhone = phone.replace(/\D/g, '');
+    const sanitizedPhone = phone.replace(/\D/g, "");
 
     const response = await guestLogin({
       username: email,
@@ -41,11 +39,8 @@ const GuestLogin = () => {
     setPhone("");
     setAddress("");
 
-
-
-//    navigate('/checkout')
+    //    navigate('/checkout')
   };
-
 
   const redirectToHomePage = () => {
     navigate("/");
@@ -91,79 +86,84 @@ const GuestLogin = () => {
 
   return (
     <div>
-        <Box
-          sx={{
-            width: 500,
-            border: "1px solid #F3EEEA",
-            padding: 10,
-            borderRadius: 10,
-            m: "7% 20%",
+      <Box
+        sx={{
+          width: 500,
+          border: "1px solid #F3EEEA",
+          padding: 10,
+          borderRadius: 10,
+          m: "7% 20%",
+        }}
+      >
+        <Typography
+          fontFamily="monospace"
+          variant="h4"
+          align="left"
+          gutterBottom
+        >
+          Login as a Guest
+        </Typography>
+        <form
+          onSubmit={(event) => {
+            submitRegister(event);
+            handleFormSubmit();
           }}
         >
-          <Typography
-            fontFamily="monospace"
-            variant="h4"
-            align="left"
-            gutterBottom
-          >
-            Login as a Guest
-          </Typography>
-          <form onSubmit={(event) => {submitRegister(event); handleFormSubmit();}}>
-            <TextField
-              required
-              label="Name"
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              fullWidth
-            />
-            <br />
-            <br />
+          <TextField
+            required
+            label="Name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            fullWidth
+          />
+          <br />
+          <br />
 
-            <TextField
-              required
-              label="Email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              fullWidth
-            />
-            <br />
-            <br />
-            <TextField
-              required
-              label="Mobile Number"
-              type="text"
-              placeholder="XXX-XXX-XXXX"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              fullWidth
-            />
-            <br />
-            <br />
-            <TextField
-              required
-              label="Address"
-              type="text"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              fullWidth
-            />
-            <br />
-            <br />
-            <br />
-            <Button
-              type="submit"
-              variant="contained"
-              sx={{ bgcolor: "#7071E8", padding: "10px 15px" }}
-            >
-              Login as Guest
-            </Button>
-          </form>
+          <TextField
+            required
+            label="Email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            fullWidth
+          />
           <br />
           <br />
-        
-          {formSubmitted && (
+          <TextField
+            required
+            label="Mobile Number"
+            type="text"
+            placeholder="XXX-XXX-XXXX"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            fullWidth
+          />
+          <br />
+          <br />
+          <TextField
+            required
+            label="Address"
+            type="text"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            fullWidth
+          />
+          <br />
+          <br />
+          <br />
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{ bgcolor: "#7071E8", padding: "10px 15px" }}
+          >
+            Login as Guest
+          </Button>
+        </form>
+        <br />
+        <br />
+
+        {formSubmitted && (
           <div>
             <Button
               type="submit"
@@ -186,7 +186,7 @@ const GuestLogin = () => {
             </Button>
           </div>
         )}
-        </Box>
+      </Box>
     </div>
   );
 };

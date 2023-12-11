@@ -23,28 +23,34 @@ const Login = () => {
     try {
       const response = await login({
         username: username,
-        password: password
-      })
-
-      console.log(response)
+        password: password,
+      });
 
       if (response && response.error) {
-        setError(<Typography fontWeight="bold" color="red" align="center"> Incorrect username or password! Please try again.</Typography>) 
+        setError(
+          <Typography fontWeight="bold" color="red" align="center">
+            {" "}
+            Incorrect username or password! Please try again.
+          </Typography>
+        );
 
-       setTimeout(() => {setError("")}, 5000)
-
+        setTimeout(() => {
+          setError("");
+        }, 5000);
       } else {
-        setError(null)
-        setUsername("")
-        setPassword("")
-        navigate("/")
+        setError(null);
+        setUsername("");
+        setPassword("");
+        navigate("/");
       }
-      
-    } catch(error){
-      console.error("Log in error:", error)
-      setError(<Typography fontWeight="bold" color="red" >An error occurred. Please try again.</Typography>)
+    } catch (error) {
+      console.error("Log in error:", error);
+      setError(
+        <Typography fontWeight="bold" color="red">
+          An error occurred. Please try again.
+        </Typography>
+      );
     }
-  
   };
 
   return (
@@ -59,14 +65,14 @@ const Login = () => {
           m: "10% 20%",
         }}
       >
-         {error && <p>{error}</p>}
+        {error && <p>{error}</p>}
         <Typography
           fontFamily="monospace"
           variant="h4"
           align="left"
           gutterBottom
         >
-        Sign In
+          Sign In
         </Typography>
         <form onSubmit={submitLogin}>
           <TextField
@@ -76,7 +82,6 @@ const Login = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             fullWidth
-           
           />
           <br />
           <br />
@@ -92,8 +97,13 @@ const Login = () => {
           <br />
           <br />
           <Typography variant="body1" align="left" gutterBottom>
-           New to Fluffy Friends?{" "}
-            <Button  sx={{color:'#7071E8'}} onClick={() => navigate("/register")}>Create an account</Button>
+            New to Fluffy Friends?{" "}
+            <Button
+              sx={{ color: "#7071E8" }}
+              onClick={() => navigate("/register")}
+            >
+              Create an account
+            </Button>
           </Typography>
           <br />
           <Button
@@ -101,7 +111,7 @@ const Login = () => {
             variant="contained"
             sx={{ bgcolor: "#7071E8", padding: "10px 15px" }}
           >
-          Continue
+            Continue
           </Button>
         </form>
       </Box>
@@ -110,4 +120,3 @@ const Login = () => {
 };
 
 export default Login;
-

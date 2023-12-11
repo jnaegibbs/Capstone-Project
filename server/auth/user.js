@@ -116,8 +116,6 @@ userRouter.post("/login", async (req, res, next) => {
         },
       },
     });
-    
-    console.log(user);
 
     if (!user) {
      res.status(401).send({ message: "Username not found" });

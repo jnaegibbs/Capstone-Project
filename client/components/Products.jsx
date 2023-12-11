@@ -64,12 +64,17 @@ const Products = ({ petValue, categoryValue }) => {
       >
         {data &&
           productData.map((product) => (
-            <Card key={product.id} variant="elevation" sx={{ width: 300, mb: 5, p: 1 }}>
+            <Card
+              key={product.id}
+              variant="elevation"
+              sx={{ width: 300, mb: 5, p: 1 }}
+            >
               <CardActionArea onClick={() => navigate(`/${product.id}`)}>
-                <CardMedia 
-                sx={{ height: 250, objectFit: "contain" }} 
-                component="img"
-                src={product.image} />
+                <CardMedia
+                  sx={{ height: 250, objectFit: "contain" }}
+                  component="img"
+                  src={product.image}
+                />
                 <CardContent sx={{ maxHeight: 250 }}>
                   <Typography gutterBottom variant="h6" component="div">
                     {product.name}
