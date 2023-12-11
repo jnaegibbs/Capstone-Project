@@ -36,7 +36,7 @@ const App = () => {
           <Route path="/confirmPage" element={<Confirmation/>} />
           <Route path="/cart" element={<CartItem/>}/>
           <Route path="/guestlogin" element={<GuestLogin/>} />
-          <Route path="/updateForm/:productId" element={<UpdateForm/>}/>
+          <Route path="/updateForm/:productId/:productName/:productPrice/:categoryName/:petCategory" element={<UpdateForm/>}/>
           <Route path='/review/:productId' element={<Review/>}/>
           <Route path="/NewProductForm" element={<NewProductForm/>} />
           {/* Add a catch-all route */}

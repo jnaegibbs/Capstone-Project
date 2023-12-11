@@ -10,11 +10,12 @@ import Box from "@mui/material/Box";
 import { useParams } from "react-router-dom";
 
 const UpdateForm = () => {
+
   const navigate = useNavigate();
   const [updateProduct] = useUpdateProductMutation();
   const [product, setProduct] = useState({});
   const { productId: productId } = useParams();
-
+  
   async function onSubmit(e) {
     e.preventDefault();
 
