@@ -167,13 +167,13 @@ client
     ┣ hooks.js
     ┣ index.css
     ┗ main.jsx
-    ```
 
-    ### Server Files
+ ```
 
-    ```
-    .
-    server
+ ### Server Files
+
+ ```
+    . server
     ┣ api
     ┃  ┣ __tests__
     ┃  ┃  ┣ category.test.js
@@ -191,9 +191,7 @@ client
     ┃  ┗ utils.js
     ┣ auth
     ┃  ┣ __tests__
-    ┃  ┃ ┣ admin.test.js
     ┃  ┃ ┗ user.test.js
-    ┃  ┣ admin.js
     ┃  ┣ index.js
     ┃  ┗ user.js
     ┣ db
