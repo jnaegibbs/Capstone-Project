@@ -26,11 +26,19 @@ const Checkout = () => {
   function handleOrder() {
     try {
       cartItems.map(async (order) => {
-        const { data } = await createOrder({
+        const { data, isLoading, error} = await createOrder({
           productId: order.id,
           quantity: order.cartQuantity,
           userId: user.id,
         });
+        if (isLoading) {
+          return <div className="loader"></div>;
+        }
+      
+        if (error) {
+          return <div>Error: {error.message}</div>;
+        }
+      
       });
 
       navigate(`/confirmPage`);

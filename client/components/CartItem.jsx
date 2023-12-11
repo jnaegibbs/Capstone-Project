@@ -31,7 +31,7 @@ import { useDeleteAllCartItemMutation } from "../redux/cartItemApi";
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CartItem = () => {
   const dispatch = useDispatch();
@@ -40,7 +40,6 @@ const CartItem = () => {
   const cartQuantity = useSelector(selectCartTotalQuantity);
   const cartTotalAmount = useSelector(selectCartTotalAmount);
   const [deleteCartItem] = useDeleteAllCartItemMutation();
-  const [quantity,setQuantity] = useState(1)
   const navigate = useNavigate();
   const increaseHandle = (cart) => {
     dispatch(addCartItem(cart));
@@ -141,7 +140,7 @@ const CartItem = () => {
                       </TableCell>
                       <TableCell align="left">
                         {" "}
-                        <Typography variant="body1">{item.name}</Typography>
+                        <Link to={`/${item.id}`}><Typography variant="body1">{item.name}</Typography></Link>
                       </TableCell>
                       <TableCell align="left">
                         <Typography variant="body1" >
@@ -163,7 +162,7 @@ const CartItem = () => {
                         </Stack>
                       </TableCell>
                       <TableCell align="left">
-                       <Typography> $ {Number(item.price.substring(1)) * Number(item.cartQuantity)}</Typography>
+                       <Typography> $ {(Number(item.price.substring(1)) * Number(item.cartQuantity)).toFixed(2)}</Typography>
                       </TableCell>
                       <TableCell><IconButton size="large" sx={{color:'red'}} onClick={()=>removeItem(item)}><DeleteIcon/></IconButton></TableCell>
                     </TableRow>

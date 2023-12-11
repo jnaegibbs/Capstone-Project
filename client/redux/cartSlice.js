@@ -68,7 +68,7 @@ const cartSlice = createSlice({
         });
       if (state.cartItems.length >= 1) {
         const totalAmount = array.reduce((sum, curr) => sum + curr);
-        state.cartTotalAmount = totalAmount;
+        state.cartTotalAmount = totalAmount.toFixed(2);
       }
     },
     calculateQuantity: (state, action) => {
