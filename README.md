@@ -1,4 +1,4 @@
-# Capstone Project 2023 - Fluffy Friends Pet Supply Store
+# Fluffy Friends Pet Supply Store
 
 <h2>Live: https://fluffy-friends.onrender.com/</h2>
 
