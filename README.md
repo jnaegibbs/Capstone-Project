@@ -1,6 +1,8 @@
 # Capstone Project 2023 - Fluffy Friends Pet Supply Store
 
-<h2>Live: https://fluffy-friends.onrender.com/</h2>
+<h2>Visit our live site: https://fluffy-friends.onrender.com/</h2>
+
+<h2>See a live demo and presentation of our site's features: https://drive.google.com/file/d/1V-5X-Mf-Gx-__BB9HDwLXfZUfXQJZfOb/view?usp=sharing </h2>
 
 <div align="justify"> 
 Are you a pet owner looking for a one-stop destination for all your animal friends’ needs? Look no further than our new pet supply shop, Fluffy Friends! This site is more than just a retailer, it’s the home of a pet-loving community dedicated to helping pets live happy, healthy lives. Our user friendly interface will allow customers to seamlessly browse items by category, add to cart, complete transactions, and view and save favorite items. We also have a community page where we will showcase dogs and cats up for adoption and promote community rescues and resources. Helping our local animals find loving homes and access needed resources is very important to us.
